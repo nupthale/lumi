@@ -31,6 +31,7 @@
     "nedb": "^1.8.0",
     "node-machine-id": "^1.1.12",
     "rxjs": "^7.8.2",
+    "update-electron-app": "^3.1.1",
     "which": "^5.0.0"
   },
   "devDependencies": {

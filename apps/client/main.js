@@ -1,5 +1,7 @@
 const { app, BrowserWindow, screen, Menu, ipcMain } = require('electron');
 const path = require('path');
+// auto updater
+require('update-electron-app')();
 
 const isDev = process.env.NODE_ENV === 'development';
 

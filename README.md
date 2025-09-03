@@ -13,7 +13,7 @@ Get the app from [landing page](https://nupthale.github.io/lumi/)
 
 ## 💯 Introduction
 Lumi is a local-first personal knowledge management system that works seamlessly even when offline. It supports real-time collaboration, Markdown editing, and block-level references, providing a Notion-like flexible page structure. Lumi enables individuals and teams to efficiently organize and manage knowledge, regardless of network connectivity.
-<img alt="Lumi app" src="https://res.cloudinary.com/dybz0bvui/image/upload/v1756861063/appshot_hmfglg.png" />
+<img alt="Lumi app" src="https://res.cloudinary.com/dybz0bvui/image/upload/v1756862361/Frame_3080_qmbzeh.png" />
 
 ## 🌟 Features
 * Document & Wiki knowledge base

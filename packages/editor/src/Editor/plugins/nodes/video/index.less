@@ -1,0 +1,78 @@
+.doc-video {
+    margin: 16px 0;
+    position: relative;
+
+    border: 1px solid transparent;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.doc-video--focused .doc-component-video,
+.doc-image--focused .doc-component-videoEmpty {
+    border-color: #1456f0;
+}
+
+.doc-video.selected .doc-component-videoEmpty,
+.doc-video.selected .doc-component-video
+{
+    border-color: #1456f0;
+}
+
+.doc-video:first-of-type {
+    margin-top: 0;
+}
+
+.doc-video-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.doc-video-container {
+    display: inline-flex;
+    width: 100%;
+    position: relative;
+}
+
+.doc-video-container.hasSrc:hover .doc-video-resizer {
+    opacity: 1!important;
+}
+
+.doc-video-resizer {
+    opacity: 0;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 10;
+
+    width: 15px;
+    transition: opacity 200ms ease-in-out;
+    cursor: col-resize;
+}
+
+.doc-video-resizer.show {
+    opacity: 1;
+}
+
+.doc-video-resizer:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto 4px;
+    width: 6px;
+    height: 48px;
+
+    background: rgba(15, 15, 15, 0.6);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+.doc-video-resizer.left {
+    left: 0;
+}
+
+.doc-video-resizer.right {
+    right: 0;
+}

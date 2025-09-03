@@ -1,0 +1,92 @@
+services:
+   # 前端服务
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    container_name: lumi-web
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./apps/web:/user/src/app/web
+      - /user/src/app/web/node_modules
+    depends_on:
+      - server-api
+      - server-pouchdb
+      - nginx
+    networks:
+      - lumi-network
+  
+  # Node.js 应用服务
+  server-api:
+    build:
+      context: ./apps/server-api
+      dockerfile: Dockerfile
+    container_name: lumi-server-api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./apps/server-api:/usr/src/app/server-api
+      - /usr/src/app/server-api/node_modules
+    depends_on:
+      - mongodb
+    networks:
+      - lumi-network
+
+  server-pouchdb:
+    build:
+      context: ./apps/server-pouchdb
+      dockerfile: Dockerfile
+    container_name: lumi-server-pouchdb
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./apps/server-pouchdb:/usr/src/app/server-pouchdb
+      - /usr/src/app/server-pouchdb/node_modules
+    networks:
+      - lumi-network
+
+
+  # MongoDB 服务
+  mongodb:
+    image: mongo:latest
+    container_name: lumi-mongodb
+    restart: unless-stopped
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - lumi-network
+
+  nginx:
+    image: nginx:latest
+    container_name: lumi-nginx
+    restart: unless-stopped
+    ports:
+      - "443:443"
+    volumes:
+      - ./apps/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./apps/nginx/cert:/etc/nginx/cert:ro
+    depends_on:
+      - server-pouchdb
+    networks:
+      - lumi-network
+
+networks:
+  lumi-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+    driver: local

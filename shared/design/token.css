@@ -1,0 +1,512 @@
+:root {
+    --body-bg: #fff;
+    --home-sider-bg: #f4f7fd;
+    --home-sider-borderRight: #eee;
+    --default-border-color: #eee;
+    --doclist-border-color: #1f232926;
+    --fill-color: #1f232914;
+
+    --createBlankDocBtn-bg: rgba(2, 82, 243, 0.09);
+    --createBlankDocBtn-color: rgb(46, 109, 233);
+    --createTemplateDocBtn-bg: rgba(94, 2, 210, 0.06);
+    --createTemplateDocBtn-color: rgb(94, 2, 210);
+
+    --selection-bg: #3370eb42;
+    --selection-border-color: #336df4;
+
+    --blur-bg: #ffffffe6;
+    --blur-bg-filter: #ffffff8a;
+
+    --text-color: #1f2329;
+    --primary-text-color: #3370ff;
+    --title-text: #2B3036;
+    --light-text-color: #646a73;
+    
+    --n800: #2b2f36;
+    --bubble-menu-hover-color: #1f23291a;
+
+    --float-border-color: #dee0e3;
+    --float-bg-hover: #eff0f1;
+    --bg-float: #fff;
+    --bg-float-2: #fff;
+
+    --overlay-shadow: 0 8px 24px 8px #1f23290a,0 6px 12px #1f23290a,0 4px 8px -8px #1f23290f;
+    --overlay-shadow1: 0 6px 24px #1f232914;
+
+    --template-card-bg-before: linear-gradient(180deg,#dfe9fd63,#fff0);
+    --template-card-bg-after: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgb(239 239 239 / 67%) 100%);
+    --menu-item-hover: rgba(0, 0, 0, 0.06);
+
+    --color-palette-border: #d0d3d6;
+    --table-border-color: #dee0e3;
+    --table-operation-line: #f5f6f7;
+    --table-operation-line-hover: #dee0e3;
+
+    --image-empty-bg: #f5f6f7;
+    --image-active-bg: #f2f3f5;
+
+    --column-focus-bg: #f5f6f7;
+
+    --modal-backbg: rgba(15, 15, 15, 0.6);
+    --modal-box-shadow: rgba(0, 0, 0, 0.24) 0px 24px 48px -8px, rgba(0, 0, 0, 0.12) 0px 4px 12px -1px, rgba(84, 72, 49, 0.08) 0px 0px 0px 1px;
+
+    --free-tag-color: #1f232914;
+
+    --wiki-bg: #fff;
+    --wiki-shadow-bg: rgb(134 134 134 / 50%);
+    --wiki-shadow-bg-hover: rgb(214 11 11 / 37%);
+
+    --wiki-subTitle-color: rgb(100, 106, 115);
+
+    --menu-active-bg: rgba(20, 86, 240, 0.15);
+    --menu-active-text-color:  rgb(20, 86, 240);
+
+    --fullscreen-modal-header-shadow: 0 1px #00000014;
+    --fullscreen-modal-header-filter: saturate(1.5) blur(16px);
+
+    --drawer-bg: linear-gradient(116deg, rgba(250, 250, 250, 0.85), rgba(244, 244, 244, 0.85));
+    --drawer-filter: saturate(1.5) blur(16px);
+
+    --scroll-slider-bg: #1f23294d;
+    --scroll-slider-hover-bg: #1f232999;
+
+    /* color palette */
+    --palette-text-0: rgb(31, 35, 41);
+    --palette-text-1: rgb(143, 149, 158);
+    --palette-text-2: rgb(216, 57, 49);
+    --palette-text-3: rgb(222, 120, 2);
+    --palette-text-4: rgb(220, 155, 4);
+    --palette-text-5: rgb(46, 161, 33);
+    --palette-text-6: rgb(36, 91, 219);
+    --palette-text-7: rgb(100, 37, 208);
+
+    --palette-border-0: rgb(222, 224, 227);
+    --palette-border-1: rgb(249, 142, 139);
+    --palette-border-2: rgb(255, 186, 107);
+    --palette-border-3: rgb(255, 246, 122);
+    --palette-border-4: rgb(142, 224, 133);
+    --palette-border-5: rgb(130, 167, 252);
+    --palette-border-6: rgb(173, 130, 247);
+
+    --palette-bg-0: rgba(239, 240, 241, 0.6);
+    --palette-bg-1: rgb(251, 191, 188);
+    --palette-bg-2: rgba(254, 212, 164, 0.8);
+    --palette-bg-3: rgba(255, 246, 122, 0.8);
+    --palette-bg-4: rgba(183, 237, 177, 0.8);
+    --palette-bg-5: rgba(186, 206, 253, 0.7);
+    --palette-bg-6: rgba(205, 178, 250, 0.7);
+    --palette-bg-7: rgba(222, 224, 227, 0.8);
+    --palette-bg-8: rgb(187, 191, 196);
+    --palette-bg-9: rgb(247, 105, 100);
+    --palette-bg-10: rgb(255, 165, 61);
+    --palette-bg-11: rgb(255, 233, 40);
+    --palette-bg-12: rgb(98, 210, 86);
+    --palette-bg-13: rgba(78, 131, 253, 0.55);
+    --palette-bg-14: rgba(147, 90, 246, 0.55);
+
+    --palette-bg-light-0: rgba(239, 240, 241, 0.6);
+    --palette-bg-light-1: rgb(253, 226, 226);
+    --palette-bg-light-2: rgb(254, 234, 210);
+    --palette-bg-light-3: rgb(255, 255, 204);
+    --palette-bg-light-4: rgb(217, 245, 214);
+    --palette-bg-light-5: rgb(225, 234, 255);
+    --palette-bg-light-6: rgb(236, 226, 254);
+    --palette-bg-light-7: rgba(222, 224, 227, 0.7);
+    --palette-bg-light-8: rgba(187, 191, 196, 0.5);
+    --palette-bg-light-9: rgb(251, 191, 188);
+    --palette-bg-light-10: rgb(254, 212, 164);
+    --palette-bg-light-11: rgb(255, 252, 163);
+    --palette-bg-light-12: rgb(183, 237, 177);
+    --palette-bg-light-13: rgb(186, 206, 253);
+    --palette-bg-light-14: rgb(205, 178, 250);
+
+    --R100: #fee3e2;
+    --R200: #fdc6c4;
+    --R300: #f89e9b;
+    --R350: #ff7570;
+    --R400: #f54a45;
+    --R50: #fef0f0;
+    --R500: #e22e28;
+    --R600: #c02a26;
+    --R700: #a11c17;
+    --R800: #741915;
+    --R900: #590603;
+
+    --O100: #fee7cd;
+    --O200: #fec48b;
+    --O300: #ff9d4c;
+    --O350: #ff811a;
+    --O400: #ed6d0c;
+    --O50: #fff3e5;
+    --O500: #c25705;
+    --O600: #a44904;
+    --O700: #853a05;
+    --O800: #642b02;
+    --O900: #3b1a02;
+
+    --Y100: #faedc2;
+    --Y200: #fcdf7e;
+    --Y300: #fad355;
+    --Y350: #ffc60a;
+    --Y400: #d99904;
+    --Y50: #fbf4df;
+    --Y500: #ad7a03;
+    --Y600: #865b03;
+    --Y700: #6f4a01;
+    --Y800: #573601;
+    --Y900: #382201;
+
+    --L100: #e3f0a3;
+    --L200: #c8dd5f;
+    --L300: #a2c10b;
+    --L350: #91ad00;
+    --L400: #7b9207;
+    --L50: #f2f8d3;
+    --L500: #6b7f06;
+    --L600: #5c6d08;
+    --L700: #4a5804;
+    --L800: #333d00;
+    --L900: #262e00;
+
+    --G100: #d0f5ce;
+    --G200: #95e599;
+    --G300: #5cd168;
+    --G350: #35bd4b;
+    --G400: #32a645;
+    --G50: #e4fae1;
+    --G500: #258832;
+    --G600: #1a7526;
+    --G700: #0b6017;
+    --G800: #04430c;
+    --G900: #022c07;
+
+    --T100: #c4f2ec;
+    --T200: #6fe8d8;
+    --T300: #33d6c0;
+    --T350: #2dbeab;
+    --T400: #10a893;
+    --T50: #e2f8f5;
+    --T500: #0f8575;
+    --T600: #067062;
+    --T700: #045d51;
+    --T800: #03443b;
+    --T900: #02312a;
+
+    --W100: #caeffc;
+    --W200: #97dcfc;
+    --W300: #3ec3f7;
+    --W350: #25b0e7;
+    --W400: #1295ca;
+    --W50: #e7f8fe;
+    --W500: #047fb0;
+    --W600: #076a94;
+    --W700: #0f587a;
+    --W800: #06415c;
+    --W900: #072b3d;
+
+    --B100: #e0e9ff;
+    --B200: #c2d4ff;
+    --B300: #94b4ff;
+    --B350: #7aa2ff;
+    --B400: #5083fb;
+    --B50: #f0f4ff;
+    --B500: #336df4;
+    --B600: #1456f0;
+    --B700: #0442d2;
+    --B800: #002f9e;
+    --B900: #002270;
+
+    --C100: #fee2f2;
+    --C200: #f8c4e1;
+    --C300: #f598cc;
+    --C350: #eb78b8;
+    --C400: #df58a5;
+    --C50: #fef0f8;
+    --C500: #cc398c;
+    --C600: #b82879;
+    --C700: #9d1562;
+    --C800: #730744;
+    --C900: #550c35;
+
+    --P100: #efe6fe;
+    --P200: #dcc9fd;
+    --P300: #c8a9fc;
+    --P350: #b791fa;
+    --P400: #9f6ff1;
+    --P50: #f5f0fe;
+    --P500: #8d55ed;
+    --P600: #7a35f0;
+    --P700: #611fd6;
+    --P800: #4811a6;
+    --P900: #2f0080;
+
+    --N100: #f2f3f5;
+    --N1000: #000000;
+    --N200: #eff0f1;
+    --N300: #dee0e3;
+    --N350: #d0d3d6;
+    --N400: #bbbfc4;
+    --N50: #f5f6f7;
+    --N500: #8f959e;
+    --N600: #646a73;
+    --N650: #51565d;
+    --N700: #373c43;
+    --N800: #2b2f36;
+    --N900: #1f2329;
+}
+
+:root[data-theme="dark"] {
+    --body-bg: #1a1a1a;
+    --home-sider-bg: #292929;
+    --home-sider-borderRight: rgba(207, 207, 207, 0.04);
+    --default-border-color: #cfcfcf26;
+    --doclist-border-color: #cfcfcf26;
+    --fill-color: #ebebeb14;
+
+    --createBlankDocBtn-bg: rgba(51, 119, 255, 0.14);
+    --createBlankDocBtn-color: rgb(51, 119, 255);
+    --createTemplateDocBtn-bg: rgba(191, 139, 255, 0.09);
+    --createTemplateDocBtn-color: rgb(191, 139, 255);
+
+    --selection-bg: #3370eb42;
+    --selection-border-color: #4c88ff;
+
+    --blur-bg: #1a1a1ae6;
+    --blur-bg-filter: linear-gradient(116deg, rgba(40, 42, 43, 0.85), rgba(34, 36, 37, 0.85));
+
+    --text-color: #ebebeb;
+    --primary-text-color: #4c88ff;
+    --title-text: #f0f0f0;
+    --light-text-color: #a6a6a6;
+    --n800: #c7c7c7;
+    --bubble-menu-hover-color: #ebebeb1a;
+
+    --float-border-color: rgba(207, 207, 207, 0.15);
+    --float-bg-hover: #373737;
+    --bg-float: rgb(41, 41, 41);
+    --bg-float-2: #1f1f1f;
+
+    --overlay-shadow: 0 6px 24px rgba(0, 0, 0, 0.28);
+    --overlay-shadow1: rgba(0, 0, 0, 0.28) 0px 8px 16px 0px;
+
+    --template-card-bg-before: rgb(41, 41, 41, 0);
+    --template-card-bg-after: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgb(78 74 74 / 67%) 100%);
+    --menu-item-hover: #ebebeb14;
+
+    --color-palette-border: rgb(80, 80, 80);
+    --table-border-color: #434343;
+    --table-operation-line: #373737;
+    --table-operation-line-hover: #505050;
+
+    --image-empty-bg: #373737;
+    --image-active-bg: #ebebeb14;
+
+    --column-focus-bg: #a6a6a614;
+
+    --modal-backbg: rgba(15, 15, 15, 0.8);
+    --modal-box-shadow: rgba(0, 0, 0, 0.48) 0px 24px 48px -8px, rgba(0, 0, 0, 0.24) 0px 4px 12px -1px, rgba(255, 255, 255, 0.094) 0px 0px 0px 1px;
+
+    --free-tag-color: #394360;
+
+    --wiki-bg: #292929;
+    --wiki-shadow-bg: rgb(134 134 134 / 50%);
+    --wiki-shadow-bg-hover: rgb(228 140 140);
+
+    --wiki-subTitle-color: rgb(166, 166, 166);
+
+    --menu-active-bg:  rgba(76, 136, 255, 0.2);
+    --menu-active-text-color:  rgb(76, 136, 255);
+
+    --fullscreen-modal-header-shadow: rgba(244, 244, 244, 0.12) 0px 0px 0px 1px, rgba(0, 0, 0, 0.24) 0px 16px 40px -6px, rgba(0, 0, 0, 0.06) 0px 12px 24px -6px;
+    --fullscreen-modal-header-filter: saturate(1.5) blur(32px);
+
+    --drawer-bg: linear-gradient(116deg, rgba(40, 42, 43, 0.85), rgba(34, 36, 37, 0.85));
+    --drawer-filter: saturate(1.5) blur(32px);
+
+    --scroll-slider-bg: rgba(80, 80, 80, .3);
+    --scroll-slider-hover-bg: rgba(80, 80, 80, .3);
+
+    /* color palette */
+    --palette-text-0: #fff;
+    --palette-text-1: #a6a6a6;
+    --palette-text-2: #fa7873;
+    --palette-text-3: #f5a54a;
+    --palette-text-4: #fcd456;
+    --palette-text-5: #6dd162;
+    --palette-text-6: #70a0ff;
+    --palette-text-7: #a472fc;
+
+    --palette-border-0: #464643;
+    --palette-border-1: #9F3A36;
+    --palette-border-2: #BD7218;
+    --palette-border-3: #C8B40A;
+    --palette-border-4: #36952D;
+    --palette-border-5: #2C53A2;
+    --palette-border-6: #6735BC;
+
+    --palette-bg-0: #2D2D2D;
+    --palette-bg-1: #4C201F;
+    --palette-bg-2: #59360B;
+    --palette-bg-3: #5E5819;
+    --palette-bg-4: #224A1F;
+    --palette-bg-5: #1D2E4E;
+    --palette-bg-6: #382161;
+    --palette-bg-7: #3E3E3B;
+    --palette-bg-8: #484848;
+    --palette-bg-9: #6D2B2B;
+    --palette-bg-10: #865317;
+    --palette-bg-11: #897D16;
+    --palette-bg-12: #2D6D26;
+    --palette-bg-13: #24407A;
+    --palette-bg-14: #4F2A90;
+
+    --palette-bg-light-0: #363633;
+    --palette-bg-light-1: #4C211C;
+    --palette-bg-light-2: #59360F;
+    --palette-bg-light-3: #5E5816;
+    --palette-bg-light-4: #224A1F;
+    --palette-bg-light-5: #1D2E4E;
+    --palette-bg-light-6: #382163;
+    --palette-bg-light-7: #3E3E3B;
+    --palette-bg-light-8: #484846;
+    --palette-bg-light-9: #6D2B2B;
+    --palette-bg-light-10: #86531B;
+    --palette-bg-light-11: #897D16;
+    --palette-bg-light-12: #2D6D26;
+    --palette-bg-light-13: #244078;
+    --palette-bg-light-14: #4F2A90;
+
+    --R100: #591f1d;
+    --R200: #7b2524;
+    --R300: #a03331;
+    --R350: #b33a37;
+    --R400: #d14642;
+    --R50: #3d1a19;
+    --R500: #f05b56;
+    --R600: #f6827e;
+    --R700: #f89e9b;
+    --R800: #fdc6c4;
+    --R900: #fee3e2;
+
+    --O100: #4a2b10;
+    --O200: #683a12;
+    --O300: #8a4a19;
+    --O350: #a15317;
+    --O400: #b85e1a;
+    --O50: #33210b;
+    --O500: #db7018;
+    --O600: #f3871b;
+    --O700: #f89e44;
+    --O800: #fec88b;
+    --O900: #fee7cd;
+
+    --Y100: #473409;
+    --Y200: #63470f;
+    --Y300: #8a6419;
+    --Y350: #ad7d15;
+    --Y400: #d49b0b;
+    --Y50: #30250a;
+    --Y500: #f0b622;
+    --Y600: #fbcb46;
+    --Y700: #fcd456;
+    --Y800: #ffde75;
+    --Y900: #ffeaa3;
+
+    --L100: #303804;
+    --L200: #404c06;
+    --L300: #53610a;
+    --L350: #5f700a;
+    --L400: #6b7f05;
+    --L50: #212702;
+    --L500: #82990a;
+    --L600: #93af04;
+    --L700: #a6c313;
+    --L800: #c2e12d;
+    --L900: #e3f391;
+
+    --G100: #173b12;
+    --G200: #21511a;
+    --G300: #296621;
+    --G350: #2f7526;
+    --G400: #35872a;
+    --G50: #0e2b0a;
+    --G500: #419e34;
+    --G600: #51ba43;
+    --G700: #69cc5c;
+    --G800: #99e490;
+    --G900: #cbf5c6;
+
+    --T100: #173b36;
+    --T200: #1d4e47;
+    --T300: #25665e;
+    --T350: #227369;
+    --T400: #198578;
+    --T50: #132926;
+    --T500: #1fa18f;
+    --T600: #1ab7a1;
+    --T700: #17cfb5;
+    --T800: #65e7d5;
+    --T900: #b7f7ef;
+
+    --W100: #103647;
+    --W200: #164359;
+    --W300: #135a78;
+    --W350: #146c91;
+    --W400: #1a7fab;
+    --W50: #152830;
+    --W500: #1099cc;
+    --W600: #25b2e5;
+    --W700: #51c3f0;
+    --W800: #89dffe;
+    --W900: #c7f0ff;
+
+    --B100: #173166;
+    --B200: #194294;
+    --B300: #2655b6;
+    --B350: #275fce;
+    --B400: #3370eb;
+    --B50: #152340;
+    --B500: #4c88ff;
+    --B600: #75a4ff;
+    --B700: #8fb4ff;
+    --B800: #bdd2ff;
+    --B900: #e0e9ff;
+
+    --C100: #591c3f;
+    --C200: #782b57;
+    --C300: #94386c;
+    --C350: #ab417d;
+    --C400: #c24a8e;
+    --C50: #3a182b;
+    --C500: #db5ea4;
+    --C600: #ed77ba;
+    --C700: #fc94cf;
+    --C800: #ffc2e5;
+    --C900: #ffe0f2;
+
+    --P100: #3f2073;
+    --P200: #5529a3;
+    --P300: #6c39c6;
+    --P350: #7c4ad4;
+    --P400: #8c55ec;
+    --P50: #2b194a;
+    --P500: #a575fa;
+    --P600: #b88ffe;
+    --P700: #c5a3ff;
+    --P800: #dbc8fd;
+    --P900: #efe5ff;
+
+    --N100: #292929;
+    --N1000: #ffffff;
+    --N200: #373737;
+    --N300: #434343;
+    --N350: #505050;
+    --N400: #5f5f5f;
+    --N50: #1a1a1a;
+    --N500: #757575;
+    --N600: #a6a6a6;
+    --N650: #cfcfcf;
+    --N700: #e0e0e0;
+    --N800: #e8e8e8;
+    --N900: #ebebeb;
+}

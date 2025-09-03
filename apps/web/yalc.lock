@@ -1,0 +1,10 @@
+{
+  "version": "v1",
+  "packages": {
+    "@zsfe/zsui": {
+      "signature": "58f3f321825d4287ef31521f4970640d",
+      "file": true,
+      "replaced": "1.0.1-alpha.32"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "couchdb": {
+    "uuid": "b5747912-3f50-4f99-9500-3a78ae7763c7"
+  },
+  "admins": {
+    "lumi": "-pbkdf2-cd561f5a32040009fac2c227c768a34baa2c8fd5,13a1c91e412616114a1f91d014c18c19b17b1a919e15e16d,10"
+  },
+  "httpd": {
+    "authentication_handlers": [
+      "couch_httpd_auth",
+      "couch_httpd_auth_default"
+    ],
+    "enable_cors": true
+  },
+  "couch_httpd_auth": {
+    "require_valid_user": false
+  },
+  "cors": {
+    "origins": "*",
+    "credentials": true,
+    "headers": "accept, authorization, content-type, origin, referer",
+    "methods": "GET, PUT, POST, HEAD, DELETE"
+  }
+}

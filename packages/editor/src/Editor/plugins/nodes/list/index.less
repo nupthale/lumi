@@ -1,0 +1,106 @@
+.doc-list {
+    margin: 8px -2px;
+    line-height: 24px;
+}
+
+.doc-list-body {
+    padding-left: 25px;
+    margin-top: 8px;
+}
+
+.doc-list-head {
+    display: flex;
+    align-items: center;
+}
+
+.doc-list-pseudo {
+    min-width: 18px;
+    height: 20px;
+
+    padding: 0 2px;
+    border-radius: 2px;
+    margin-right: 6px;
+
+    color: #1456f0;
+    font-family: "Helvetica Neue","Consolas"!important;
+    white-space: nowrap;
+}
+
+.doc-list-pseudo {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+  
+  /* 或者更精确的控制selection样式 */
+.doc-list-pseudo::selection {
+    background: transparent;
+}
+
+.doc-list-pseudo::-moz-selection {
+    background: transparent;
+}
+
+
+.doc-list-content {
+    flex: 1;
+}
+
+.animation-indent--max {
+    animation: indent-right .5s cubic-bezier(.68,-.55,.27,1.55) 1 alternate-reverse;
+}
+
+@keyframes indent-right {
+    0% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+    100% {
+        -webkit-transform: translateX(12px);
+        transform: translateX(12px);
+    }
+}
+
+.doc-list-checkbox {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 16px;
+    height: 16px;
+    margin-top: 4px;
+    margin-left: -4px;
+
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+}
+
+.doc-list-checkbox:hover {
+    border-color: #1456f0;
+}
+
+.doc-list-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+
+    margin-left: -4px;
+    fill: rgb(50, 48, 44);
+    border-radius: 4px;
+    transition: transform 200ms ease-out;
+
+    cursor: pointer;
+}
+
+.doc-list-toggle:hover {
+    background: rgba(55, 53, 47, 0.06);
+}
+
+.doc-list-toggle:active {
+    background: rgba(55, 53, 47, 0.16);;
+}

@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+svg {
+  shape-rendering: geometricPrecision;
+}
+
+:root {
+  font-family: "Styrene Display", sans-serif -apple-system,BlinkMacSystemFont,Helvetica Neue,Tahoma,PingFang SC,Microsoft Yahei,Arial,Hiragino Sans GB,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+  color: var(--text-color);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  background: var(--body-bg);
+}
+
+html, body, #app {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+#app {
+  font-size: 14px;
+}
+
+.lightText {
+  color: var(--light-text-color);
+}
+
+* {
+  scrollbar-color: #D3D1CB  rgba(0, 0, 0, 0);
+}

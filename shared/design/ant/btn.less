@@ -1,0 +1,56 @@
+
+.ant-btn.zsui-text-button {  
+    &:focus {
+        background: none!important;
+    }
+  
+    &.zsui-text-button--default {  
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.06);
+      }
+  
+      &:active {
+        color: rgba(0, 0, 0, 0.88)!important;
+        background-color: rgba(0, 0, 0, 0.15)!important;
+      }
+    }
+
+    &.zsui-text-button--primary {
+      color: #3370ff;
+  
+      &:hover {
+        color: #3370ff;
+        background-color: rgba(51, 112, 255, 0.08);
+      }
+  
+      &:active {
+        color: #3370ff!important;
+        background-color: rgba(51, 112, 255, 0.2)!important;
+      }
+    }
+  
+    &.zsui-text-button--warning {
+      color: #f54a45;
+  
+      &:hover {
+        color: #f54a45;
+        background-color: rgba(245, 74, 69, 0.08);
+      }
+  
+      &:active {
+        color: #f54a45!important;
+        background-color: rgba(245, 74, 69, 0.2)!important;
+      }
+    }
+  
+    &:disabled {
+      color: #bbbfc4;
+      background: none;
+  
+      &:hover,
+      &:active {
+        color: #bbbfc4!important;
+        background: none!important;
+      }
+    }
+}

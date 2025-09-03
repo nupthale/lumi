@@ -1,0 +1,117 @@
+@import url('./editor.less');
+@import url('./popover.less');
+@import url('./ant-design.less');
+@import url('./yjs.less');
+
+@import url('./microtip.less');
+
+.overlay-transition {
+    // transition: left .04s,top .2s,right .04s,bottom .2s,max-height .2s,width .2s,height .2s;
+    transition: transform .2s, max-height .2s,width .2s,height .2s;
+    transition-timing-function: cubic-bezier(.34,.69,.1,1);
+}
+
+*  {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    color: var(--text-color);
+    overscroll-behavior: none;
+
+    box-sizing: border-box;
+    font-family: "Styrene Display", sans-serif -apple-system,BlinkMacSystemFont,Helvetica Neue,Tahoma,PingFang SC,Microsoft Yahei,Arial,Hiragino Sans GB,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+    font-feature-settings: normal;
+    font-variant-ligatures: no-common-ligatures;
+    font-variant-numeric: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
+body.blockSelecting {
+    user-select: none!important;
+}
+
+.doc-block {
+    font-size: 16px;
+    border-radius: 6px;
+}
+
+
+.doc-header.selected,
+.doc-highlight.selected,
+.doc-quote.selected,
+.doc-textBlock.selected,
+.doc-coder.selected,
+.doc-table.selected .doc-table-container,
+.doc-columns.selected .doc-column,
+.doc-list.selected {
+    background: #7ca4ff2e!important;
+    border-color: #336df4!important;
+}
+
+.doc-block.selected .doc-block.selected {
+    background: none!important;
+    border-color: unset !important;
+}
+
+.doc-comment {
+    border-bottom: 2px solid #fcdf7e!important;
+}
+
+.doc-comment-active {
+    border-bottom: 2px solid #ffc60a!important;
+    background: #ffc60a40 !important;
+}
+
+.doc-codeMark {
+    background: #f5f6f7;
+    border: 1px solid rgb(222, 224, 227);
+    border-radius: 4px;
+    padding: 0.1em 0.4em;
+    margin: 0 3px;
+    color: #EB5757;
+    font-size: 90%;
+}
+
+.doc-placeholder {
+    display: flex;
+    align-items: center;
+    color: #999;
+    position: absolute;
+   
+    top: 0;
+    left: 0;
+    cursor: text;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.doc-line-through {
+    opacity: 0.7;
+    background-image: linear-gradient(90deg, #646a73, #646a73);
+    background-repeat: repeat-x;
+    background-size: 100px 1.6px;
+    background-position: 0 56%;
+    color: #646a73;
+}
+
+[contenteditable="true"] {
+    outline: none;
+}

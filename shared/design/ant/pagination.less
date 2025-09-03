@@ -1,0 +1,112 @@
+#app {
+  .ant-pagination {
+    display: flex;
+    margin: 24px 0 0;
+    align-items: center;
+  
+    .ant-pagination-item, .ant-pagination-next, .ant-pagination-prev, .ant-pagination-options-size-changer {
+      min-width: 26px!important;
+      height: 26px!important;
+      line-height: 26px!important;
+      padding: 0 4px;
+  
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+      border: 1px solid #d0d3d6;
+      border-radius: 6px;
+      margin-right: 8px!important;
+     
+      > a {
+        color: var(--text-color)!important;
+        padding: 0;
+      }
+    }
+
+    .ant-pagination-item-active {
+      border-color: #3370ff;
+      > a {
+        color: #3370ff!important;
+      }
+    }
+
+    .ant-pagination-prev.ant-pagination-disabled, .ant-pagination-next.ant-pagination-disabled {
+      display: none;
+    }
+
+    .ant-pagination-item:hover, .ant-pagination-next:hover, .ant-pagination-prev:hover {
+      background: #e1eaff;
+      border-color: #3370ff;
+      color: #3370ff;
+    }
+
+    .ant-pagination-item-link {
+      line-height: 24px;
+      background: none!important;
+    }
+
+    .ant-pagination-options-quick-jumper {
+      margin-left: 0;
+    }
+
+    .ant-pagination-options-quick-jumper input {
+      height: 26px;
+      border: 1px solid #d0d3d6;
+      border-radius: 6px;
+
+      &:hover {
+        border-color: #3370ff;
+      }
+
+      &:focus {
+        border-color: #3370ff;
+        box-shadow: none;
+      }
+    }
+  
+    .ant-pagination-next, .ant-pagination-prev {
+      font-size: 12px;
+    }
+  
+    .ant-pagination-options-size-changer {
+     
+      font-size: 12px;
+
+      &:hover {
+        border-color: #3370ff;
+      }
+
+      .ant-select-selection-item {
+        color: var(--text-color);
+      }
+
+      .ant-select-selector, .ant-select-selector:focus, .ant-select-selector:active {
+        display: flex;
+        align-items: center;
+        padding: 0 3px;
+        color: var(--text-color)!important;
+
+        border: none!important;
+        box-shadow: none!important;
+      }
+    }
+  
+    .ant-pagination-total-text {
+      margin-right: 16px;
+    }
+  
+    .ant-pagination-options {
+      display: flex;
+    }
+  
+    .ant-pagination-jump-next, .ant-pagination-jump-prev {
+      margin-right: 8px!important;
+    }
+
+    .anticon-double-left, .anticon-double-right {
+      color: #3370ff;
+      font-size: 14px;
+    }
+  }
+}

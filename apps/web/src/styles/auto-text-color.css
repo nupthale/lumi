@@ -1,0 +1,220 @@
+/* 自动字体颜色工具类 */
+
+/* 方案1: 使用CSS mix-blend-mode */
+.auto-text-mix-blend {
+  mix-blend-mode: difference;
+  color: white;
+}
+
+/* 方案2: 使用CSS自定义属性 */
+.auto-text-css-vars {
+  --text-color: var(--auto-text-color, #000);
+  color: var(--text-color);
+}
+
+/* 方案3: 使用CSS滤镜 */
+.auto-text-filter {
+  filter: contrast(1000%);
+  color: white;
+}
+
+/* 方案4: 使用CSS自定义属性 */
+.auto-text-calc {
+  --bg-luminance: var(--background-luminance, 0.5);
+  color: var(--auto-text-color, #000);
+}
+
+/* 方案5: 使用CSS @supports 检测 */
+@supports (mix-blend-mode: difference) {
+  .auto-text-modern {
+    mix-blend-mode: difference;
+    color: white;
+  }
+}
+
+/* 方案6: 使用CSS伪元素 */
+.auto-text-pseudo {
+  position: relative;
+}
+
+.auto-text-pseudo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  mix-blend-mode: difference;
+  pointer-events: none;
+}
+
+.auto-text-pseudo > * {
+  position: relative;
+  z-index: 1;
+  color: white;
+}
+
+/* 方案7: 使用CSS Grid 和伪元素 */
+.auto-text-grid {
+  display: grid;
+  grid-template: 1fr / 1fr;
+}
+
+.auto-text-grid::before {
+  content: '';
+  grid-area: 1 / 1;
+  background: inherit;
+  mix-blend-mode: difference;
+}
+
+.auto-text-grid > * {
+  grid-area: 1 / 1;
+  color: white;
+  z-index: 1;
+}
+
+/* 方案8: 使用CSS backdrop-filter (现代浏览器) */
+.auto-text-backdrop {
+  backdrop-filter: contrast(1000%);
+  color: white;
+}
+
+/* 方案9: 使用CSS mask */
+.auto-text-mask {
+  -webkit-mask: linear-gradient(black, black);
+  mask: linear-gradient(black, black);
+  color: white;
+}
+
+/* 方案10: 使用CSS clip-path */
+.auto-text-clip {
+  clip-path: inset(0);
+  color: white;
+}
+
+/* 响应式自动文字颜色 */
+@media (prefers-color-scheme: dark) {
+  .auto-text-responsive {
+    color: #ffffff;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .auto-text-responsive {
+    color: #000000;
+  }
+}
+
+/* 高对比度模式支持 */
+@media (prefers-contrast: high) {
+  .auto-text-high-contrast {
+    color: #000000 !important;
+    background-color: #ffffff !important;
+  }
+}
+
+/* 减少动画模式支持 */
+@media (prefers-reduced-motion: reduce) {
+  .auto-text-mix-blend,
+  .auto-text-filter,
+  .auto-text-backdrop {
+    transition: none;
+  }
+}
+
+/* 实用工具类 */
+.text-auto {
+  /* 默认使用JavaScript计算的方案 */
+  color: var(--auto-text-color, #000);
+}
+
+.text-auto-mix {
+  mix-blend-mode: difference;
+  color: white;
+}
+
+.text-auto-filter {
+  filter: contrast(1000%);
+  color: white;
+}
+
+/* 背景色预设 */
+.bg-auto-light {
+  background-color: #f8f9fa;
+  --auto-text-color: #212529;
+}
+
+.bg-auto-dark {
+  background-color: #212529;
+  --auto-text-color: #f8f9fa;
+}
+
+.bg-auto-primary {
+  background-color: #007bff;
+  --auto-text-color: #ffffff;
+}
+
+.bg-auto-success {
+  background-color: #28a745;
+  --auto-text-color: #ffffff;
+}
+
+.bg-auto-warning {
+  background-color: #ffc107;
+  --auto-text-color: #212529;
+}
+
+.bg-auto-danger {
+  background-color: #dc3545;
+  --auto-text-color: #ffffff;
+}
+
+.bg-auto-info {
+  background-color: #17a2b8;
+  --auto-text-color: #ffffff;
+}
+
+/* 渐变背景支持 */
+.bg-auto-gradient {
+  background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+  --auto-text-color: #ffffff;
+}
+
+.bg-auto-gradient-light {
+  background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+  --auto-text-color: #ffffff;
+}
+
+.bg-auto-gradient-dark {
+  background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+  --auto-text-color: #ffffff;
+}
+
+/* 动画效果 */
+.auto-text-animate {
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+/* 悬停效果 */
+.auto-text-hover:hover {
+  filter: brightness(1.1);
+}
+
+/* 焦点状态 */
+.auto-text-focus:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* 打印样式 */
+@media print {
+  .auto-text-mix-blend,
+  .auto-text-filter,
+  .auto-text-backdrop {
+    mix-blend-mode: normal;
+    filter: none;
+    backdrop-filter: none;
+    color: #000000 !important;
+  }
+} 

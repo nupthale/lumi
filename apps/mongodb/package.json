@@ -1,0 +1,15 @@
+{
+    "name": "lumi-mongodb",
+    "version": "0.0.0",
+    "type": "module",
+    "description": "Demo server that serves the static assets and provides a shared websocket backend.",
+    "scripts": {
+      "start": "brew services start mongodb/brew/mongodb-community",
+      "stop": "brew services stop mongodb/brew/mongodb-community"
+    },
+    "dependencies": {
+    },
+    "engines": {
+      "node": ">=16.0.0"
+    }
+  }

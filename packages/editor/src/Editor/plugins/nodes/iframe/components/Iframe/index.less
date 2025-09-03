@@ -1,0 +1,111 @@
+.doc-component-iframe {
+    position: relative;
+    user-select: none;
+
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid transparent;
+}
+
+.doc-component-iframe:hover .doc-component-iframeToolbar {
+    opacity: 1;
+}
+
+.doc-component-iframeToolbar {
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 12px;
+
+    backdrop-filter: blur(28.995px);
+    background: hsla(0,0%,4%,.9);
+    border-radius: 8px;
+    color: #fff;
+    padding: 4px 6px;
+    user-select: none;
+
+    margin-left: 50%;
+    transform: translateX(-50%);
+
+    transition: opacity .3s ease-in-out;
+}
+
+.doc-component-iframeToolbarItem {
+    margin: 0 6px;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 2px;
+    cursor: pointer;
+
+    &:hover {
+        background: rgba(255,255,255,.2);
+    }
+}
+
+.doc-component-iframeEmpty {
+    position: relative;
+
+    width: 100%;
+    background: var(--image-empty-bg);
+    border: 1px solid var(--float-border-color);
+    border-radius: 8px;
+    color: var(--light-text-color);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0 12px;
+
+    height: 50px;
+
+    &:hover {
+        border-color: #1456f0;
+    }
+
+    &:hover svg {
+        color: #1456f0;
+    }
+
+    &:active {
+        background: var(--image-active-bg);
+        border-color: var(--image-active-bg);
+    }
+
+    &.error {
+        border-color: #f54a45;
+    }
+}
+
+.doc-component-iframeInput {
+    background: none;
+    outline: none!important;
+
+    font-size: 14px;
+    color: #646a73!important;
+
+    &::placeholder {
+        color: #646a73!important;
+    }
+}
+
+.doc-component-iframeSubmit {
+    padding: 0px 7px;
+    border-radius: 4px;
+    background: #336df4;
+    color: #fff;
+
+    &:hover {
+        background: #5083fb;
+    }
+
+    &:active {
+        background: #1456f0;
+    }
+}
+
+.doc-component-iframeLoading {
+    color: #dee0e3!important;
+}

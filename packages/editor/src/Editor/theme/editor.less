@@ -1,0 +1,97 @@
+.ProseMirror {
+    box-sizing: border-box;
+    font-family: "Styrene Display", sans-serif -apple-system,BlinkMacSystemFont,Helvetica Neue,Tahoma,PingFang SC,Microsoft Yahei,Arial,Hiragino Sans GB,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+    font-feature-settings: normal;
+    font-variant-ligatures: no-common-ligatures;
+    font-variant-numeric: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    color: var(--text-color);
+}
+
+.ProseMirror {
+    line-height: 1.5em;
+    min-height: 64px;
+    border: none !important;
+    border-radius: 6px;
+    outline: none;
+}
+
+.ProseMirror-placeholder {
+    color: #aaa;
+    pointer-events: none;
+    /* 确保用户无法与 placeholder 交互 */
+}
+
+.ProseMirror-separator {
+    display: inline;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ProseMirror p:first-child, .ProseMirror h1:first-child, .ProseMirror h2:first-child, .ProseMirror h3:first-child, .ProseMirror h4:first-child, .ProseMirror h5:first-child, .ProseMirror h6:first-child {
+    margin-top: 0!important;
+}
+
+// table 选择sell
+.ProseMirror-hideselection {
+    caret-color: transparent;
+}
+
+.ProseMirror-hideselection *::selection {
+    background: transparent;
+}
+
+.ProseMirror.resize-cursor {
+    cursor: ew-resize;
+    cursor: col-resize!important;
+}
+
+.doc-drop-cursor {
+    border-radius: 4px;
+}
+
+.doc-block-drag {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 14px;
+    height: 24px;
+    z-index: 99999;
+    cursor: grab;
+}
+
+.doc-link {
+    color: #336df4; 
+    cursor: pointer; 
+    text-decoration: none;
+}
+
+.doc-link:hover {
+    text-decoration: underline!important;
+}
+
+.doc-mockSelection {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggb3BhY2l0eT0iLjM0IiBmaWxsPSIjMzM3MEZGIiBkPSJNMCAwaDEwdjEwSDB6Ii8+PC9zdmc+);
+    padding: 2px 0;
+}
+
+.doc-autocomplete-typing {
+    position: relative;
+    color: #aaa;
+}
+
+/* 或者使用属性选择器，如果内容是通过data属性或其他方式设置的 */
+.doc-autocomplete-typing.empty::before {
+    content: '输入关键字';
+    color: #999;
+    position: absolute;
+    pointer-events: none;
+    left: 8px;
+    cursor: text;
+    white-space: nowrap;
+    user-select: none;
+    pointer-events: none;
+}

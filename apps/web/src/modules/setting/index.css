@@ -1,0 +1,17 @@
+
+.settingTitle {
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-color);
+  
+    border-bottom: 1px solid var(--float-border-color);
+}
+
+.settingItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}

@@ -1,0 +1,261 @@
+.doc-columns-component {
+    position: relative;
+    width: 77vw; 
+    left: calc((820px - 77vw) * 0.7);
+
+    @media screen and (max-width: 1600px) {
+        width: 60vw; 
+        left: calc((820px - 60vw) * 0.7);
+    }
+
+    &:hover .doc-columns-scrollbar {
+        opacity: 1;
+    }
+
+    &:hover .doc-columns-operationTop {
+        opacity: 1;
+    }
+
+    // &.start:before {
+    //     content: '';
+    //     position: absolute;
+    //     top: 10px;
+    //     left: 10px;
+    //     bottom: 0;
+    //     width: 8px;
+    //     background-image: linear-gradient(to right,rgba(0,0,0,0.05) 0%,rgba(255,255,255,0) 96.62%);
+    //     pointer-events: none;
+    //     z-index: 1;
+    // }
+
+    &.end:after {
+        content: '';
+        position: absolute;
+        top: 10px;
+        right: 0;
+        bottom: 0;
+        width: 10px;
+        background-image: linear-gradient(270deg,rgba(0,0,0,.05),rgba(255, 255, 255,0));
+        pointer-events: none;
+        z-index: 1;
+    }
+}
+
+.doc-columns-component-inner {
+    clip-path: inset(-500px 0 -500px -50px);
+}
+
+.doc-columns-wrap {
+    position: relative;
+    padding: 10px 0 0 0;
+    width: fit-content;
+
+    left: calc((77vw - 820px) * 0.7);
+
+    @media screen and (max-width: 1600px) {
+        left: calc((60vw - 820px) * 0.7);
+    }
+
+    transform: translateX(0) translateZ(0);
+}
+
+.doc-columns-operationItem {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+
+    &:hover .doc-columns-operationLine {
+        background: var(--table-operation-line-hover);
+    }
+
+    &.active .doc-columns-operationLine {
+        background: #1456f0;
+    }
+}
+
+.doc-columns-operationLine {
+    width: 10px;
+    height: 10px;
+    background: var(--table-operation-line);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+
+    &.top {
+        width: 100%;
+    }
+
+    &.left {
+        height: 100%;
+    }
+}
+
+.doc-columns-colResizeDot {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    top: -14px;
+    left: 0;
+    width: 19px;
+    height: 15px;
+    transform: translateX(-50%);
+
+    &:before {
+        display: inline-flex;
+        content: '';
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: #bbbfc4;
+        pointer-events: none;
+    }
+
+    &.last {
+        left: unset;
+        right: 0;
+        transform: translateX(50%);
+    }
+
+    &:hover .doc-columns-colResizeDotIcon {
+        transform: scale(1);
+    }
+}
+
+.doc-columns-colResizeDotIcon {
+    position: absolute!important;
+    width: 22px;
+    height: 24px;
+    transform: scale(0);
+    transition: transform .2s ease,-webkit-transform .2s ease;
+}
+
+.doc-columns-operation, .doc-columns-resizers {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 0;
+}
+
+.doc-columns-operationTop {
+    position: absolute;
+    top: -15px;
+    left: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 25px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity.2s ease;
+    z-index: 10;
+    opacity: 0;
+
+    &.active {
+        opacity: 1;
+    }
+}
+
+.doc-columns-colResizeLineWrap {
+    position: absolute;
+    cursor: col-resize;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+
+    top: 10px;
+    bottom: 0;
+    transform: translateX(50%);
+
+    width: 10px;
+
+    &.show {
+        z-index: 25;
+    }
+
+    &:hover .doc-columns-colResizeLine {
+        opacity: 1;
+    }
+
+    &:first-of-type {
+        cursor: unset!important;
+        transform: translateX(-50%);
+
+        &:hover .doc-columns-colResizeLine {
+            opacity: 0!important;
+        }
+
+        &.resizing .doc-columns-colResizeLine {
+            opacity: 0!important;
+        }
+    }
+
+    &:last-of-type {
+        transform: translateX(100%);
+    }
+
+    &.show .doc-columns-colResizeLine {
+        opacity: 1;
+    }
+
+    &.resizing .doc-columns-colResizeLine {
+        opacity: 1;
+    }
+}
+
+.doc-columns-colResizeLine {
+    width: 2px;
+    height: 100%;
+    background: #1456f0;
+
+    opacity: 0;
+
+    transition: opacity .2s ease;
+}
+
+.doc-columns-scrollbar {
+    position: sticky;
+    bottom: 14px;
+    width: 0;
+    height: 0;
+    margin-left: calc((77vw - 820px) * 0.7 + 22px);
+
+    @media screen and (max-width: 1600px) {
+        margin-left: calc((60vw - 820px) * 0.7 + 22px);
+    }
+
+    opacity: 0;
+
+    transition: opacity.2s ease;
+
+    &:before {
+        content: '';
+        display: block;
+        height: 4px;
+    }
+
+    &.hidden {
+        display: none;
+    }
+
+    &.active {
+        opacity: 1;
+    }
+}
+
+.doc-columns-slider {
+    background: #1f23294d;
+    height: 8px;
+    border: 1px solid #f2f3f54d;
+    border-radius: 4px;
+    width: 589px;
+    cursor: default;
+    transform: translateX(0) translateZ(0);
+
+    &:hover, &:active {
+        background: #1f232999;
+        border-color: #f2f3f599;
+    }
+}

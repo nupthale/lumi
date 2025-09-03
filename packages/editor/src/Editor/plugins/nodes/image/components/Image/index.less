@@ -1,0 +1,80 @@
+.doc-component-image {
+    position: relative;
+    user-select: none;
+
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid transparent;
+}
+
+.doc-component-image:hover .doc-component-imageToolbar {
+    opacity: 1;
+}
+
+.doc-component-imageToolbar {
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 12px;
+
+    backdrop-filter: blur(28.995px);
+    background: hsla(0,0%,4%,.9);
+    border-radius: 8px;
+    color: #fff;
+    padding: 4px 6px;
+    user-select: none;
+
+    margin-left: 50%;
+    transform: translateX(-50%);
+
+    transition: opacity .3s ease-in-out;
+}
+
+.doc-component-imageToolbarItem {
+    margin: 0 6px;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 2px;
+    cursor: pointer;
+
+    &:hover {
+        background: rgba(255,255,255,.2);
+    }
+}
+
+.doc-component-imageEmpty {
+    position: relative;
+
+    width: 100%;
+    background: var(--image-empty-bg);
+    border: 1px solid var(--float-border-color);
+    border-radius: 8px;
+    color: var(--light-text-color);
+    padding: 0 12px;
+    cursor: pointer;
+    font-size: 14px;
+
+    height: 50px;
+
+    &:hover {
+        border-color: #1456f0;
+    }
+
+    &:hover svg {
+        color: #FF7237;
+    }
+
+    &:active {
+        background: var(--image-active-bg);
+        border-color: var(--image-active-bg);
+    }
+}
+
+.doc-component-imageLoading {
+    color: #336FFF;
+}

@@ -1,0 +1,17 @@
+
+.doc-title {
+    font-size: 34px;
+    font-weight: 500;
+    line-height: 1.625;
+    min-height: 55px;
+    position: relative;
+}
+
+.doc-title:has(.ProseMirror-trailingBreak:only-child)::before {
+    content: attr(data-placeholder);
+    color: #999;
+    position: absolute;
+    pointer-events: none;
+    left: 0;
+    cursor: text;
+}

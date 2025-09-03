@@ -9,7 +9,7 @@
 </p>
 
 ## Download
-Get the app from [landing page](https://pickergo.github.io/lumi/)
+Get the app from [landing page](https://nupthale.github.io/lumi/)
 
 ## 💯 Introduction
 Lumi is a local-first personal knowledge management system that works seamlessly even when offline. It supports real-time collaboration, Markdown editing, and block-level references, providing a Notion-like flexible page structure. Lumi enables individuals and teams to efficiently organize and manage knowledge, regardless of network connectivity.

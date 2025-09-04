@@ -69,6 +69,7 @@ export default {
         todolist: 'To-Do List',
         weeklyReport: 'Weekly Report',
         brainStorm: 'Brainstorm Meeting',
+        projectManagement: 'Project Management',
     },
     setting: {
         title: 'Settings',
@@ -138,6 +139,9 @@ export default {
             insertAfter: 'Add below',
         },
         commonUseTitle: 'Common',
+        basicTitle: 'Basic',
+        mediaTitle: 'Media',
+        layoutTitle: 'Layout',
         columnTitle: 'Column Layout',
         blockType: {
             text: 'Text',
@@ -161,6 +165,8 @@ export default {
             column2: '2-Column Layout',
             column3: '3-Column Layout',
             column4: '4-Column Layout',
+            collection: 'Database',
+            emoji: 'emoji'
         },
         colorPalette: {
             text: 'Text Color',
@@ -222,6 +228,7 @@ export default {
             image: 'Image'
         },
         newView: 'New View',
+        defaultView: 'Default Grid View',
         viewType: {
             grid: 'Grid',
             board: 'Board',

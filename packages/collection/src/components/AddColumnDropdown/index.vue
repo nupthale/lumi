@@ -90,9 +90,7 @@ export default defineComponent({
         }
 
         const handleCancel = () => {
-            formModel.value.title = '';
-            formModel.value.type = ColumnTypeEnum.TEXT;
-            formModel.value.config = {};
+            formModel.value = getDefaultFormModel();
 
             // 隐藏dropdown
             visibleRef.value = false;

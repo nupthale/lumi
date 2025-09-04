@@ -237,7 +237,7 @@ export default defineComponent({
                                 <span class="mr-4 inline-flex items-center justify-center w-[24px] h-[24px]">
                                     <LucideIcon icon={Sheet} width={20} color="#FF012A"></LucideIcon>
                                 </span>
-                                数据库
+                                {i18next.t('editor.blockType.collection')}
                             </div>
                         </div>
                         <div 

@@ -5,6 +5,7 @@ import { groupBy } from 'lodash-es';
 import { Triangle } from 'lucide-vue-next';
 
 import { i18next } from '@collection/i18next';
+import I18n from '@collection/components/I18n/index.vue';
 
 import FieldValue from '@collection/components/FieldValue/index.vue';
 import { CollectionSchemaType, ColumnTypeEnum, FileType } from '@collection/interface';
@@ -59,9 +60,13 @@ export default defineComponent({
                                     
                                 </div>
                                 <div class="text-xs lightText">
-                                    {i18next.t('collection.recordsCount', { 
-                                        count: `<span style="margin: 0 4px;">${values.length}</span>` 
-                                    })}
+                                    <I18n tKey="collection.recordsCount">
+                                        {{
+                                            count: () => (
+                                                <span style="margin: 0 4px;">{values.length}</span>
+                                            )
+                                        }}
+                                    </I18n>
                                 </div>
                             </div>
                         </div>

@@ -1,9 +1,11 @@
 
 import { ViewEnum, ColumnTypeEnum, NumberFormatEnum } from '@collection/interface';
 
+import { i18next } from '@collection/i18next';
+
 const getDefaultViews = () => [{
     id: 'defaultView',
-    name: '默认列表视图',
+    name: i18next.t('collection.defaultView'),
     type: ViewEnum.GRID,
     columnsConfig: [
       { id: 'defaultColumnText', hidden: false },

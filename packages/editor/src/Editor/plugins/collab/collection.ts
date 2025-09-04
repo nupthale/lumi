@@ -4,6 +4,30 @@ import { getYDoc } from './core';
 
 import { getDefaultSchema, getDefaultValues } from '../nodes/collection/defaultConfig';
 
+export const insertColllection = (fileId: string, collectionId: string, schema, values) => {
+  const ydoc = getYDoc(fileId);
+  const collectionsDoc = getCollectionsDoc(fileId);
+
+  const collection = new Y.Map();
+  collection.set('schema', schema);
+
+  const collectionValuesDoc = new Y.Array();
+  collection.set('values', collectionValuesDoc);
+
+  ydoc.transact(() => {
+    values.forEach(item => {
+      const row = new Y.Map();
+      collectionValuesDoc.push([row]);
+  
+      Object.keys(item).forEach(key => {
+        row.set(key, item[key]);
+      });
+    });
+  });
+  
+  collectionsDoc.set(collectionId, collection);
+}
+
 // 从文档的 Y.Doc 中获取collection数据
 export const getCollectionsDoc = (fileId: string) => {
   const ydoc = getYDoc(fileId);

@@ -69,6 +69,7 @@ export default {
         todolist: '待办清单',
         weeklyReport: '业务经营周报',
         brainStorm: '头脑风暴会议',
+        projectManagement: '项目管理',
     },
     setting: {
         title: '设置',
@@ -138,6 +139,9 @@ export default {
             insertAfter: '在下方添加',
         },
         commonUseTitle: '常用',
+        basicTitle: '基础',
+        mediaTitle: '媒体',
+        layoutTitle: '布局',
         columnTitle: '分栏布局',
         blockType: {
             text: '正文',
@@ -161,6 +165,8 @@ export default {
             column2: '2栏布局',
             column3: '3栏布局',
             column4: '4栏布局',
+            collection: '数据库',
+            emoji: '表情'
         },
         colorPalette: {
             text: '字体颜色',
@@ -222,6 +228,7 @@ export default {
             image: '图片'
         },
         newView: '新视图',
+        defaultView: '默认列表视图',
         viewType: {
             grid: '表格',
             board: '看板',

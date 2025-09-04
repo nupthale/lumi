@@ -12,6 +12,8 @@ import { useUserStore } from '@/store/user';
 import { useHomeStore } from '@/store/ui-states/home/index';
 import { SpaceAssetType } from '@/database/schema/spaceAsset';
 
+import { insertColllection } from '@editor/Editor/plugins/collab/collection';
+
 import { createDoc } from '@/shared/yjs';
 
 export default defineComponent({
@@ -56,8 +58,20 @@ export default defineComponent({
                         type: SpaceAssetType.FILE,
                     });
 
-                    // 跳转到新建的doc
-                    router.push(`/files/doc/${fileId}`);
+                    // 如果有数据库表， 需要初始化yjs
+                    const collectionMap = props.template?.collectionMap;
+                    if (collectionMap) {
+                        Object.keys(collectionMap).forEach(key => {
+                            const { schema, values } = collectionMap[key];
+                            
+                            insertColllection(fileId, key, schema, values);
+                        });
+                    }
+
+                    setTimeout(() => {
+                        // 跳转到新建的doc
+                        router.push(`/files/doc/${fileId}`);
+                    }, 0);
                 } catch (error) {
                     console.error('创建文档失败:', error);
                 }

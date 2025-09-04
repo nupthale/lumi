@@ -28,6 +28,12 @@ export default defineComponent({
             var format = config.format;
             const currencySign = isCurrency ? getCurrencySign((column as CurrencyColumnType).config?.currency) : '';
 
+            if (isNil(props.value) || props.value === '') {
+                return (
+                    <div class="w-full text-right"></div>
+                );
+            }
+
             if (format === NumberFormatEnum.INT) {
                 let val: string | number = parseInt(props.value as string);
                 val = digitGroup ? toDigitGroup(val) : val;

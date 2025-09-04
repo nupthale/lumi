@@ -4,7 +4,7 @@ import { storeToRefs } from 'pinia';
 
 import { useHomeStore } from '@/store/ui-states/home/index';
 
-import templates from '@/shared/templates';
+import templates from '@/shared/templates/index';
 
 import DocTemplate from './template.vue';
 

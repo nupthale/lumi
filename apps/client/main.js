@@ -1,11 +1,10 @@
 const { app, BrowserWindow, screen, Menu, ipcMain } = require('electron');
 const path = require('path');
-// auto updater
-require('update-electron-app')();
-
 const isDev = process.env.NODE_ENV === 'development';
 
 const { registerService } = require('./services/index');
+
+require('./update');
 
 app.setName('Lumi');
 
@@ -122,6 +121,16 @@ const createMenu = () => {
         { type: 'separator' },
         { role: 'window' }
       ]
+    },
+    // 在菜单中添加版本信息
+    {
+      label: '关于 Lumi',
+      submenu: [
+        {
+          label: `版本 ${app.getVersion()}`,
+          enabled: false
+        },
+      ]
     }
   ];
 
@@ -153,8 +162,9 @@ app.on('window-all-closed', () => {
 })
 
  // 添加 IPC 处理程序
- ipcMain.on('reload-window', () => {
+ipcMain.on('reload-window', () => {
   if (mainWindow) {
     mainWindow.reload();
   }
 });
+

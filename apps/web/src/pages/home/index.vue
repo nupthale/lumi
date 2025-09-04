@@ -92,7 +92,6 @@ export default defineComponent({
                 
                 <Tags />
               </div>
-
                 <div class={['config']}>
                   <div class="flex items-center">
                     <HardDrive width={18} height={18} color="#a6a6a6" />
@@ -182,7 +181,7 @@ export default defineComponent({
 }
 
 .home.siderCollapse .foldButton.electron {
-  top: 42px;
+  top: 45px;
 }
 
 .foldButton {

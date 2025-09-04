@@ -8,13 +8,10 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    AutoTextColor: typeof import('./src/components/AutoTextColor.vue')['default']
-    AutoTextColorExample: typeof import('./src/components/AutoTextColorExample.vue')['default']
     DocLoadErrorIllustration: typeof import('./src/components/icons/DocLoadErrorIllustration.vue')['default']
     DocOutlineIcon: typeof import('./src/components/icons/DocOutlineIcon.vue')['default']
     DocsEmptyIllustration: typeof import('./src/components/icons/DocsEmptyIllustration.vue')['default']
     FullScreenModal: typeof import('./src/components/FullScreenModal/index.vue')['default']
-    I18n: typeof import('./src/components/I18n/index.vue')['default']
     LucideIcon: typeof import('./src/components/LucideIcon/index.vue')['default']
     Modal: typeof import('./src/components/Modal/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

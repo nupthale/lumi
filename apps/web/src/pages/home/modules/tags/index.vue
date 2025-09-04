@@ -2,6 +2,7 @@
 import { defineComponent } from 'vue';
 import { storeToRefs } from 'pinia';
 import { Hash } from 'lucide-vue-next';
+import i18next from 'i18next';
 
 import { useFiles } from '@/store/queries/docs/useFiles';
 import { useContextStore } from '@/store/ui-states/context';
@@ -31,7 +32,7 @@ export default defineComponent({
         return () => (
             <div class="tags">
                 {
-                    tags.value?.length ? (<div class="menuTitle mt-6">标签</div>) : ''
+                    tags.value?.length ? (<div class="menuTitle mt-6">{i18next.t('home.sider.tag')}</div>) : ''
                 }
 
                 {

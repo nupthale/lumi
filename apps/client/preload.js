@@ -31,5 +31,14 @@ contextBridge.exposeInMainWorld('clientAPI', {
 
   getMachineId: () => {
     return ipcRenderer.invoke('getMachineId');
+  },
+
+  // 更新相关 API
+  checkForUpdates: () => {
+    return ipcRenderer.invoke('check-for-updates');
+  },
+  
+  getUpdateStatus: () => {
+    return ipcRenderer.invoke('get-update-status');
   }
 });

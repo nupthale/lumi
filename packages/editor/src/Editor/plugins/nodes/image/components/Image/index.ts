@@ -7,7 +7,7 @@ import { i18next } from '@editor/i18n';
 import { EventEmit } from '../../../../../shared/event';
 import { download } from '../../../../../shared/file';
 
-import { upload_preset, cloud_name } from '~/uploadToken';
+import { upload_preset, cloud_name } from '~/token';
 
 import './index.less';
 

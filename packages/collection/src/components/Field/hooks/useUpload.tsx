@@ -7,7 +7,7 @@ import i18next from 'i18next';
 import { ColumnType, FileType } from "@collection/interface";
 import { cellFileUploaded$, cellFileUploading$ } from '@collection/events';
 
-import { upload_preset, cloud_name } from '~/uploadToken';
+import { upload_preset, cloud_name } from '~/token';
 
 export const useUpload = (
     id: string,

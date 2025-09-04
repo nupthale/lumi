@@ -4,7 +4,7 @@ export const weekReport = {
     title: i18next.t('template.weeklyReport'),
     emoji: '',
     cover: 'https://images.unsplash.com/photo-1592474096967-7e5d62070cf7?w=1080&dpr=1&crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDIyNzR8MHwxfHNlYXJjaHwxfHxidWxsZXQlMjBqb3VybmFsfGVufDB8fHx8MTY3MDQ5MDI0Mw&ixlib=rb-4.0.3&q=80',
-    image: 'https://res.cloudinary.com/dybz0bvui/image/upload/v1748419103/cda02dcc-f258-428a-b11c-75fa5b8445ac_dbp1tz.jpg',
+    image: 'https://res.cloudinary.com/dybz0bvui/image/upload/v1756971157/weeklyReport_s8h0lm.png',
     content: {
         "type": "doc",
         "content": [

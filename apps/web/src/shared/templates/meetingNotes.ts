@@ -3,8 +3,8 @@ import i18next from 'i18next';
 export const meetingNotes = {
     title: i18next.t('template.meetingNotes'),
     emoji: '',
-    cover: 'https://images.unsplash.com/photo-1529336953121-a9fa0f50b4cd?w=1200&q=80&auto=format&fit=crop',
-    image: 'https://res.cloudinary.com/dybz0bvui/image/upload/v1748419107/meeting_cover.jpg',
+    cover: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1200&q=80&auto=format&fit=crop',
+    image: 'https://res.cloudinary.com/dybz0bvui/image/upload/v1756972051/meet_hqf0kg.png',
     content: {
         "type": "doc",
         "content": [

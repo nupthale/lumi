@@ -4,7 +4,7 @@ export const hrOnboarding = {
     title: i18next.t('template.hrOnboarding'),
     emoji: '',
     cover: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1200&q=80&auto=format&fit=crop',
-    image: 'https://res.cloudinary.com/dybz0bvui/image/upload/v1748419106/hr_cover.jpg',
+    image: 'https://res.cloudinary.com/dybz0bvui/image/upload/v1756971849/hr_rtppnt.png',
     collectionMap: {
         "hrCol-1": {
             schema: {

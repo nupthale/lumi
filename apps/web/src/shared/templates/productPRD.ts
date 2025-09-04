@@ -4,7 +4,7 @@ export const productPRD = {
     title: i18next.t('template.productPRD'),
     emoji: '',
     cover: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80&auto=format&fit=crop',
-    image: 'https://res.cloudinary.com/dybz0bvui/image/upload/v1748419105/prd_cover.jpg',
+    image: 'https://res.cloudinary.com/dybz0bvui/image/upload/v1756971480/prd_ppuq0p.png',
     content: {
         "type": "doc",
         "content": [

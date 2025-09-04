@@ -4,7 +4,7 @@ export const okrPlan = {
     title: i18next.t('template.okrPlan'),
     emoji: '',
     cover: 'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=1200&q=80&auto=format&fit=crop',
-    image: 'https://res.cloudinary.com/dybz0bvui/image/upload/v1748419107/okr_cover.jpg',
+    image: 'https://res.cloudinary.com/dybz0bvui/image/upload/v1756971984/okr_eirip2.png',
     collectionMap: {
         "okrCol-1": {
             schema: {

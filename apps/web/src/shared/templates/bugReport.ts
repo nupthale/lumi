@@ -4,7 +4,7 @@ export const bugReport = {
     title: i18next.t('template.bugReport'),
     emoji: '',
     cover: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&q=80&auto=format&fit=crop',
-    image: 'https://res.cloudinary.com/dybz0bvui/image/upload/v1748419107/bug_cover.jpg',
+    image: 'https://res.cloudinary.com/dybz0bvui/image/upload/v1756972115/bug_dwqtxz.png',
     content: {
         "type": "doc",
         "content": [

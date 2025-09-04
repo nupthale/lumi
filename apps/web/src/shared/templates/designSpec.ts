@@ -4,7 +4,7 @@ export const designSpec = {
     title: i18next.t('template.designSpec'),
     emoji: '',
     cover: 'https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?w=1200&q=80&auto=format&fit=crop',
-    image: 'https://res.cloudinary.com/dybz0bvui/image/upload/v1748419106/design_cover.jpg',
+    image: 'https://res.cloudinary.com/dybz0bvui/image/upload/v1756971576/design_y8wqxc.png',
     content: {
         "type": "doc",
         "content": [

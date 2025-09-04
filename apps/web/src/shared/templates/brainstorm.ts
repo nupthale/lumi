@@ -4,7 +4,7 @@ export const brainStorm = {
     title: i18next.t('template.brainStorm'),
     emoji: '',
     cover: 'https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=1080&dpr=1&crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDIyNzR8MHwxfHNlYXJjaHw5fHxib29rc3xlbnwwfHx8fDE2Njg0NDE4OTc&ixlib=rb-4.0.3&q=80',
-    image: 'https://res.cloudinary.com/dybz0bvui/image/upload/v1748419272/94f9bc8d-f583-4205-8558-c2fbf03db406_vkq33e.jpg',
+    image: 'https://res.cloudinary.com/dybz0bvui/image/upload/v1756971236/brainstorm_reyph8.png',
     content: {
         "type": "doc",
         "content": [

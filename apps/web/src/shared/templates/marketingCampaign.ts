@@ -3,8 +3,8 @@ import i18next from 'i18next';
 export const marketingCampaign = {
     title: i18next.t('template.marketingCampaign'),
     emoji: '',
-    cover: 'https://images.unsplash.com/photo-1498008551092-1cfe65f19d35?w=1200&q=80&auto=format&fit=crop',
-    image: 'https://res.cloudinary.com/dybz0bvui/image/upload/v1748419106/marketing_cover.jpg',
+    cover: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1200&q=80&auto=format&fit=crop',
+    image: 'https://res.cloudinary.com/dybz0bvui/image/upload/v1756971650/market_lyl2fd.png',
     collectionMap: {
         "mkCol-1": {
             schema: {

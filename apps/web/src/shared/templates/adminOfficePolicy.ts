@@ -4,7 +4,7 @@ export const adminOfficePolicy = {
     title: i18next.t('template.adminOfficePolicy'),
     emoji: '',
     cover: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1200&q=80&auto=format&fit=crop',
-    image: 'https://res.cloudinary.com/dybz0bvui/image/upload/v1748419107/admin_cover.jpg',
+    image: 'https://res.cloudinary.com/dybz0bvui/image/upload/v1756971923/admin_q28hol.png',
     content: {
         "type": "doc",
         "content": [

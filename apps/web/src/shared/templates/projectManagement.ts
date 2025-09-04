@@ -3,8 +3,8 @@ import i18next from 'i18next';
 export const projectManagement = {
     title: i18next.t('template.projectManagement'), 
     emoji: '',
-    cover: 'https://images.unsplash.com/photo-1502570149819-b2260483d302?w=1080&dpr=1&crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDIyNzR8MHwxfHNlYXJjaHwyNHx8Y2FsZW5kYXJ8ZW58MHx8fHwxNjcwNDExMDAz&ixlib=rb-4.0.3&q=80',
-    image: 'https://res.cloudinary.com/dybz0bvui/image/upload/v1748419104/template_ofe67d.jpg',
+    cover: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80&auto=format&fit=crop',
+    image: 'https://res.cloudinary.com/dybz0bvui/image/upload/v1756971321/projectMs_s5ukkv.png',
     collectionMap: {
         "2g94kZFBhp-4vFOGitxXa": {
             "schema": {

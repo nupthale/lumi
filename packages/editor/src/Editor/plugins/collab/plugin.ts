@@ -15,19 +15,15 @@ export const createCollabPlugin = (fileId: string, isLocalMode: boolean) => {
   // 创建光标插件（需要延迟初始化）
   const cursorPlugin = yCursorPlugin(provider.awareness, {});
 
+  const undoPlugin = yUndoPlugin({
+    undoManager: getUndoManager(fileId),
+  });
+
   const base = [
     syncPlugin,
     cursorPlugin,
+    undoPlugin,
   ];
-
-  // 本地模式， 加yUndoPlugin会导致无法undo
-  if (!isLocalMode) {
-    const undoPlugin = yUndoPlugin({
-      undoManager: getUndoManager(fileId),
-    });
-
-    base.push(undoPlugin);
-  }
   
 
   return base;

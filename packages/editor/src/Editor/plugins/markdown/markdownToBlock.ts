@@ -69,14 +69,14 @@ export function createProcessor() {
         break: toPmNode(schema.nodes.hardBreak),
         // code 对应代码块（block-level）
         code(node, _, state) {
-            return schema.nodes.coder.spec.create(schema, {}, schema.text(node.value || ''));
+            return schema.nodes.coder.spec.create(schema, {}, node.value ? schema.text(node.value || '') : []);
         },
         emphasis: toPmMark(schema.marks.italic),
         strong: toPmMark(schema.marks.strong),
         // inlineCode 对应行内代码（inline-level），应该使用 mark 而不是 node
         inlineCode(node, _, state) {
           // 创建带有code mark的文本节点
-          const textNode = schema.text(node.value || '');
+          const textNode = schema.text(node.value || 'empty text');
           const codeMark = schema.marks.code.create();
           return textNode.mark([codeMark]);
         },

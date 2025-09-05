@@ -46,6 +46,8 @@
     --image-empty-bg: #f5f6f7;
     --image-active-bg: #f2f3f5;
 
+    --coder-bg: #f5f6f7;
+
     --quote-bg: #e5e7eb;
 
     --column-focus-bg: #f5f6f7;
@@ -304,6 +306,8 @@
 
     --image-empty-bg: #373737;
     --image-active-bg: #ebebeb14;
+
+    --coder-bg: rgba(255, 255, 255, 0.03);
 
     --quote-bg: rgba(255, 255, 255, 0.81);
 

@@ -27,7 +27,8 @@
 
     --float-border-color: #dee0e3;
     --float-bg-hover: #eff0f1;
-    --bg-float: #fff;
+    /* --bg-float: #fff; */
+    --bg-float: linear-gradient(116deg, rgba(250, 250, 250, 0.85), rgba(244, 244, 244, 0.85));
     --bg-float-2: #fff;
 
     --overlay-shadow: 0 8px 24px 8px #1f23290a,0 6px 12px #1f23290a,0 4px 8px -8px #1f23290f;
@@ -283,7 +284,8 @@
 
     --float-border-color: rgba(207, 207, 207, 0.15);
     --float-bg-hover: #373737;
-    --bg-float: rgb(41, 41, 41);
+    /* --bg-float: rgb(41, 41, 41); */
+    --bg-float: linear-gradient(116deg, rgba(40, 42, 43, 0.85), rgba(34, 36, 37, 0.85));
     --bg-float-2: #1f1f1f;
 
     --overlay-shadow: 0 6px 24px rgba(0, 0, 0, 0.28);

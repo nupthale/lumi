@@ -221,7 +221,11 @@ export default {
         },
     },
     collection: {
-        addColumn: 'Add Column',
+        addColumn: 'Add Field',
+        editColumn: 'Modify Field',
+        insertColumnLeft: 'Insert Before',
+        insertColumnRight: 'Insert After',
+        deleteColumn: 'Delete Field',
         addRow: 'Add Record',
         emptyPlaceholder: 'Empty',
         recordsCount: '{{count}} records',

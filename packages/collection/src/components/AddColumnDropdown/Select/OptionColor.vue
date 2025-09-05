@@ -47,7 +47,8 @@ export default defineComponent({
 .overlayContainer {
     padding: 12px;
     border: 1px solid rgb(222, 224, 227);
-    background: #fff;
+    background: var(--float-bg);
+    backdrop-filter: saturate(1.5) blur(32px);
     border-radius: 8px;
     box-shadow: 0px 8px 24px 8px rgba(31, 35, 41, 0.04), 0px 6px 12px 0px rgba(31, 35, 41, 0.04), 0px 4px 8px -8px rgba(31, 35, 41, 0.06);
 }

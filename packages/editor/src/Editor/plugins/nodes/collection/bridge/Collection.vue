@@ -12,6 +12,7 @@ import {
     addRow$,
     deleteRow$,
     addCol$,
+    deleteCol$,
     updateColSchema$,
     updateColumnOrder$,
     cellValueUpdate$,
@@ -180,10 +181,10 @@ export default defineComponent({
                     schemaRef.value.columns.splice(insertPos, 0, column);
 
                     schemaRef.value.views.forEach(view => {
-                        view.columnsConfig.push({
+                        view.columnsConfig.splice(insertPos, 0, {
                             id: column.id,
                             hidden: false,
-                        });
+                        })
                     });
 
                     const collectionDoc = getCollectionDoc(props.fileId!, props.collectionId!);
@@ -191,6 +192,26 @@ export default defineComponent({
                 })
             ).subscribe()
         );
+
+        useSubscription(
+            deleteCol$.pipe(
+                filter(({ id }) => id === props.fileId),
+                tap(({ columnId }) => {
+                    let index = schemaRef.value.columns.findIndex(item => item.id === columnId);
+
+                    schemaRef.value.columns.splice(index, 1);
+
+                    schemaRef.value.views.forEach(view => {
+                        const viewColumnIndex = view.columnsConfig.findIndex(item => item.id === columnId)
+
+                        view.columnsConfig.splice(viewColumnIndex, 1);
+                    });
+
+                    const collectionDoc = getCollectionDoc(props.fileId!, props.collectionId!);
+                    collectionDoc.set('schema', { ...schemaRef.value });
+                })
+            ).subscribe()
+        )
 
         useSubscription(
             cellValueUpdate$.pipe(
@@ -507,7 +528,7 @@ export default defineComponent({
                                 for (let i = 0; i < valuesDoc.length; i++) {
                                     const rowMap = valuesDoc.get(i);
                                     if (rowMap instanceof Y.Map) {
-                                        rowMap.set(column.id, column.type === ColumnTypeEnum.IMAGE ? [] : '');
+                                        rowMap.set(column.id, column.type === ColumnTypeEnum.IMAGE ? [] : undefined);
                                     }
                                 }
                             } else {

@@ -207,6 +207,7 @@ export default defineComponent({
     border: 1px solid var(--float-border-color);
     user-select: none;
     z-index: 1000;
+    backdrop-filter: saturate(1.5) blur(32px);
 }
 
 .actionDrag:hover {

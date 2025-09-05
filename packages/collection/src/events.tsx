@@ -22,6 +22,11 @@ export const addCol$ = new Subject<{
     column: ColumnType,
 }>();
 
+export const deleteCol$ = new Subject<{
+    id: string;
+    columnId?: string;
+}>();
+
 export const addView$ = new Subject<{
     id: string;
     view: ViewType;

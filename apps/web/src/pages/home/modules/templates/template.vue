@@ -125,6 +125,7 @@ export default defineComponent({
     background: var(--bg-float);
     border: 2px solid var(--default-border-color);
     box-shadow: rgba(0, 0, 0, 0.16) 0px 16px 40px -6px, rgba(0, 0, 0, 0.04) 0px 12px 24px -6px, rgba(31, 34, 37, 0.09) 0px 0px 0px 1px;
+    backdrop-filter: saturate(1.5) blur(32px);
 
     cursor: pointer;
 

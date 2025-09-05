@@ -40,7 +40,10 @@ export default defineComponent({
         const handleInput = (e) => {
             const text = e.target.innerText;
 
-            emit('change', text);
+            // 如果内容只是换行符或空白字符，视为空内容
+            const finalValue = text.trim() === '' ? '' : text;
+
+            emit('change', finalValue);
         }
 
         onMounted(() => {

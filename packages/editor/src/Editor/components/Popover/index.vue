@@ -220,6 +220,7 @@ export default defineComponent({
     display: flex;
     flex-direction: column;
     background: var(--bg-float);
+    backdrop-filter: saturate(1.5) blur(32px);
 }
 
 .content.border {

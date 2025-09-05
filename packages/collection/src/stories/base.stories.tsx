@@ -11,6 +11,7 @@ import {
   addRow$,
   deleteRow$,
   addCol$, 
+  deleteCol$,
   updateColSchema$,
   updateColumnOrder$,
   cellValueUpdate$, 
@@ -199,14 +200,31 @@ export const Base: Story = {
           schema.value.columns.splice(insertPos, 0, column);
 
           schema.value.views.forEach(view => {
-            view.columnsConfig.push({
+            view.columnsConfig.splice(insertPos, 0, {
               id: column.id,
               hidden: false,
-            });
+            })
           });
         })
       ).subscribe()
     );
+
+    useSubscription(
+      deleteCol$.pipe(
+        filter(({ id }) => id === '1'),
+        tap(({ columnId }) => {
+          let index = schema.value.columns.findIndex(item => item.id === columnId);
+
+          schema.value.columns.splice(index, 1);
+
+          schema.value.views.forEach(view => {
+              const viewColumnIndex = view.columnsConfig.findIndex(item => item.id === columnId)
+
+              view.columnsConfig.splice(viewColumnIndex, 1);
+          });
+        })
+      ).subscribe()
+    )
 
     useSubscription(
       cellValueUpdate$.pipe(

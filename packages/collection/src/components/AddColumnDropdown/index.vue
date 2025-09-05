@@ -1,10 +1,11 @@
 <script lang="tsx">
-import { defineComponent, ref, provide, PropType, watch } from 'vue';
+import { defineComponent, ref, provide, PropType, watch, inject } from 'vue';
 import { Dropdown, Form, Input, Menu, Space, Button } from 'ant-design-vue';
-import { ChevronRight } from 'lucide-vue-next';
+import { ChevronRight, PencilRuler, ArrowLeftFromLine, ArrowRightFromLine, Trash2 } from 'lucide-vue-next';
 import { nanoid } from 'nanoid';
 import { useSubscription } from '@vueuse/rxjs';
 import { tap } from 'rxjs/operators';
+import { onClickOutside } from '@vueuse/core';
 
 import { themeTokens } from '@collection/shared/theme';
 
@@ -20,7 +21,7 @@ import NumberFields from './Number.vue';
 import DateFields from './Date.vue';
 import SelectFields from './Select/index.vue';
 
-import { hideDropdown$ } from '@collection/events';
+import { hideDropdown$, addCol$, deleteCol$ } from '@collection/events';
 
 const FormItem = Form.Item;
 const MenuItem = Menu.Item;
@@ -35,6 +36,10 @@ export default defineComponent({
     setup(props, { slots, emit }) {
         const visibleRef = ref(false);
 
+        const showEditOverlayRef = ref(false);
+
+        const id = inject<string>('id')!;
+
         useSubscription(
             hideDropdown$.pipe(
                 tap(() => {
@@ -42,6 +47,16 @@ export default defineComponent({
                 })
             ).subscribe()
         )
+
+        const getDefaultTextColumn = () => {
+            return {
+                id: nanoid(8),
+                title: '',
+                width: 180,
+                type: ColumnTypeEnum.TEXT,
+                config: {},
+            } as ColumnType;
+        }
 
         const getDefaultFormModel = () => {
             if (props.column) {
@@ -53,13 +68,7 @@ export default defineComponent({
                 } as ColumnType;
             }
 
-            return {
-                id: nanoid(8),
-                title: '',
-                width: 180,
-                type: ColumnTypeEnum.TEXT,
-                config: {},
-            } as ColumnType;
+            return getDefaultTextColumn();
         }
 
         const formModel = ref<ColumnType>(getDefaultFormModel());
@@ -94,8 +103,26 @@ export default defineComponent({
 
             // 隐藏dropdown
             visibleRef.value = false;
-
+            showEditOverlayRef.value = false;
         };
+
+        const handleInsertCol = (columnId: string | undefined, direction: 'left' | 'right') => {
+            addCol$.next({
+                id,
+                columnId, 
+                direction,
+                column: getDefaultTextColumn(),
+            });
+
+            handleCancel();
+        }
+
+        const handleDeleteCol = (columnId: string) => {
+            deleteCol$.next({
+                id,
+                columnId,
+            });
+        }
 
         const handleConfirm = () => {
             emit('confirm', {
@@ -106,8 +133,42 @@ export default defineComponent({
         };
 
         const renderOverlay = () => {
+            // 如果是新增列， 直接展示编辑
+            if (!props.column || showEditOverlayRef.value) {
+                return renderEditOverlay();
+            }
+
             return (
-                <div class="dropdownContainer w-[280px]" ref={containerRef} onMousedown={handleStopPropagation}>
+                <div class="dropdownContainer w-[180px]">
+                    <Menu>
+                        <MenuItem key="1" onClick={() => showEditOverlayRef.value = true}>
+                            <div class="flex items-center gap-2">
+                                <PencilRuler size={14} strokeWidth={2.3} color={themeTokens.lightTextColor()} />{i18next.t('collection.editColumn')}
+                            </div>
+                        </MenuItem>
+                        <MenuItem key="2" onClick={() => handleInsertCol(props.column?.id, 'left')}>
+                            <div class="flex items-center gap-2">
+                                <ArrowLeftFromLine size={14} strokeWidth={2.3} color={themeTokens.lightTextColor()} />{i18next.t('collection.insertColumnLeft')}
+                            </div>
+                        </MenuItem>
+                        <MenuItem key="3" onClick={() => handleInsertCol(props.column?.id, 'right')}>
+                            <div class="flex items-center gap-2">
+                                <ArrowRightFromLine size={14} strokeWidth={2.3} color={themeTokens.lightTextColor()} />{i18next.t('collection.insertColumnRight')}
+                            </div>
+                        </MenuItem>
+                        <MenuItem key="4" onClick={() => handleDeleteCol(props.column?.id!)}>
+                            <div class="flex items-center gap-2">
+                                <Trash2 size={14} strokeWidth={2.3} color={themeTokens.lightTextColor()} />{i18next.t('collection.deleteColumn')}
+                            </div>
+                        </MenuItem>
+                    </Menu>
+                </div>
+            );
+        }
+
+        const renderEditOverlay = () => {
+            return (
+                <div class="dropdownContainer w-[280px]" onMousedown={handleStopPropagation}>
                     <Form layout='vertical' model={formModel.value}>
                         <div class="mx-3 mt-1">
                             <div class="mb-1">{i18next.t('collection.config.base.fieldTitle')}</div>
@@ -218,6 +279,18 @@ export default defineComponent({
             );
         }
 
+        onClickOutside(containerRef, (e) => {
+            const el = e.target as HTMLElement;
+            if (
+                el?.closest('.fieldTypeMenuContainer') ||
+                el?.closest('.ant-select-dropdown') || 
+                el?.closest('.overlayContainer')
+            ) {
+                return;
+            }
+            handleCancel();
+        });
+
         return () => (
             <Dropdown open={visibleRef.value} placement='bottomRight' destroyPopupOnHide>
                 {{
@@ -226,7 +299,11 @@ export default defineComponent({
                             {slots.default?.()}
                         </div>
                     ),
-                    overlay: renderOverlay,
+                    overlay: () => (
+                        <div ref={containerRef}>
+                            {renderOverlay()}
+                        </div>
+                    ),
                 }}
             </Dropdown>
         );

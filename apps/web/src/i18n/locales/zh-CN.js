@@ -221,7 +221,11 @@ export default {
         },
     },
     collection: {
-        addColumn: '添加一列',
+        addColumn: '添加字段',
+        editColumn: '修改字段',
+        insertColumnLeft: '向左插入字段',
+        insertColumnRight: '向右插入字段',
+        deleteColumn: '删除字段',
         addRow: '添加记录',
         emptyPlaceholder: '空值',
         recordsCount: '{{count}}条记录',

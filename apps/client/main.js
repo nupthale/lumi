@@ -139,6 +139,13 @@ const createMenu = () => {
 };
 
 app.whenReady().then(() => {
+  // 调整 IndexedDB 配额限制（单位：字节）
+  // 示例：设置为 20GB（20 * 1024^3 字节）
+  app.commandLine.appendSwitch('indexed-db-quota', '20737418240');
+  
+  // 可选：调整整体缓存上限（单位：字节）
+  app.commandLine.appendSwitch('disk-cache-size', '20737418240');
+
   createWindow();
 
   // mac显示菜单， windoow不要

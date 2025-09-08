@@ -2,6 +2,7 @@ import * as Y from 'yjs';
 
 import { getYDoc } from './core';
 
+import { updateCollectionsMap$ } from '../../event';
 import { getDefaultSchema, getDefaultValues } from '../nodes/collection/defaultConfig';
 
 export const insertColllection = (fileId: string, collectionId: string, schema, values) => {
@@ -48,6 +49,41 @@ export const getCollectionDoc = (fileId: string, collectionId: string) => {
 
   return collection;
 };
+
+class CollectionsDocWatcher {
+  private fileId: string = '';
+
+  updateMap = () => {
+    if (!this.fileId) return;
+
+    const collectionDoc = getCollectionsDoc(this.fileId) as Y.Map<any>;
+
+    updateCollectionsMap$.next({
+      fileId: this.fileId,
+      collections: collectionDoc.toJSON(),
+    })
+  }
+
+  watch(fileId: string) {
+    if (!fileId) return;
+
+    this.fileId = fileId;
+
+    const collectionDoc = getCollectionsDoc(fileId) as Y.Map<any>;
+
+    collectionDoc.observeDeep(this.updateMap);
+  }
+
+  unwatch(fileId: string) {
+    if (!fileId) return;
+
+    const collectionDoc = getCollectionsDoc(fileId) as Y.Map<any>;
+
+    collectionDoc.unobserveDeep(this.updateMap);
+  }
+};
+
+export const collectionsWatcher = new CollectionsDocWatcher();
 
 /**
  * 这里有一个超级坑的地方， 就是所有yjs的操作， 必须先挂到ydoc上，再操作，否则不生效， 比如

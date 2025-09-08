@@ -15,6 +15,7 @@ import DocLoadErrorIllustration from '@/components/icons/DocLoadErrorIllustratio
 import { useContextStore } from '@/store/ui-states/context';
 
 import { useBlockSystemSave } from '@/hooks/useBlockSystemSave';
+import { useFileSearchIndex } from '@/hooks/useFileSearchIndex';
 
 import Title from './modules/Title.vue';
 import DocMeta from './meta/index.vue';
@@ -38,6 +39,8 @@ export default defineComponent({
     const fileIdRef = ref(route.params.fileId as string);
 
     const { onlineUsers } = useOnlineUsers();
+
+    useFileSearchIndex(fileIdRef);
 
     // Watch for route param changes
     watch(() => route.params.fileId, (newId) => {

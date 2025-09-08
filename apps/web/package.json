@@ -28,6 +28,7 @@
     "axios": "^1.9.0",
     "dayjs": "^1.11.13",
     "dexie": "^4.0.11",
+    "flexsearch": "^0.8.212",
     "granim": "^2.0.0",
     "lodash-es": "^4.17.21",
     "lucide-vue-next": "^0.503.0",

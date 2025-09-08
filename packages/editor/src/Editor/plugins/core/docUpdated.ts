@@ -3,7 +3,6 @@ import { EditorView } from 'prosemirror-view';
 
 import { docChanged$ } from '../../event';
 
-
 export const docUpdatedPluginKey = new PluginKey('docUpdated');
 
 export const docUpdatedPlugin = () => {
@@ -11,11 +10,20 @@ export const docUpdatedPlugin = () => {
         new Plugin({
             key: docUpdatedPluginKey,
             view: () => {
+                let isInitialized = false;
+
                 return {
                     update: (view: EditorView, prevState) => {
+                        // Skip the first change which is initialization
+                        if (!isInitialized) {
+                            isInitialized = true;
+                            return;
+                        }
+
                         if (view.state.doc !== prevState.doc) {
                             docChanged$.next({
                                 doc: view.state.toJSON().doc,
+                                text: view.state.doc.textContent,
                             });
                         }
                         

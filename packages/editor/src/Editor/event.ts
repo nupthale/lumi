@@ -75,6 +75,7 @@ export const selectionChange$ = new Subject<{
 // 文档内容变化
 export const docChanged$ = new Subject<{
   doc: Record<string, any>,
+  text: string,
 }>();
 
 export const focusAtEnd$ = new Subject<{ id: string }>();
@@ -113,3 +114,11 @@ export const ydocPersistenceSync$ = new BehaviorSubject<{
 }>({
   fileId: '',
 });
+
+export const updateCollectionsMap$ = new Subject<{
+  fileId: string,
+  collections: Record<string, {
+    schema: CollectionSchemaType,
+    values: Record<string, any>,
+  }>,
+}>();

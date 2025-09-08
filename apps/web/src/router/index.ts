@@ -51,6 +51,10 @@ router.beforeEach(async (to, from) => {
   const userStore = useUserStoreWithout();
   const contextStore = useContextStore();
 
+  if (to.name === 'login') {
+    return true;
+  }
+
   if (!userStore.user) {
     const success = await userStore.initUser();
 

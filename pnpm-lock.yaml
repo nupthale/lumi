@@ -320,6 +320,9 @@ importers:
       dexie:
         specifier: ^4.0.11
         version: 4.0.11
+      flexsearch:
+        specifier: ^0.8.212
+        version: 0.8.212
       granim:
         specifier: ^2.0.0
         version: 2.0.0
@@ -764,7 +767,7 @@ packages:
     dependencies:
       '@ant-design/colors': 6.0.0
       '@ant-design/icons-svg': 4.4.2
-      vue: 3.5.17(typescript@5.8.2)
+      vue: 3.5.17(typescript@5.7.3)
 
   /@antfu/utils@0.7.10:
     resolution: {integrity: sha512-+562v9k4aI80m1+VuMHehNJWLOFjBnXn3tdOitzD0il5b7smkSBal4+a3oKiQTbrwMmN/TBUMDvbdoWDehgOww==}
@@ -3347,7 +3350,7 @@ packages:
     engines: {node: '>=12.13.0'}
     hasBin: true
     dependencies:
-      '@electron/node-gyp': git@github.com+electron/node-gyp/06b29aafb7708acef8b3669835c8a7857ebc92d2
+      '@electron/node-gyp': github.com/electron/node-gyp/06b29aafb7708acef8b3669835c8a7857ebc92d2
       '@malept/cross-spawn-promise': 2.0.0
       chalk: 4.1.2
       debug: 4.4.1(supports-color@5.5.0)
@@ -8455,7 +8458,7 @@ packages:
       vue: ^3.2.25
     dependencies:
       vite: 6.3.5(less@4.3.0)
-      vue: 3.5.17(typescript@5.8.2)
+      vue: 3.5.17(typescript@5.7.3)
     dev: true
 
   /@vitest/expect@0.34.7:
@@ -8686,7 +8689,7 @@ packages:
     dependencies:
       '@vue/compiler-ssr': 3.5.17
       '@vue/shared': 3.5.17
-      vue: 3.5.17(typescript@5.8.2)
+      vue: 3.5.17(typescript@5.7.3)
 
   /@vue/shared@3.5.17:
     resolution: {integrity: sha512-CabR+UN630VnsJO/jHWYBC1YVXyMq94KKp6iF5MQgZJs5I8cmjw6oVMO1oDbtBkENSHSSn/UadWlW/OAgdmKrg==}
@@ -8833,9 +8836,9 @@ packages:
     dependencies:
       ant-design-vue: 4.2.6(vue@3.5.17)
       lodash: 4.17.21
-      lottie-web-vue: 2.0.7(typescript@5.8.2)
+      lottie-web-vue: 2.0.7(typescript@5.7.3)
       sass: 1.89.2
-      vue: 3.5.17(typescript@5.8.2)
+      vue: 3.5.17(typescript@5.7.3)
     dev: false
 
   /JSONSelect@0.4.0:
@@ -9188,7 +9191,7 @@ packages:
       shallow-equal: 1.2.1
       stylis: 4.3.6
       throttle-debounce: 5.0.2
-      vue: 3.5.17(typescript@5.8.2)
+      vue: 3.5.17(typescript@5.7.3)
       vue-types: 3.0.2(vue@3.5.17)
       warning: 4.0.3
 
@@ -9481,6 +9484,7 @@ packages:
   /author-regex@1.0.0:
     resolution: {integrity: sha512-KbWgR8wOYRAPekEmMXrYYdc7BRyhn2Ftk7KWfMUnQ43hFdojWEFRxhhRUm3/OFEdPa1r0KAvTTg9YQK57xTe0g==}
     engines: {node: '>=0.8'}
+    requiresBuild: true
     dev: true
 
   /autoprefixer@10.4.21(postcss@8.5.6):
@@ -12791,6 +12795,10 @@ packages:
     resolution: {integrity: sha512-GX+ysw4PBCz0PzosHDepZGANEuFCMLrnRTiEy9McGjmkCQYwRq4A/X786G/fjM/+OjsWSU1ZrY5qyARZmO/uwg==}
     dev: true
 
+  /flexsearch@0.8.212:
+    resolution: {integrity: sha512-wSyJr1GUWoOOIISRu+X2IXiOcVfg9qqBRyCPRUdLMIGJqPzMo+jMRlvE83t14v1j0dRMEaBbER/adQjp6Du2pw==}
+    dev: false
+
   /flora-colossus@2.0.0:
     resolution: {integrity: sha512-dz4HxH6pOvbUzZpZ/yXhafjbR2I8cenK5xL0KtBFb7U2ADsR+OwXifnxZjij/pZWF775uSCMzWVd+jDik2H2IA==}
     engines: {node: '>= 12'}
@@ -15537,6 +15545,16 @@ packages:
     dependencies:
       js-tokens: 4.0.0
 
+  /lottie-web-vue@2.0.7(typescript@5.7.3):
+    resolution: {integrity: sha512-YELWt2WiRqqpsI/TVbmL4mRh0u4GSInvJ8eu2sTWCg49n/Bkzub7GlroumFxthk3VFU1k0IiLPpr9TxTePa/0A==}
+    dependencies:
+      lottie-web: 5.13.0
+      path: 0.12.7
+      vue: 3.5.17(typescript@5.7.3)
+    transitivePeerDependencies:
+      - typescript
+    dev: false
+
   /lottie-web-vue@2.0.7(typescript@5.8.2):
     resolution: {integrity: sha512-YELWt2WiRqqpsI/TVbmL4mRh0u4GSInvJ8eu2sTWCg49n/Bkzub7GlroumFxthk3VFU1k0IiLPpr9TxTePa/0A==}
     dependencies:
@@ -15545,6 +15563,7 @@ packages:
       vue: 3.5.17(typescript@5.8.2)
     transitivePeerDependencies:
       - typescript
+    dev: true
 
   /lottie-web@5.13.0:
     resolution: {integrity: sha512-+gfBXl6sxXMPe8tKQm7qzLnUy5DUPJPKIyRHwtpCpyUEYjHYRJC/5gjUvdkuO2c3JllrPtHXH5UJJK8LRYl5yQ==}
@@ -15613,7 +15632,7 @@ packages:
     peerDependencies:
       vue: '>=3.0.1'
     dependencies:
-      vue: 3.5.17(typescript@5.8.2)
+      vue: 3.5.17(typescript@5.7.3)
     dev: false
 
   /lucide@0.477.0:
@@ -22132,7 +22151,7 @@ packages:
       '@vue/composition-api':
         optional: true
     dependencies:
-      vue: 3.5.17(typescript@5.8.2)
+      vue: 3.5.17(typescript@5.7.3)
     dev: false
 
   /vue-docgen-api@4.79.2(vue@3.5.17):
@@ -22231,7 +22250,7 @@ packages:
       vue: ^3.0.0
     dependencies:
       is-plain-object: 3.0.1
-      vue: 3.5.17(typescript@5.8.2)
+      vue: 3.5.17(typescript@5.7.3)
 
   /vue3-marquee@4.2.2(vue@3.5.17):
     resolution: {integrity: sha512-FeFvGUVInKfFilXFcnl8sDRBJBZCZSNLlQDquJErB9db6W2xICRVqbRV/jtdzsEP0rftarLQhx9MeEAU0+TPuQ==}
@@ -22922,8 +22941,8 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: false
 
-  git@github.com+electron/node-gyp/06b29aafb7708acef8b3669835c8a7857ebc92d2:
-    resolution: {commit: 06b29aafb7708acef8b3669835c8a7857ebc92d2, repo: git@github.com:electron/node-gyp.git, type: git}
+  github.com/electron/node-gyp/06b29aafb7708acef8b3669835c8a7857ebc92d2:
+    resolution: {tarball: https://codeload.github.com/electron/node-gyp/tar.gz/06b29aafb7708acef8b3669835c8a7857ebc92d2}
     name: '@electron/node-gyp'
     version: 10.2.0-electron.1
     engines: {node: '>=12.13.0'}

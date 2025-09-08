@@ -34,6 +34,7 @@ import { initDocumentCollab, removeDocumentCollab } from '@editor/Editor/plugins
 import { useHistory } from '@editor/Editor/hooks/useHistory';
 
 import { loadSharedDoc, cleanupAllCollab } from '@editor/Editor/plugins/collab/core';
+import { collectionsWatcher } from '@editor/Editor/plugins/collab/collection';
 
 import { UserType } from '../Editor/interface';
 
@@ -141,6 +142,8 @@ export default defineComponent({
         // 先初始化协同编辑，确保 Yjs 内容加载完成
         initDocumentCollab(props.doc?.fileId, props.user);
       }
+
+      collectionsWatcher.watch(props.doc?.fileId);
     });
 
     onUnmounted(() => {
@@ -155,6 +158,8 @@ export default defineComponent({
       }
 
       cleanupAllCollab();
+
+      collectionsWatcher.unwatch(props.doc?.fileId);
     });
 
     return () => (

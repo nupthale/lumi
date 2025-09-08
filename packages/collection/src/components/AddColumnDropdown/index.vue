@@ -76,6 +76,8 @@ export default defineComponent({
         watch(visibleRef, (visible) => {
             if (visible && !props.column) {
                 formModel.value.id = nanoid(8);
+            } else {
+                formModel.value = getDefaultFormModel();
             }
         });
 

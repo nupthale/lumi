@@ -75,13 +75,13 @@ export const useAllFiles = () => {
 
                     wiki.space = spaces.value.find(space => space._id === asset?.space);
                     wiki.spaceId = asset?.space;
+                    wiki.fileId = wikiFile._id;
 
                     wikisResult.push(wiki);
                 }
                 
                 isLoading.value = false;
 
-                debugger;
                 return [
                     ...filesResult,
                     ...wikisResult,

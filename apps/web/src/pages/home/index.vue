@@ -67,7 +67,7 @@ export default defineComponent({
                 <div class="searchWrap" onClick={handleSearchClick}>
                   <div class="searchInputBox">
                     <LucideIcon icon="Search" width={20} color="#646a73" />
-                    <span class="ml-3 lightText">{selectedKeys.value?.includes('2') ? i18next.t('home.favorite.searchPlaceholder') : i18next.t('home.main.searchPlaceholder')}</span>
+                    <span class="ml-3">{selectedKeys.value?.includes('2') ? i18next.t('home.favorite.searchPlaceholder') : i18next.t('home.main.searchPlaceholder')}</span>
                   </div>
                 </div>
 
@@ -380,7 +380,7 @@ export default defineComponent({
   border: 1px solid var(--float-border-color);
   border-radius: 6px;
 
-  color: var(--palette-text-1);
+  color: var(--text-caption);
   cursor: pointer;
 }
 </style>

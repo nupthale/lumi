@@ -77,6 +77,10 @@
     --scroll-slider-bg: #1f23294d;
     --scroll-slider-hover-bg: #1f232999;
 
+    --modal-mask: rgba(0, 0, 0, 0.32);
+
+    --text-caption: #a6a6a6;
+
     /* color palette */
     --palette-text-0: rgb(31, 35, 41);
     --palette-text-1: rgb(143, 149, 158);
@@ -339,6 +343,10 @@
 
     --scroll-slider-bg: rgba(80, 80, 80, .3);
     --scroll-slider-hover-bg: rgba(80, 80, 80, .3);
+
+    --modal-mask: rgba(0, 0, 0, 0.32);
+
+    --text-caption: #a6a6a6;
 
     /* color palette */
     --palette-text-0: #fff;

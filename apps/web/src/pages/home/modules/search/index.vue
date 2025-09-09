@@ -1,10 +1,10 @@
 <script lang="tsx">
-import { defineComponent, Teleport, ref, watch, watchEffect } from 'vue';
+import { defineComponent, Teleport, ref, watch, watchEffect, computed } from 'vue';
 import { Input } from 'ant-design-vue';
 import { ArrowDownUp, CornerDownLeft } from 'lucide-vue-next';
 import i18next from 'i18next';
 import { Tag } from '@zsfe/zsui';
-import { useDebounceFn } from '@vueuse/core';
+import { useDebounceFn, useEventListener } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
 
 import LucideIcon from '@/components/LucideIcon/index.vue';
@@ -16,6 +16,7 @@ import { useAllFiles } from '@/store/queries/docs/useAllFiles';
 
 import { FileSchema } from '@/database/schema/file';
 
+import { useEvent } from './useEvent';
 
 type SearchResultType = FileSchema & {
     matchedText?: string;
@@ -33,6 +34,8 @@ export default defineComponent({
         const searchText = ref('');
 
         const matchedFiles = ref<SearchResultType[]>(files.value || []);
+
+        const { handleClickItem, handleClose, handleHoverItem, crtItemIndex, scrollContainer } = useEvent(matchedFiles);
 
         const search = useDebounceFn(async () => {
             const val = searchText.value;
@@ -97,16 +100,12 @@ export default defineComponent({
                     inputRef.value?.focus();
                 }, 0);
             }
-        })
+        });
 
         const highlight = (matchedText: string) => {
             if (!searchText.value?.length) return matchedText;
 
             return matchedText?.replace(new RegExp(`${searchText.value}`, 'gim'), `<span class="mark">${searchText.value}</span>`)
-        }
-
-        const handleClose = () => {
-            contextStore.setSearchModalVisible(false);
         }
 
         return () => searchModalVisible.value ? (
@@ -121,36 +120,38 @@ export default defineComponent({
                             }}
                         </Input>
 
-                        <div class="mt-1 flex-1 overflow-y-auto">
-                            {
-                                matchedFiles.value?.map(file => (
-                                    <div class="searchItem py-2 px-3 flex items-start" key={file._id}>
-                                        <div class="searchItem__icon mr-3">
-                                            {
-                                                file.emoji ? (
-                                                    <div class="docEmoji">{file.emoji}</div>
-                                                ) : (
-                                                    <div class={file.wiki ? 'wikiIcon' : 'docIcon'}></div>
-                                                )
-                                            }
-                                        </div>
-                                        <div class="flex-1">
-                                            <div class="searchItem__title mb-1">
-                                                {file.title || i18next.t('home.main.table.titlePlaceholder')}
+                        <div class="mt-1 flex-1 overflow-y-auto" ref={scrollContainer}>
+                            <div class="relative">
+                                {
+                                    matchedFiles.value?.map((file, index) => (
+                                        <div class={['searchItem', 'py-2', 'px-3', 'flex', 'items-start', index === crtItemIndex.value ? 'active' : '']} data-id={file._id} key={file._id} onClick={() => handleClickItem(file)} onMouseenter={() => handleHoverItem(index)}>
+                                            <div class="searchItem__icon mr-3">
                                                 {
-                                                    file.wiki ? (<Tag size="small" color="green" class="ml-1">{i18next.t('home.sider.wiki')}</Tag>) : ''
+                                                    file.emoji ? (
+                                                        <div class="docEmoji">{file.emoji}</div>
+                                                    ) : (
+                                                        <div class={file.wiki ? 'wikiIcon' : 'docIcon'}></div>
+                                                    )
                                                 }
                                             </div>
-                                            {file.matchedText && (
-                                                <div class="searchItem__context text-sm lightText" innerHTML={highlight(file.matchedText)}></div>
-                                            )}
-                                            <div class="searchItem__foot mt-1">
-                                                {i18next.t('home.space.space')}: {file.space?.isSystem ? i18next.t(file.space?.name) : file.space?.name}
+                                            <div class="flex-1">
+                                                <div class="searchItem__title mb-1">
+                                                    {file.title || i18next.t('home.main.table.titlePlaceholder')}
+                                                    {
+                                                        file.wiki ? (<Tag size="small" color="green" class="ml-1">{i18next.t('home.sider.wiki')}</Tag>) : ''
+                                                    }
+                                                </div>
+                                                {file.matchedText && (
+                                                    <div class="searchItem__context text-sm lightText" innerHTML={highlight(file.matchedText)}></div>
+                                                )}
+                                                <div class="searchItem__foot mt-1">
+                                                    {i18next.t('home.space.space')}: {file.space?.isSystem ? i18next.t(file.space?.name) : file.space?.name}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))
-                            }
+                                    ))
+                                }
+                            </div>
                         </div>
 
                         <div class="footer flex items-center gap-5 px-4">
@@ -184,6 +185,7 @@ export default defineComponent({
     display: flex;
     align-items: center;
     justify-content: center;
+    background: var(--modal-mask);
 }
 
 .main {
@@ -194,13 +196,13 @@ export default defineComponent({
 
     box-shadow: var(--search-float-shadow);
     border-radius: 12px;
-    min-height: max(50vh, 0px);
-    max-height: max(50vh, 0px);
+    min-height: max(80vh, 0px);
+    max-height: max(80vh, 0px);
     width: 755px;
     top: 88px;
     overflow: hidden;
 
-    /* background: var(--bg-float); */
+    background: var(--bg-float);
     backdrop-filter: var(--drawer-filter);
 }
 
@@ -251,12 +253,16 @@ export default defineComponent({
     cursor: pointer;
 }
 
-.searchItem:hover {
+.searchItem__title {
+    font-weight: 600;
+}
+
+.searchItem.active {
     background:  var(--fill-color);
 }
 
 .searchItem__foot {
-    color: var(--light-text-color);
+    color: var(--text-caption);
 }
 
 .searchItem__context {

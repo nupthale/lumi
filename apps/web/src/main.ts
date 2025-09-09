@@ -19,7 +19,7 @@ import '@zsfe/zsui/es/style.css';
 
 import { AppModeEnum } from './types/setting';
 
-import '@/worker/search/main';
+import '@/shared/search/main';
 
 message.config({
     maxCount: 1,

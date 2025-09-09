@@ -5,7 +5,7 @@ import { Menu, Input, Tooltip } from 'ant-design-vue';
 import { TextButton } from '@zsfe/zsui';
 import { storeToRefs } from 'pinia';
 import { useLocalStorage } from '@vueuse/core';
-import { FileText, Star, Search, Menu as MenuIcon, Settings, HardDrive, BookOpenText } from 'lucide-vue-next';
+import { FileText, Star, Menu as MenuIcon, Settings, HardDrive, BookOpenText } from 'lucide-vue-next';
 import i18next from 'i18next';
 
 import LucideIcon from '@/components/LucideIcon/index.vue';
@@ -21,6 +21,7 @@ import Space from './modules/space/index.vue';
 import Docs from './modules/docs/index.vue';
 import Tags from './modules/tags/index.vue';
 import Templates from './modules/templates/index.vue';
+import Search from './modules/search/index.vue';
 
 import Wikis from './modules/wikis/index.vue';
 
@@ -49,6 +50,10 @@ export default defineComponent({
       contextStore.setSettingModalVisible(true);
     }
 
+    const handleSearchClick = () => {
+      contextStore.setSearchModalVisible(true);
+    }
+
     provide('showFooterText', isScrollable)
 
     return () => (
@@ -59,14 +64,11 @@ export default defineComponent({
               </div>
  
               <div class={['menus', 'flex-1']} >
-                <div class="searchWrap">
-                  <Input placeholder={selectedKeys.value?.includes('2') ? i18next.t('home.favorite.searchPlaceholder') : i18next.t('home.main.searchPlaceholder')} style="width: 100%" onChange={(e) => homeStore.setSearchText(e.target.value || '')}>
-                    {{
-                      addonBefore: () => (
-                        <LucideIcon icon="Search" width={20} color="#646a73" />
-                      )
-                    }}
-                  </Input>
+                <div class="searchWrap" onClick={handleSearchClick}>
+                  <div class="searchInputBox">
+                    <LucideIcon icon="Search" width={20} color="#646a73" />
+                    <span class="ml-3 lightText">{selectedKeys.value?.includes('2') ? i18next.t('home.favorite.searchPlaceholder') : i18next.t('home.main.searchPlaceholder')}</span>
+                  </div>
                 </div>
 
                 <Space />
@@ -137,6 +139,8 @@ export default defineComponent({
             </div>
       
             <Templates />
+
+            <Search />
         </div>
     );
   }
@@ -365,5 +369,18 @@ export default defineComponent({
   height: 0;
   padding-left: 26px;
   padding-right: 24px;
+}
+
+.searchInputBox {
+  height: 32px;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  background: var(--body-bg);
+  border: 1px solid var(--float-border-color);
+  border-radius: 6px;
+
+  color: var(--palette-text-1);
+  cursor: pointer;
 }
 </style>

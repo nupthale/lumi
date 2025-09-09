@@ -7,19 +7,18 @@ import { updateFileSearchIndex$ } from './event';
 const db = new IndexedDB('lumi-searchdb');
 
 // create the document index
-export const searchIndex = new Document({
-    // worker: true,
+export let searchIndex = new Document({
     document: {
         id: "fileId",
         store: true,
         index: [{
             field: "docText",
             tokenize: "forward",
-            encoder: "LatinBalance"
+            encoder: "LatinBalance",
         },{
             field: "collectionsText",
             tokenize: "forward",
-            encoder: "LatinBalance"
+            encoder: "LatinBalance",
         }],
     }
 });
@@ -33,10 +32,10 @@ async function mountSearchIndex() {
 
     try {
         await searchIndex.mount(db);
-
+        
         isMounted = true;
     } catch(e) {
-        console.error(e);
+        console.error('Failed to mount search index:', e);
     } 
 }
 
@@ -45,7 +44,10 @@ mountSearchIndex();
 // 需要索引的是： 文档内容、collection的value、collection的标题
 updateFileSearchIndex$.pipe(
     tap(async ({ fileId, docText, collectionsText }) => {
-        if (!isMounted) return;
+        if (!isMounted) {
+            console.warn('Search index not ready, skipping indexing');
+            return;
+        }
 
         try {
             await searchIndex.add({
@@ -53,8 +55,10 @@ updateFileSearchIndex$.pipe(
                 docText,
                 collectionsText,
             });
+            
+            console.log(`Successfully indexed file ${fileId} and exported to IndexedDB`);
         } catch(e) {
-            console.error(e);
+            console.error('Failed to index file:', fileId, e);
         }
         
     })

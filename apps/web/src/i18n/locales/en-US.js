@@ -10,6 +10,8 @@ export default {
         show: 'Show',
         hide: 'Hide',
         logout: 'Logout',
+        select: 'Select',
+        open: 'Open',
     },
     home: {
         myspace: 'My Space',
@@ -24,6 +26,7 @@ export default {
             freeTag: 'Free',
         },
         space: {
+            space: 'Space',
             createSpace: 'Create Space',
             spaceName: 'Space Name',
             spaceNamePlaceholder: 'Give your space a name',

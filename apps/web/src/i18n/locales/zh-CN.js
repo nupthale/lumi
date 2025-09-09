@@ -10,6 +10,8 @@ export default {
         show: '显示',
         hide: '隐藏',
         logout: '登出',
+        select: '选择',
+        open: '打开',
     },
     home: {
         myspace: '我的空间',
@@ -24,6 +26,7 @@ export default {
             freeTag: '免费版',
         },
         space: {
+            space: '空间',
             createSpace: '创建空间',
             spaceName: '空间名称',
             spaceNamePlaceholder: '为你的空间起一个名字',

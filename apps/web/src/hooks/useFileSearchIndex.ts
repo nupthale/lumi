@@ -5,7 +5,7 @@ import { tap } from 'rxjs/operators';
 
 import { docChanged$, updateCollectionsMap$ } from '@editor/Editor/event';
 
-import { updateFileSearchIndex$ } from '../worker/search/event';
+import { updateFileSearchIndex$ } from '../shared/search/event';
 
 export const useFileSearchIndex = (fileId: Ref<string>) => {
     // Store latest values

@@ -72,6 +72,11 @@ export const selectionChange$ = new Subject<{
   to: number,
 }>();
 
+export const docInit$ = new Subject<{
+  doc: Record<string, any>,
+  text: string,
+}>();
+
 // 文档内容变化
 export const docChanged$ = new Subject<{
   doc: Record<string, any>,

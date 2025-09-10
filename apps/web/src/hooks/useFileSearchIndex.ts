@@ -3,7 +3,7 @@ import type { Ref } from 'vue';
 import { useSubscription } from '@vueuse/rxjs';
 import { tap } from 'rxjs/operators';
 
-import { docChanged$, updateCollectionsMap$ } from '@editor/Editor/event';
+import { docInit$, docChanged$, updateCollectionsMap$ } from '@editor/Editor/event';
 
 import { updateFileSearchIndex$ } from '../shared/search/event';
 
@@ -19,6 +19,16 @@ export const useFileSearchIndex = (fileId: Ref<string>) => {
             collectionsText: lastestCollectionsTextRef.value || [],
         });
     }
+
+    useSubscription(
+        docInit$.pipe(
+            tap(({ text }) => {
+                latestDocRef.value = text;
+
+                updateFileSearchIndex();
+            })
+        ).subscribe()
+    );
 
     useSubscription(
         docChanged$.pipe(
@@ -38,7 +48,7 @@ export const useFileSearchIndex = (fileId: Ref<string>) => {
                 Object.keys(collections).forEach(key => {
                     const collection = collections[key];
 
-                    const titles = collection.schema?.columns?.map(col => {
+                    collection.schema?.columns?.map(col => {
                         collectionsText.push(col.title);
                     });
                     
@@ -55,7 +65,9 @@ export const useFileSearchIndex = (fileId: Ref<string>) => {
                     });
 
                     lastestCollectionsTextRef.value = collectionsText;
-                })
+                });
+
+                updateFileSearchIndex();
             })
         ).subscribe()
     )

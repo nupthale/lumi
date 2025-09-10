@@ -1,7 +1,7 @@
 import { Plugin, PluginKey } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
-import { docChanged$ } from '../../event';
+import { docChanged$, docInit$ } from '../../event';
 
 export const docUpdatedPluginKey = new PluginKey('docUpdated');
 
@@ -17,6 +17,12 @@ export const docUpdatedPlugin = () => {
                         // Skip the first change which is initialization
                         if (!isInitialized) {
                             isInitialized = true;
+                            
+                            docInit$.next({
+                                doc: view.state.toJSON().doc,
+                                text: view.state.doc.textContent,
+                            });
+
                             return;
                         }
 

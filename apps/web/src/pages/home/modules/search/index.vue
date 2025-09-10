@@ -56,29 +56,32 @@ export default defineComponent({
                     context: {
                         depth: 3,     // Number of words before and after match
                         bidirectional: true
-                    }
+                    },
+                    merge: true,
                 });
                 
-                matchedFiles.value = result.map(item => {
-                    const matchedField = item.field;
-                    const matchedItem = item.result?.[0];
-
-                    
-                    const matchedDoc = matchedItem.doc;
-                    const fileId = matchedItem.id;
+                const matched = result.map(item => {
+                    const fileId = item.id;
+                    const matchedText = item.doc?.content || '';
 
                     const file = files.value.find(fItem => fItem._id === fileId);
-
-                    let matchedText = matchedDoc[matchedField];
-                    if (matchedField === 'collectionsText') {
-                        matchedText = matchedText.join(' ');
-                    }
                     
                     return {
                         ...file,
                         matchedText,
                     }
                 });
+
+                const wikis = files.value?.filter(file => !!file.wiki);
+                wikis.forEach(wiki => {
+                     if (wiki.title.includes(searchText.value)) {
+                        matched.push({
+                            ...wiki,
+                        })
+                     }
+                });
+
+                matchedFiles.value = matched || [];
             } catch(e) {
                 console.error(e);
             }
@@ -123,7 +126,7 @@ export default defineComponent({
                         <div class="mt-1 flex-1 overflow-y-auto" ref={scrollContainer}>
                             <div class="relative">
                                 {
-                                    matchedFiles.value?.map((file, index) => (
+                                    matchedFiles.value?.length ? matchedFiles.value?.map((file, index) => (
                                         <div class={['searchItem', 'py-2', 'px-3', 'flex', 'items-start', index === crtItemIndex.value ? 'active' : '']} data-id={file._id} key={file._id} onClick={() => handleClickItem(file)} onMouseenter={() => handleHoverItem(index)}>
                                             <div class="searchItem__icon mr-3">
                                                 {
@@ -136,7 +139,7 @@ export default defineComponent({
                                             </div>
                                             <div class="flex-1">
                                                 <div class="searchItem__title mb-1">
-                                                    {file.title || i18next.t('home.main.table.titlePlaceholder')}
+                                                    {file.title ? <span innerHTML={highlight(file.title)}></span> : i18next.t('home.main.table.titlePlaceholder')}
                                                     {
                                                         file.wiki ? (<Tag size="small" color="green" class="ml-1">{i18next.t('home.sider.wiki')}</Tag>) : ''
                                                     }
@@ -149,7 +152,11 @@ export default defineComponent({
                                                 </div>
                                             </div>
                                         </div>
-                                    ))
+                                    )) : (
+                                        <div class="lightText ml-3">
+                                            {i18next.t('home.main.searchNoResult')}
+                                        </div>
+                                    )
                                 }
                             </div>
                         </div>
@@ -231,6 +238,7 @@ export default defineComponent({
     font-size: 12px;
     height: 40px;
     flex-shrink: 0;
+    color: var(--text-caption);
 }
 
 .docIcon {
@@ -269,7 +277,7 @@ export default defineComponent({
     line-height: 1.5;
 }
 
-.searchItem__context :deep(.mark) {
+.searchItem__title :deep(.mark), .searchItem__context :deep(.mark) {
     color: var(--B500);
     padding: 1px 2px;
     font-weight: 500;

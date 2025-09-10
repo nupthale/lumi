@@ -12,11 +12,7 @@ export let searchIndex = new Document({
         id: "fileId",
         store: true,
         index: [{
-            field: "docText",
-            tokenize: "forward",
-            encoder: "LatinBalance",
-        },{
-            field: "collectionsText",
+            field: "content",
             tokenize: "forward",
             encoder: "LatinBalance",
         }],
@@ -52,8 +48,7 @@ updateFileSearchIndex$.pipe(
         try {
             await searchIndex.add({
                 fileId,
-                docText,
-                collectionsText,
+                content: docText + '\n' + collectionsText?.join(' '),
             });
             
             console.log(`Successfully indexed file ${fileId} and exported to IndexedDB`);

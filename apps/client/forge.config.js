@@ -17,12 +17,14 @@ module.exports = {
       config: {},
     },
     {
+      name: '@electron-forge/maker-dmg',
+      config: {
+        format: 'ULFO'
+      }
+    },
+    {
       name: '@electron-forge/maker-zip',
       platforms: ['darwin'],
-      config: {
-        // 确保 zip 文件名符合规范
-        name: 'Lumi',
-      }
     },
     {
       name: '@electron-forge/maker-deb',

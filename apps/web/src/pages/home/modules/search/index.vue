@@ -282,4 +282,8 @@ export default defineComponent({
     padding: 1px 2px;
     font-weight: 500;
 }
+
+.docEmoji {
+    font-size: 24px;
+}
 </style>

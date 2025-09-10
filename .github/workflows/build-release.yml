@@ -47,12 +47,12 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'  # Use Node 20 as compromise between 18 and 23
+          node-version: '23'
           
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 9.0.0
+          version: 8.12.1
           run_install: false  # Don't auto-install
           
       - name: Get pnpm store directory

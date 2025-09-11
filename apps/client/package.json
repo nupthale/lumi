@@ -2,7 +2,7 @@
   "name": "client",
   "productName": "Lumi",
   "version": "1.0.0-alpha.2",
-  "description": "",
+  "description": "Lumi - Local-first personal knowledge management system with real-time collaboration",
   "repository": {
     "type": "git",
     "url": "https://github.com/nupthale/lumi.git"
@@ -20,7 +20,7 @@
     "publish": "electron-forge publish"
   },
   "keywords": [],
-  "author": "",
+  "author": "Lumi Team",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^17.2.2",

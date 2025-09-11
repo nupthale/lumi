@@ -30,13 +30,31 @@ module.exports = {
       name: '@electron-forge/maker-deb',
       config: {
         options: {
-          icon: 'public/icon.png'
+          name: 'lumi',
+          productName: 'Lumi',
+          description: 'Lumi - Local-first personal knowledge management system with real-time collaboration',
+          version: '1.0.0-alpha.2',
+          maintainer: 'Lumi Team',
+          homepage: 'https://github.com/nupthale/lumi',
+          icon: 'public/icon.png',
+          categories: ['Office', 'Productivity']
         }
       },
     },
     {
       name: '@electron-forge/maker-rpm',
-      config: {},
+      config: {
+        options: {
+          name: 'lumi',
+          productName: 'Lumi',
+          description: 'Lumi - Local-first personal knowledge management system with real-time collaboration',
+          version: '1.0.0-alpha.2',
+          vendor: 'Lumi Team',
+          homepage: 'https://github.com/nupthale/lumi',
+          icon: 'public/icon.png',
+          categories: ['Office', 'Productivity']
+        }
+      },
     },
   ],
   plugins: [

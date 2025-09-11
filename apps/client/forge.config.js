@@ -29,7 +29,15 @@ module.exports = {
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
-      config: {},
+      config: {
+        name: 'Lumi',
+        authors: 'Lumi Team',
+        exe: 'Lumi.exe',
+        description: 'Lumi - Local-first personal knowledge management system with real-time collaboration',
+        setupIcon: 'public/icon.ico',
+        iconUrl: 'https://github.com/nupthale/lumi/raw/main/apps/client/public/icon.ico',
+        setupExe: 'LumiSetup.exe'
+      },
     },
     {
       name: '@electron-forge/maker-dmg',

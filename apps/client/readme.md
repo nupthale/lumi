@@ -32,6 +32,31 @@ https://blog.csdn.net/weixin_42987525/article/details/137994881
 
 # 用npm， 不要用pnpm， 一堆问题。
 
+# Windows Installer Configuration
+
+## Icon Requirements
+For Windows installer, you need proper .ico files:
+1. Visit https://convertio.co/png-ico/ or https://icoconvert.com/
+2. Upload your icon.png file
+3. Generate multi-size ICO (16x16, 32x32, 48x48, 64x64, 128x128, 256x256)
+4. Download and replace public/icon.ico
+
+## Installer Customization
+The Windows installer (Squirrel) is now configured with:
+- Custom application name: "Lumi"
+- Proper icon: public/icon.ico
+- Professional description
+- Custom setup filename: "LumiSetup.exe"
+- Author information
+
+## For Professional Installer (Optional)
+To create even more professional installer with custom UI:
+1. Install WiX Toolset: https://wixtoolset.org/
+2. Add @electron-forge/maker-wix dependency
+3. Create custom installer images:
+   - installer-background.bmp (493x312 pixels)
+   - installer-banner.bmp (493x58 pixels)
+
 ## macOS 应用无法打开问题
 
 如果下载的 macOS 应用提示 "Lumi 已损坏，无法打开"，这是因为应用未经 Apple 签名导致的 Gatekeeper 安全检查。

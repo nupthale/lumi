@@ -39,8 +39,7 @@ module.exports = {
           maintainer: 'Lumi Team',
           homepage: 'https://github.com/nupthale/lumi',
           icon: 'public/icon.png',
-          categories: ['Office', 'Productivity'],
-          bin: 'Lumi'
+          categories: ['Office', 'Productivity']
         }
       },
     },
@@ -55,8 +54,7 @@ module.exports = {
           vendor: 'Lumi Team',
           homepage: 'https://github.com/nupthale/lumi',
           icon: 'public/icon.png',
-          categories: ['Office', 'Productivity'],
-          bin: 'Lumi'
+          categories: ['Office', 'Productivity']
         }
       },
     },

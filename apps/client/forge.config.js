@@ -11,7 +11,19 @@ module.exports = {
     name: 'Lumi',
     executableName: 'Lumi',
     // 为 Linux 平台强制设置可执行文件名
-    appBundleId: 'com.lumi.app'
+    appBundleId: 'com.lumi.app',
+    osxSign: {
+      identity: process.env.APPLE_ID ? 'Developer ID Application' : undefined,
+      'hardened-runtime': true,
+      'gatekeeper-assess': false,
+      entitlements: 'entitlements.plist',
+      'entitlements-inherit': 'entitlements.plist'
+    },
+    osxNotarize: process.env.APPLE_ID ? {
+      appleId: process.env.APPLE_ID,
+      appleIdPassword: process.env.APPLE_PASSWORD,
+      teamId: process.env.APPLE_TEAM_ID
+    } : undefined
   },
   rebuildConfig: {},
   makers: [

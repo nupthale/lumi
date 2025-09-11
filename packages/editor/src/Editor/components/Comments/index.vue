@@ -136,7 +136,7 @@ export default defineComponent({
 .doc-comments_title {
     padding: 8px 0;
     position: sticky;
-    top: var(--doc-header-height);
+    top: var(64px + 14px);
     border-bottom: 1px solid var(--float-border-color);
     font-weight: 500;
     font-size: 14px;

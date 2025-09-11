@@ -1,13 +1,12 @@
 <script lang="tsx">
 import { defineComponent, ref } from 'vue';
-import { TextButton } from '@zsfe/zsui';
+import { TextButton, UserAvatar } from '@zsfe/zsui';
 import { ChevronsRight, ThumbsUp } from 'lucide-vue-next';
 import confetti from 'canvas-confetti';
 import { Tooltip } from 'ant-design-vue';
 import { useSubscription } from '@vueuse/rxjs';
 import { filter, tap } from 'rxjs/operators';
 import { isEqual } from 'lodash-es';
-import { Vue3Marquee } from 'vue3-marquee'
 
 import { commentStore  } from '../../store/comment';
 import UserGroup from '../UserGroup/index.vue';
@@ -111,9 +110,9 @@ export default defineComponent({
                             <div class="flex items-center gap-2">
                                 {
                                     isLiked.value ? (
-                                        <ThumbsUp size={18} color="#ffc60a" fill="#ffc60a" />
+                                        <ThumbsUp size={20} color="#ffc60a" fill="#ffc60a" />
                                     ) : (
-                                        <ThumbsUp size={18} color="#336fff" />
+                                        <ThumbsUp size={20} color="#336fff" />
                                     )
                                 }
                                 
@@ -134,21 +133,9 @@ export default defineComponent({
                 </div>
                 {
                     likesCount.value ? (
-                        <div class="px-3 mb-3 lightText">
-                            <Vue3Marquee duration={6 * (likeUsers.value?.length || 0)}>
-                                {
-                                    likeUsers.value?.map(user => (
-                                        <div style="color: #8f959e;" class="mr-2" key={user.id}>
-                                            {i18next.t('editor.thumbsUp', {
-                                                user: likeUsers.value?.[likeUsers.value?.length - 1].name
-                                            })}
-                                        </div>
-                                    ))
-                                }
-                            </Vue3Marquee>
-                            
+                        <div class="px-3 mt-3 mb-3 lightText">
                             <div class="doc-likeUsers">
-                                <UserGroup size="small" users={likeUsers.value} maxCount={8} />
+                                <UserGroup users={likeUsers.value} maxCount={8} />
                             </div>
                         </div>
                     ) : ''

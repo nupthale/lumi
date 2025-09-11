@@ -1,4 +1,5 @@
 const { FusesPlugin } = require('@electron-forge/plugin-fuses');
+const { FusesPlugin } = require('@electron-forge/plugin-fuses');
 const { FuseV1Options, FuseVersion } = require('@electron/fuses');
 
 require('dotenv').config();
@@ -9,6 +10,7 @@ module.exports = {
     icon: 'public/icon',
     // 确保生成的文件名符合 update.electronjs.org 规范
     name: 'Lumi',
+    executableName: 'Lumi'
   },
   rebuildConfig: {},
   makers: [
@@ -37,7 +39,8 @@ module.exports = {
           maintainer: 'Lumi Team',
           homepage: 'https://github.com/nupthale/lumi',
           icon: 'public/icon.png',
-          categories: ['Office', 'Productivity']
+          categories: ['Office', 'Productivity'],
+          bin: 'Lumi'
         }
       },
     },
@@ -52,7 +55,8 @@ module.exports = {
           vendor: 'Lumi Team',
           homepage: 'https://github.com/nupthale/lumi',
           icon: 'public/icon.png',
-          categories: ['Office', 'Productivity']
+          categories: ['Office', 'Productivity'],
+          bin: 'Lumi'
         }
       },
     },

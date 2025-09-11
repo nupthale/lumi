@@ -20,15 +20,5 @@ iconutil -c icns icon.iconset
 
 # Windows
 
-## 安装依赖
-mac: brew install imagemagick
-ubuntu: sudo apt-get instlall imagemagick
-
-# 转换icon
-
 ## 生成ico (解决尺寸限制问题)
-# 方法1: 使用ImageMagick
-magick icon.png -resize 256x256 -define icon:auto-resize=256,128,64,48,32,16 icon.ico
-
-## 生成icns
-magick icon.png -define icon:auto-resize=256,128,64,48,32,16 icon.icns
+npx png2icons public/icon.png public/icon -icowe -i

@@ -71,7 +71,7 @@ jobs:
       - name: Install dependencies
         run: |
           # Update pnpm and regenerate lockfile if needed
-          pnpm install --no-frozen-lockfile
+          npm install
         env:
           # Ignore engine warnings for Node.js version
           ENGINE_STRICT: true

@@ -31,3 +31,24 @@ https://blog.csdn.net/weixin_42987525/article/details/137994881
 # icon配置： https://cloud.tencent.com/developer/article/1650700
 
 # 用npm， 不要用pnpm， 一堆问题。
+
+## macOS 应用无法打开问题
+
+如果下载的 macOS 应用提示 "Lumi 已损坏，无法打开"，这是因为应用未经 Apple 签名导致的 Gatekeeper 安全检查。
+
+### 解决方法：
+
+1. **命令行方式（推荐）**：
+   ```bash
+   sudo xattr -rd com.apple.quarantine /path/to/Lumi.app
+   ```
+
+2. **右键点击方式**：
+   - 右键点击 Lumi.app
+   - 选择 "打开"
+   - 在弹出的安全提示中点击 "打开"
+
+3. **系统设置方式**：
+   - 打开 "系统偏好设置" > "安全性与隐私" > "通用"
+   - 在 "允许从以下位置下载的应用" 中选择 "任何来源"
+   - 或者在看到安全提示后，点击 "仍要打开"

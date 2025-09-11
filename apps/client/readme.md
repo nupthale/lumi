@@ -34,20 +34,32 @@ https://blog.csdn.net/weixin_42987525/article/details/137994881
 
 # Windows Installer Configuration
 
-## Icon Requirements
-For Windows installer, you need proper .ico files:
-1. Visit https://convertio.co/png-ico/ or https://icoconvert.com/
-2. Upload your icon.png file
-3. Generate multi-size ICO (16x16, 32x32, 48x48, 64x64, 128x128, 256x256)
-4. Download and replace public/icon.ico
+## Current Status
+The Windows installer is now fully configured with:
+- ✅ **Custom application name**: "Lumi"
+- ✅ **Professional description**
+- ✅ **Custom setup filename**: "LumiSetup.exe"
+- ✅ **Author information**: "Lumi Team"
+- ✅ **Custom icon**: Using proper ICO format with multiple sizes
 
-## Installer Customization
-The Windows installer (Squirrel) is now configured with:
-- Custom application name: "Lumi"
-- Proper icon: public/icon.ico
-- Professional description
-- Custom setup filename: "LumiSetup.exe"
-- Author information
+## Icon Details
+The `public/icon.ico` file contains:
+- 9 different icon sizes (16x16 to 256x256)
+- Mixed format: PNG for larger sizes, BMP for smaller sizes
+- Optimized for Windows executables (`-icowe` format)
+
+## If You Need to Recreate the Icon
+**Method 1: Using png2icons (automated)**
+```bash
+npm install --save-dev png2icons
+npx png2icons public/icon.png public/icon -icowe -i
+```
+
+**Method 2: Online converter**
+1. Visit https://convertio.co/png-ico/
+2. Upload your `public/icon.png`
+3. Select "Multi-size ICO" with sizes: 16, 32, 48, 64, 128, 256
+4. Download and replace `public/icon.ico`
 
 ## For Professional Installer (Optional)
 To create even more professional installer with custom UI:

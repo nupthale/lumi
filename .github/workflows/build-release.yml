@@ -47,12 +47,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '23'
+          node-version: '20'
+          
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
           
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8.12.1
+          version: 9.0.0
           run_install: false  # Don't auto-install
           
       - name: Get pnpm store directory
@@ -78,6 +83,8 @@ jobs:
         env:
           # Ignore engine warnings for Node.js version
           ENGINE_STRICT: false
+          # Ensure proper Python setup for node-gyp
+          PYTHON: python3
         
       - name: Build web app
         run: |

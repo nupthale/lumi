@@ -23,6 +23,21 @@ module.exports = {
       appleId: process.env.APPLE_ID,
       appleIdPassword: process.env.APPLE_PASSWORD,
       teamId: process.env.APPLE_TEAM_ID
+    } : undefined,
+    // Windows 代码签名配置
+    win32metadata: {
+      CompanyName: 'Lumi Team',
+      FileDescription: 'Lumi - Local-first personal knowledge management system',
+      OriginalFilename: 'Lumi.exe',
+      ProductName: 'Lumi',
+      InternalName: 'Lumi'
+    },
+    // Windows 签名配置 (需要证书时启用)
+    windowsSign: process.env.WINDOWS_CERT_PASSWORD ? {
+      certificateFile: process.env.WINDOWS_CERT_FILE || 'certificates/windows-cert.p12',
+      certificatePassword: process.env.WINDOWS_CERT_PASSWORD,
+      signingHashAlgorithm: 'sha256',
+      timestampServer: 'http://timestamp.sectigo.com'
     } : undefined
   },
   rebuildConfig: {},

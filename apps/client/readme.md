@@ -32,43 +32,6 @@ https://blog.csdn.net/weixin_42987525/article/details/137994881
 
 # 用npm， 不要用pnpm， 一堆问题。
 
-# Windows Installer Configuration
-
-## Current Status
-The Windows installer is now fully configured with:
-- ✅ **Custom application name**: "Lumi"
-- ✅ **Professional description**
-- ✅ **Custom setup filename**: "LumiSetup.exe"
-- ✅ **Author information**: "Lumi Team"
-- ✅ **Custom icon**: Using proper ICO format with multiple sizes
-
-## Icon Details
-The `public/icon.ico` file contains:
-- 9 different icon sizes (16x16 to 256x256)
-- Mixed format: PNG for larger sizes, BMP for smaller sizes
-- Optimized for Windows executables (`-icowe` format)
-
-## If You Need to Recreate the Icon
-**Method 1: Using png2icons (automated)**
-```bash
-npm install --save-dev png2icons
-npx png2icons public/icon.png public/icon -icowe -i
-```
-
-**Method 2: Online converter**
-1. Visit https://convertio.co/png-ico/
-2. Upload your `public/icon.png`
-3. Select "Multi-size ICO" with sizes: 16, 32, 48, 64, 128, 256
-4. Download and replace `public/icon.ico`
-
-## For Professional Installer (Optional)
-To create even more professional installer with custom UI:
-1. Install WiX Toolset: https://wixtoolset.org/
-2. Add @electron-forge/maker-wix dependency
-3. Create custom installer images:
-   - installer-background.bmp (493x312 pixels)
-   - installer-banner.bmp (493x58 pixels)
-
 ## macOS 应用无法打开问题
 
 如果下载的 macOS 应用提示 "Lumi 已损坏，无法打开"，这是因为应用未经 Apple 签名导致的 Gatekeeper 安全检查。

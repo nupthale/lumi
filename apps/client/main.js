@@ -18,8 +18,12 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     width,
     height,
-    // mac下需要隐藏， windows不能隐藏
-    ...(process.platform === 'darwin' ? { titleBarStyle: 'hidden' } : {}),
+    // mac下需要隐藏
+        ...(process.platform === 'darwin' ? { titleBarStyle: 'hidden' } : {}),
+    ...{
+      ...(process.platform === 'win32' ? { frame: false } : {}),
+      ...(process.platform === 'darwin' ? { titleBarStyle: 'hidden' } : {})
+    },
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -173,5 +177,24 @@ ipcMain.on('reload-window', () => {
   if (mainWindow) {
     mainWindow.reload();
   }
+});
+
+// 窗口控制按钮
+ipcMain.on('window-minimize', () => {
+  if (mainWindow) mainWindow.minimize();
+});
+
+ipcMain.on('window-maximize', () => {
+  if (mainWindow) {
+    if (mainWindow.isMaximized()) {
+      mainWindow.unmaximize();
+    } else {
+      mainWindow.maximize();
+    }
+  }
+});
+
+ipcMain.on('window-close', () => {
+  if (mainWindow) mainWindow.close();
 });
 

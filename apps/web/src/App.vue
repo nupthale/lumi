@@ -9,6 +9,7 @@ import { useLocalStorage, usePreferredColorScheme } from '@vueuse/core';
 import i18next from 'i18next';
 
 import AppNotice from '@/modules/appNotice/index.vue'
+import WindowControls from '@/components/WindowControls.vue'
 import { AppearanceEnum } from '@/modules/setting/interface';
 import { switchTheme } from '@/shared/theme';
 import { useBootstrap } from '@/hooks/useBootstrap';
@@ -49,6 +50,7 @@ const handleFeedbackClick = () => {
 <template>
   <ConfigProvider :theme="themeConfig">
       <div class="app-titleBar"></div>
+      <WindowControls />
       <AppNotice />
       
       <RouterView v-if="ready" />

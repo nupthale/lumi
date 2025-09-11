@@ -2,6 +2,9 @@ interface ClientAPI {
   selectDirectory(): Promise<string | null>;
   saveSetting(data: { key: string; value: any }): Promise<void>;
   getSetting(key: string): Promise<any>;
+  windowMinimize(): void;
+  windowMaximize(): void;
+  windowClose(): void;
 }
 
 interface ElectronAPI {

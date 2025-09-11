@@ -17,7 +17,7 @@ export default defineComponent({
             homeStore.setCreateDocDrawerVisible(false);
         };
 
-        return () => (
+        return () => createDocDrawerVisible.value ? (
             <div>
                 <div class={['templates', createDocDrawerVisible.value ? 'visible' : '']} onClick={handleMaskClick}>
                     <div class="templates_content">
@@ -42,7 +42,7 @@ export default defineComponent({
                 </div>
             </div>
 
-        );
+        ) : ''
     }
 });
 </script>

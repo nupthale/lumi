@@ -40,5 +40,10 @@ contextBridge.exposeInMainWorld('clientAPI', {
   
   getUpdateStatus: () => {
     return ipcRenderer.invoke('get-update-status');
-  }
+  },
+
+  // 窗口控制
+  windowMinimize: () => ipcRenderer.send('window-minimize'),
+  windowMaximize: () => ipcRenderer.send('window-maximize'),
+  windowClose: () => ipcRenderer.send('window-close')
 });

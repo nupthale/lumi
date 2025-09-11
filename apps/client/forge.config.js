@@ -9,7 +9,9 @@ module.exports = {
     icon: 'public/icon',
     // 确保生成的文件名符合 update.electronjs.org 规范
     name: 'Lumi',
-    executableName: 'Lumi'
+    executableName: 'Lumi',
+    // 为 Linux 平台强制设置可执行文件名
+    appBundleId: 'com.lumi.app'
   },
   rebuildConfig: {},
   makers: [
@@ -34,11 +36,10 @@ module.exports = {
           name: 'lumi',
           productName: 'Lumi',
           description: 'Lumi - Local-first personal knowledge management system with real-time collaboration',
-          version: '1.0.0-alpha.2',
           maintainer: 'Lumi Team',
           homepage: 'https://github.com/nupthale/lumi',
           icon: 'public/icon.png',
-          categories: ['Office', 'Productivity']
+          categories: ['Office']
         }
       },
     },
@@ -49,11 +50,10 @@ module.exports = {
           name: 'lumi',
           productName: 'Lumi',
           description: 'Lumi - Local-first personal knowledge management system with real-time collaboration',
-          version: '1.0.0-alpha.2',
           vendor: 'Lumi Team',
           homepage: 'https://github.com/nupthale/lumi',
           icon: 'public/icon.png',
-          categories: ['Office', 'Productivity']
+          categories: ['Office']
         }
       },
     },

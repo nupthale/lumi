@@ -45,5 +45,4 @@ apps/server-pouchdb/dbs/
 apps/server-yjs/dbDir/
 packages/editor/server/db/
 apps/server-pouchdb/pouchdb-logs.txt
-shared/token.js
 .vscode/settings.json

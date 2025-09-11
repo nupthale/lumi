@@ -80,6 +80,9 @@ jobs:
         run: |
           cd apps/web
           pnpm run build
+        env:
+          VITE_CLOUDINARY_UPLOAD_PRESET: ${{ secrets.CLOUDINARY_UPLOAD_PRESET }}
+          VITE_CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
 
       - name: Copy web build to client
         shell: bash
@@ -94,6 +97,8 @@ jobs:
           npm run make -- --arch=${{ matrix.arch }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VITE_CLOUDINARY_UPLOAD_PRESET: ${{ secrets.CLOUDINARY_UPLOAD_PRESET }}
+          VITE_CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4

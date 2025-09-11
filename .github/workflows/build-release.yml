@@ -75,11 +75,14 @@ jobs:
 
       - name: Install dependencies
         run: |
+          # Clear any existing node_modules that might cause conflicts
+          rm -rf node_modules
           # Install root and workspace dependencies with pnpm
-          pnpm install --no-frozen-lockfile
+          pnpm install --frozen-lockfile
           # Install Electron client dependencies with npm separately
           cd apps/client
-          npm install
+          rm -rf node_modules
+          npm ci
         env:
           # Ignore engine warnings for Node.js version
           ENGINE_STRICT: false

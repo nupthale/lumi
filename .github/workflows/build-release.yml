@@ -70,11 +70,14 @@ jobs:
 
       - name: Install dependencies
         run: |
-          # Update pnpm and regenerate lockfile if needed
+          # Install root and workspace dependencies with pnpm
+          pnpm install
+          # Install Electron client dependencies with npm separately
+          cd apps/client
           npm install
         env:
           # Ignore engine warnings for Node.js version
-          ENGINE_STRICT: true
+          ENGINE_STRICT: false
         
       - name: Build web app
         run: |

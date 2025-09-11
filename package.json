@@ -10,8 +10,10 @@
     "compose-down": "docker-compose -f docker-compose.dev.yml down",
     "compose-build": "docker-compose -f docker-compose.dev.yml up --build",
     "compose-backend": "docker-compose -f docker-compose.dev.yml up -d server mongodb",
-    "build:electron": "pnpm --filter web build && pnpm --filter client build",
-    "dev:electron": "concurrently \"pnpm --filter web dev\" \"pnpm --filter client dev\""
+    "build:electron": "pnpm --filter web build && cd apps/client && npm run copy-web && npm run make",
+    "dev:electron": "node scripts/dev-electron.js",
+    "install:client": "cd apps/client && npm install",
+    "postinstall": "npm run install:client"
   },
   "devDependencies": {
     "concurrently": "^8.2.0",

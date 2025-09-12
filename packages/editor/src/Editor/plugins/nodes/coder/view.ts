@@ -125,6 +125,10 @@ export class CoderView extends BaseBlockView {
     if (e.type === 'keydown' && e.code === 'Backspace') {
       return false;
     }
+
+    if (e.type.includes('drag')) {
+      return false;
+    }
    
     return true;
   }

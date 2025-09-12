@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, watchEffect } from 'vue';
+import { computed, watchEffect, ref, onMounted } from 'vue';
 import { ConfigProvider, theme, Tooltip } from 'ant-design-vue';
 import { RouterView } from 'vue-router';
 import { useThemeStore } from '@/store/ui-states/theme';
@@ -9,13 +9,53 @@ import { useLocalStorage, usePreferredColorScheme } from '@vueuse/core';
 import i18next from 'i18next';
 
 import AppNotice from '@/modules/appNotice/index.vue'
-import WindowControls from '@/components/WindowControls.vue'
 import { AppearanceEnum } from '@/modules/setting/interface';
 import { switchTheme } from '@/shared/theme';
 import { useBootstrap } from '@/hooks/useBootstrap';
 import { useOffline } from '@/hooks/useOffline';
 
 import SettingModal from '@/modules/setting/index.vue';
+
+// 只在Windows平台导入WindowControls
+const WindowControls = ref(null);
+const isWindows = ref(false);
+
+// 检测平台的函数
+const detectPlatform = async () => {
+  // 方法1: 检查clientAPI中的平台信息
+  if ((window as any).clientAPI?.getPlatform) {
+    try {
+      return await (window as any).clientAPI.getPlatform();
+    } catch (error) {
+      console.warn('Failed to get platform from clientAPI:', error);
+    }
+  }
+  
+  // 方法2: 通过User Agent检测（fallback）
+  const userAgent = navigator.userAgent.toLowerCase();
+  if (userAgent.includes('windows')) return 'win32';
+  if (userAgent.includes('mac')) return 'darwin';
+  if (userAgent.includes('linux')) return 'linux';
+  
+  return 'browser'; // 默认浏览器环境
+};
+
+// 组件挂载时检测平台并动态导入
+onMounted(async () => {
+  const platform = await detectPlatform();
+  console.log('Detected platform:', platform);
+  
+  if (platform === 'win32') {
+    isWindows.value = true;
+    
+    import('@/components/WindowControls.vue').then((module) => {
+      WindowControls.value = module.default;
+      console.log('WindowControls loaded for Windows');
+    }).catch((error) => {
+      console.error('Failed to load WindowControls:', error);
+    });
+  }
+});
 
 const themeStore = useThemeStore();
 const { isDark } = storeToRefs(themeStore);
@@ -50,7 +90,7 @@ const handleFeedbackClick = () => {
 <template>
   <ConfigProvider :theme="themeConfig">
       <div class="app-titleBar"></div>
-      <WindowControls />
+      <component :is="WindowControls" v-if="isWindows && WindowControls" />
       <AppNotice />
       
       <RouterView v-if="ready" />

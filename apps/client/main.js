@@ -179,6 +179,11 @@ ipcMain.on('reload-window', () => {
   }
 });
 
+// 获取平台信息
+ipcMain.handle('get-platform', () => {
+  return process.platform;
+});
+
 // 窗口控制按钮
 ipcMain.on('window-minimize', () => {
   if (mainWindow) mainWindow.minimize();

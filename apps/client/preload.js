@@ -13,6 +13,9 @@ contextBridge.exposeInMainWorld('clientAPI', {
     ipcRenderer.once(channel, (event, ...args) => func(...args));
   },
 
+  // 平台信息 - 通过 IPC 从主进程获取
+  getPlatform: () => ipcRenderer.invoke('get-platform'),
+  
   // 选择目录
   selectDirectory: () => ipcRenderer.invoke('selectDirectory'),
   

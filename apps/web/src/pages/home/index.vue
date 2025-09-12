@@ -9,6 +9,7 @@ import { FileText, Star, Menu as MenuIcon, Settings, HardDrive, BookOpenText } f
 import i18next from 'i18next';
 
 import LucideIcon from '@/components/LucideIcon/index.vue';
+import { useOs } from '@/hooks/useOs';
 
 import { useMainScrollable } from './hooks/useMainScrollable';
 import { useContextStore } from '@/store/ui-states/context';
@@ -31,6 +32,8 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const { isScrollable, scrollEl, scrollContentEl } = useMainScrollable();
+
+    const { isWindows } = useOs();
 
     const siderCollapsed = useLocalStorage('siderCollapsed', false);
 
@@ -59,7 +62,7 @@ export default defineComponent({
     return () => (
         <div class={['home', siderCollapsed.value ? 'siderCollapse' : '']}>
             <div class={['sider', siderCollapsed.value ? 'collapse' : '']}>
-              <div class="sider-head flex items-center">
+              <div class={['sider-head', 'flex', 'items-center', isWindows.value ? 'win' : '']}>
                 <div class="logo"></div>
               </div>
  
@@ -115,7 +118,7 @@ export default defineComponent({
               </div>
             
             <Tooltip placement='right' title={siderCollapsed.value ? i18next.t('home.sider.expand') : i18next.t('home.sider.collapse')}>
-                <TextButton size="small" class={['foldButton', globalThis.isElectron ? 'electron' : '']} onClick={() => siderCollapsed.value = !siderCollapsed.value}>
+                <TextButton size="small" class={['foldButton', globalThis.isElectron ? 'electron' : '', globalThis.isWindows ? 'win' : '']} onClick={() => siderCollapsed.value = !siderCollapsed.value}>
                   <MenuIcon width="24px" color="#a6a6a6" />
                 </TextButton>
             </Tooltip>
@@ -201,6 +204,10 @@ export default defineComponent({
   top: 60px; 
 }
 
+.foldButton.electron.win {
+  top: 48px;
+}
+
 .main {
   flex: 1;
   min-height: 100%;
@@ -222,6 +229,10 @@ export default defineComponent({
 
 .sider-head {
   padding: 36px 20px 0;
+}
+
+.sider-head.win {
+  padding-top: 24px;
 }
 
 .menuTitle {

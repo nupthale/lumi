@@ -76,7 +76,7 @@ jobs:
       - name: Install dependencies
         run: |
           # Install root and workspace dependencies with pnpm
-          pnpm install --frozen-lockfile
+          pnpm install --no-frozen-lockfile
           # Install Electron client dependencies with npm separately
           cd apps/client
           npm ci

@@ -97,8 +97,19 @@ jobs:
       - name: Copy web build to client
         shell: bash
         run: |
+          # Debug: Check directory structure
+          echo "Current directory: $(pwd)"
+          echo "Web dist contents:"
+          ls -la apps/web/dist/ || echo "Web dist directory not found"
+          echo "Client directory before copy:"
+          ls -la apps/client/ || echo "Client directory not found"
+          
           cd apps/client
           npm run copy-web
+          
+          # Debug: Verify copy was successful
+          echo "Client web directory after copy:"
+          ls -la web/ || echo "Web directory not created"
 
       - name: Build Electron app
         shell: bash

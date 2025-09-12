@@ -10,7 +10,7 @@
   "main": "main.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development electron .",
-    "copy-web": "rm -rf web && mkdir -p web && cp -r ../web/dist/ web/",
+    "copy-web": "rm -rf web && mkdir -p web && cp -r ../web/dist/* web/",
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",

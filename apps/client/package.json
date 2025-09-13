@@ -74,7 +74,6 @@
       "services/**/*",
       "web/**/*",
       "public/icon.*",
-      "node_modules/**/*",
       "pakcage.json",
       "splash.html"
     ],

@@ -10,7 +10,7 @@
   "main": "main.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development electron .",
-    "copy-web": "rm -rf web && mkdir -p web && cp -r ../web/dist/* web/",
+    "copy-web": "shx rm -rf web && shx mkdir -p web && shx cp -r ../web/dist/* web/",
     "start": "electron .",
     "build": "electron-builder",
     "build:win": "electron-builder --win",
@@ -46,7 +46,9 @@
     "electron": "36.3.2",
     "electron-builder": "^24.13.3",
     "png2icons": "^2.0.1",
-    "sharp": "^0.34.3"
+    "rimraf": "^5.0.5",
+    "sharp": "^0.34.3",
+    "shx": "^0.3.4"
   },
   "build": {
     "appId": "com.lumi.app",

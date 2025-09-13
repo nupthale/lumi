@@ -24,7 +24,11 @@
     "publish": "npm run copy-web && electron-builder --publish=always"
   },
   "keywords": [],
-  "author": "Lumi Team",
+  "author": {
+    "name": "Lumi Team",
+    "email": "team@lumi.app",
+    "url": "https://github.com/nupthale/lumi"
+  },
   "license": "ISC",
   "dependencies": {
     "dotenv": "^17.2.2",
@@ -167,6 +171,8 @@
       ],
       "icon": "public/icon.png",
       "category": "Office",
+      "maintainer": "Lumi Team <team@lumi.app>",
+      "vendor": "Lumi Team",
       "description": "Local-first personal knowledge management system with real-time collaboration",
       "desktop": {
         "Name": "Lumi",

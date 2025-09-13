@@ -59,7 +59,6 @@
     "productName": "Lumi",
     "copyright": "Copyright © 2024 Lumi Team",
     "electronVersion": "36.3.2",
-    "electronDist": "node_modules/electron/dist",
     "electronDownload": {
       "mirror": "https://npmmirror.com/mirrors/electron/"
     },

@@ -17,28 +17,20 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # macOS builds (both Intel and Apple Silicon)
-          - platform: 'macos-x64'
+          # macOS builds
+          - platform: 'mac'
             os: 'macos-latest'
-            arch: 'x64'
-            artifact_name: 'macos-x64'
-            
-          - platform: 'macos-arm64'
-            os: 'macos-latest'
-            arch: 'arm64'
-            artifact_name: 'macos-arm64'
+            artifact_name: 'macos'
             
           # Windows builds
-          - platform: 'windows-x64'
+          - platform: 'win'
             os: 'windows-latest'
-            arch: 'x64'
-            artifact_name: 'windows-x64'
+            artifact_name: 'windows'
             
-          # Linux builds (optional)
-          - platform: 'linux-x64'
+          # Linux builds
+          - platform: 'linux'
             os: 'ubuntu-latest'
-            arch: 'x64'
-            artifact_name: 'linux-x64'
+            artifact_name: 'linux'
 
     steps:
       - name: Checkout repository
@@ -115,7 +107,7 @@ jobs:
         shell: bash
         run: |
           cd apps/client
-          npm run make -- --arch=${{ matrix.arch }}
+          npm run dist -- --${{ matrix.platform }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VITE_CLOUDINARY_UPLOAD_PRESET: ${{ secrets.CLOUDINARY_UPLOAD_PRESET }}
@@ -126,7 +118,7 @@ jobs:
         with:
           name: lumi-${{ matrix.artifact_name }}
           path: |
-            apps/client/out/make/**/*
+            apps/client/dist/**/*
           retention-days: 30
 
   release:

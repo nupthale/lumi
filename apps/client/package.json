@@ -11,13 +11,17 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development electron .",
     "copy-web": "rm -rf web && mkdir -p web && cp -r ../web/dist/* web/",
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "make:mac": "npm run make:x64 && npm run make:arm64",
-    "make:x64": "electron-forge make --arch=x64",
-    "make:arm64": "electron-forge make --arch=arm64",
-    "publish": "electron-forge publish"
+    "start": "electron .",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux",
+    "build:all": "electron-builder --mac --win --linux",
+    "dist": "npm run copy-web && electron-builder",
+    "dist:win": "npm run copy-web && electron-builder --win",
+    "dist:mac": "npm run copy-web && electron-builder --mac",
+    "dist:linux": "npm run copy-web && electron-builder --linux",
+    "publish": "npm run copy-web && electron-builder --publish=always"
   },
   "keywords": [],
   "author": "Lumi Team",
@@ -38,19 +42,138 @@
     "which": "^5.0.0"
   },
   "devDependencies": {
-    "@electron-forge/cli": "^7.8.3",
-    "@electron-forge/maker-deb": "^7.8.3",
-    "@electron-forge/maker-dmg": "^7.9.0",
-    "@electron-forge/maker-rpm": "^7.8.3",
-    "@electron-forge/maker-squirrel": "^7.8.3",
-    "@electron-forge/maker-zip": "^7.8.3",
-    "@electron-forge/plugin-auto-unpack-natives": "^7.8.3",
-    "@electron-forge/plugin-fuses": "^7.8.3",
-    "@electron-forge/publisher-github": "^7.8.3",
-    "@electron/fuses": "^1.8.0",
     "cross-env": "^7.0.3",
     "electron": "36.3.2",
+    "electron-builder": "^24.13.3",
     "png2icons": "^2.0.1",
     "sharp": "^0.34.3"
+  },
+  "build": {
+    "appId": "com.lumi.app",
+    "productName": "Lumi",
+    "copyright": "Copyright © 2024 Lumi Team",
+    "electronVersion": "36.3.2",
+    "electronDist": "node_modules/electron/dist",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "store.js",
+      "update.js",
+      "services/**/*",
+      "web/**/*",
+      "public/icon.*",
+      "node_modules/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "public/",
+        "to": "public/",
+        "filter": ["**/*"]
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "icon": "public/icon.png",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["x64", "arm64"]
+        },
+        {
+          "target": "zip",
+          "arch": ["x64", "arm64"]
+        }
+      ],
+      "darkModeSupport": true,
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist"
+    },
+    "dmg": {
+      "title": "Lumi ${version}",
+      "icon": "public/icon.png",
+      "background": "build/dmg-background.png",
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "public/icon.ico",
+      "publisherName": "Lumi Team",
+      "verifyUpdateCodeSignature": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Lumi",
+      "include": "build/installer.nsh",
+      "artifactName": "Lumi-Setup-${version}.${ext}",
+      "installerIcon": "public/icon.ico",
+      "uninstallerIcon": "public/icon.ico",
+      "installerHeaderIcon": "public/icon.ico",
+      "license": "build/license.txt",
+      "warningsAsErrors": false
+    },
+    "portable": {
+      "artifactName": "Lumi-Portable-${version}.${ext}"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": ["x64"]
+        },
+        {
+          "target": "deb",
+          "arch": ["x64"]
+        },
+        {
+          "target": "rpm",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "public/icon.png",
+      "category": "Office",
+      "description": "Local-first personal knowledge management system with real-time collaboration",
+      "desktop": {
+        "Name": "Lumi",
+        "Comment": "Local-first personal knowledge management system",
+        "Keywords": "knowledge;notes;wiki;documents;"
+      }
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "nupthale",
+      "repo": "lumi",
+      "private": false,
+      "releaseType": "release"
+    }
   }
 }

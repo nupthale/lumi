@@ -90,8 +90,8 @@
       "darkModeSupport": true,
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
-      "entitlements": "build/entitlements.mac.plist",
-      "entitlementsInherit": "build/entitlements.mac.plist"
+      "entitlements": "build-config/entitlements.mac.plist",
+      "entitlementsInherit": "build-config/entitlements.mac.plist"
     },
     "dmg": {
       "title": "Lumi ${version}",
@@ -132,12 +132,12 @@
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "Lumi",
-      "include": "build/installer.nsh",
+      "include": "build-config/installer.nsh",
       "artifactName": "Lumi-Setup-${version}.${ext}",
       "installerIcon": "public/icon.ico",
       "uninstallerIcon": "public/icon.ico",
       "installerHeaderIcon": "public/icon.ico",
-      "license": "build/license.txt",
+      "license": "build-config/license.txt",
       "warningsAsErrors": false
     },
     "portable": {

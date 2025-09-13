@@ -54,6 +54,9 @@
     "copyright": "Copyright © 2024 Lumi Team",
     "electronVersion": "36.3.2",
     "electronDist": "node_modules/electron/dist",
+    "electronDownload": {
+      "mirror": "https://npmmirror.com/mirrors/electron/"
+    },
     "directories": {
       "output": "dist"
     },
@@ -65,7 +68,9 @@
       "services/**/*",
       "web/**/*",
       "public/icon.*",
-      "node_modules/**/*"
+      "node_modules/**/*",
+      "pakcage.json",
+      "splash.html"
     ],
     "extraResources": [
       {
@@ -76,7 +81,7 @@
     ],
     "mac": {
       "category": "public.app-category.productivity",
-      "icon": "public/icon.png",
+      "icon": "public/icon.icns",
       "target": [
         {
           "target": "dmg",

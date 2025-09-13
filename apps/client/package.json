@@ -96,7 +96,6 @@
     "dmg": {
       "title": "Lumi ${version}",
       "icon": "public/icon.png",
-      "background": "build/dmg-background.png",
       "contents": [
         {
           "x": 130,

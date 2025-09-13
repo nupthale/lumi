@@ -18,7 +18,6 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SelectDropdown: typeof import('./src/components/SelectDropdown/index.vue')['default']
     SvgIcon: typeof import('./src/components/icons/SvgIcon.vue')['default']
-    TitleBar: typeof import('./src/components/TitleBar.vue')['default']
     WindowControls: typeof import('./src/components/WindowControls.vue')['default']
   }
 }

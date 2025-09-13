@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
 // 检测平台的函数
 const detectPlatform = async () => {
@@ -20,14 +20,19 @@ const detectPlatform = async () => {
   return 'browser'; // 默认浏览器环境
 };
 
-const platform = await detectPlatform();
-window.isWindows = platform === 'win32';
-
-document.body.classList.add(platform);
-
 export const useOs = () => {
-    const os = ref(platform);
-    const isWindows = ref(platform === 'win32');
+    const os = ref();
+    const isWindows = ref();
+
+    onMounted(async () => {
+        const platform = await detectPlatform();
+        os.value = platform;
+        isWindows.value = platform === 'win32';
+
+        window.isWindows = platform === 'win32';
+
+        document.body.classList.add(platform);
+    });
 
     return {
         os,

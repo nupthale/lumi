@@ -138,10 +138,9 @@ export default defineComponent({
 
       // local也需要初始化yjs persist
       loadSharedDoc(props.doc?.fileId, props.isLocalMode);
-      if (!props.isLocalMode) {
-        // 先初始化协同编辑，确保 Yjs 内容加载完成
-        initDocumentCollab(props.doc?.fileId, props.user);
-      }
+
+      // 先初始化协同编辑，确保 Yjs 内容加载完成
+      initDocumentCollab(props.doc?.fileId, props.user);
 
       collectionsWatcher.watch(props.doc?.fileId);
     });

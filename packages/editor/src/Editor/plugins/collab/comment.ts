@@ -52,6 +52,8 @@ let commentListener: any = null;
 export const setupCommentListener = (fileId: string) => {
   const commentsDoc = getCommentsDoc(fileId);
   
+  syncToLocal(fileId);
+
   commentListener = () => {
     syncToLocal(fileId);
   };

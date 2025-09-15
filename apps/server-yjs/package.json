@@ -20,7 +20,7 @@
     ]
   },
   "dependencies": {
-    "@zsfe/editor": "workspace:0.0.1-alpha.1",
+    "@pixerio/editor": "workspace:0.0.1-alpha.1",
     "express": "^4.18.2",
     "mongodb": "^6.3.0",
     "node-static": "^0.7.11",

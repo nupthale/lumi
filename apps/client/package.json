@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "electron": "36.3.2",
+    "electron": "38.1.0",
     "electron-builder": "^24.13.3",
     "png2icons": "^2.0.1",
     "rimraf": "^5.0.5",
@@ -58,10 +58,8 @@
     "appId": "com.lumi.app",
     "productName": "Lumi",
     "copyright": "Copyright © 2024 Lumi Team",
-    "electronVersion": "36.3.2",
-    "electronDownload": {
-      "mirror": "https://npmmirror.com/mirrors/electron/"
-    },
+    "electronVersion": "38.1.0",
+    "electronDist": "node_modules/electron/dist",
     "directories": {
       "output": "dist"
     },
@@ -72,8 +70,8 @@
       "update.js",
       "services/**/*",
       "web/**/*",
-      "public/icon.*",
-      "pakcage.json",
+      "public/**/*",
+      "package.json",
       "splash.html"
     ],
     "extraResources": [
@@ -131,7 +129,12 @@
       ],
       "icon": "public/icon.ico",
       "publisherName": "Lumi Team",
-      "verifyUpdateCodeSignature": false
+      "verifyUpdateCodeSignature": false,
+      "publish": {
+        "provider": "github",
+        "owner": "nupthale",
+        "repo": "lumi"
+      }
     },
     "nsis": {
       "oneClick": false,

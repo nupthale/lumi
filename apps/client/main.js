@@ -1,6 +1,17 @@
 const { app, BrowserWindow, screen, Menu, ipcMain } = require('electron');
 const path = require('path');
+const log = require('electron-log');
 const isDev = process.env.NODE_ENV === 'development';
+
+// Helper function to get the correct icon path
+const getIconPath = (iconName) => {
+  if (isDev || process.platform !== 'darwin') {
+    return path.join(__dirname, 'public', iconName);
+  } else {
+    // mac发布后， icon路径是
+    return path.join(process.resourcesPath, 'public', iconName);
+  }
+};
 
 const { registerService } = require('./services/index');
 
@@ -15,50 +26,55 @@ const createWindow = () => {
   const primaryDisplay = screen.getPrimaryDisplay();
   const { width, height } = primaryDisplay.workAreaSize;
 
-  mainWindow = new BrowserWindow({
-    width,
-    height,
-    // mac下需要隐藏
-        ...(process.platform === 'darwin' ? { titleBarStyle: 'hidden' } : {}),
-    ...{
-      ...(process.platform === 'win32' ? { frame: false } : {}),
-      ...(process.platform === 'darwin' ? { titleBarStyle: 'hidden' } : {})
-    },
-    webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true,
-      preload: path.join(__dirname, 'preload.js'),
-      webSecurity: false, // 开发环境可以禁用，生产环境应启用
-    },
-    icon: path.join(__dirname, 'public/icon.png'),
-    show: false, // 初始时不显示窗口
-  })
+  try {
+    mainWindow = new BrowserWindow({
+      width,
+      height,
+      // mac下需要隐藏
+      ...{
+        ...(process.platform === 'win32' ? { frame: false } : {}),
+        ...(process.platform === 'darwin' ? { titleBarStyle: 'hidden' } : {})
+      },
+      webPreferences: {
+        nodeIntegration: false,
+        contextIsolation: true,
+        preload: path.join(__dirname, 'preload.js'),
+        webSecurity: false, // 开发环境可以禁用，生产环境应启用
+      },
+      icon: getIconPath('icon.png'),
+      show: false, // 初始时不显示窗口
+    })
 
-  // 当窗口准备好时显示
-  mainWindow.once('ready-to-show', () => {
-    mainWindow.show();
-  })
+    // 当窗口准备好时显示
+    mainWindow.once('ready-to-show', () => {
+      mainWindow.show();
 
-  if (process.platform === 'darwin') {
-     app.dock.setIcon(path.join(__dirname, 'public/icon.png'));
-  }
+      log.info('ready to show');
+    })
 
-  // 隐藏 Windows 下的菜单栏
-  if (process.platform !== 'darwin') {
-    mainWindow.setMenuBarVisibility(false);
-  }
+    if (process.platform === 'darwin') {
+      app.dock.setIcon(getIconPath('icon.png'));
+    }
 
-  // 根据环境加载不同的资源
-  if (isDev) {
-    // 开发环境：加载开发服务器地址
-    mainWindow.loadURL('http://localhost:5173');
+    // 隐藏 Windows 下的菜单栏
+    if (process.platform !== 'darwin') {
+      mainWindow.setMenuBarVisibility(false);
+    }
 
-    // 自动打开开发者工具
-    mainWindow.webContents.openDevTools()
-  } else {
-    // 生产环境：加载预渲染的HTML文件
-    mainWindow.loadFile(path.join(__dirname, 'web', 'index.html'));
-    // mainWindow.webContents.openDevTools()
+    // 根据环境加载不同的资源
+    if (isDev) {
+      // 开发环境：加载开发服务器地址
+      mainWindow.loadURL('http://localhost:5173');
+
+      // 自动打开开发者工具
+      mainWindow.webContents.openDevTools()
+    } else {
+      // 生产环境：加载预渲染的HTML文件
+      mainWindow.loadFile(path.join(__dirname, 'web', 'index.html'));
+      // mainWindow.webContents.openDevTools()
+    }
+  } catch(e) {
+    log.error('创建窗口失败:', e);
   }
 }
 

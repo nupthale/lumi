@@ -5,7 +5,7 @@ import { getSharedDoc, getProvider } from './core';
 import { getUndoManager } from './history';
 
 // 创建协同编辑插件，需要传入 fileId
-export const createCollabPlugin = (fileId: string, isLocalMode: boolean) => {
+export const createCollabPlugin = (fileId: string) => {
   const sharedDoc = getSharedDoc(fileId);
   const provider = getProvider(fileId);
   

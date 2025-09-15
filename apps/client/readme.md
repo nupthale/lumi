@@ -72,3 +72,7 @@ sudo spctl --master-enable
 - 代码完全开源透明，可在 GitHub 查看所有源码
 
 ### ✅ 使用 方法1 后，应用将永久可用，无需重复操作
+
+
+## mac查看app日志
+~/Library/Logs/Lumi/main.log

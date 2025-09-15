@@ -135,4 +135,9 @@ export const cleanupAllCollab = () => {
   for (const [fileId] of providerMap) {
     cleanupDocument(fileId);
   }
+
+  // 每次unmount都清空下， 进入的时候都是重置的
+  providerMap.clear();
+  ydocMap.clear();
+  indexeddbPersistenceMap.clear();
 };

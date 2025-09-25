@@ -203,11 +203,10 @@ export default defineComponent({
     height: 26px;
     padding: 1px;
     border-radius: 6px;
-    background: var(--bg-float);
+    background: var(--bg-float-2);
     border: 1px solid var(--float-border-color);
     user-select: none;
     z-index: 1000;
-    backdrop-filter: saturate(1.5) blur(32px);
 }
 
 .actionDrag:hover {

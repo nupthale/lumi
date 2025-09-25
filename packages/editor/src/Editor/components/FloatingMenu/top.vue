@@ -227,9 +227,8 @@ export default defineComponent({
     height: 26px;
     padding: 1px;
     border-radius: 6px;
-    background: var(--bg-float);
+    background: var(--bg-float-2);
     border: 1px solid var(--float-border-color);
-    backdrop-filter: saturate(1.5) blur(32px);
 }
 
 .actionDragTop:hover {
@@ -243,8 +242,7 @@ export default defineComponent({
     height: 26px;
     padding: 1px 8px;
     border-radius: 6px;
-    background: var(--bg-float);
-    backdrop-filter: saturate(1.5) blur(32px);
+    background: var(--bg-float-2);
     border: 1px solid var(--float-border-color);
 }
 

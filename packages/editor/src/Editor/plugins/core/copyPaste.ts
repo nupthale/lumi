@@ -1,14 +1,15 @@
-import { Plugin } from 'prosemirror-state';
+import { NodeSelection, Plugin, TextSelection } from 'prosemirror-state';
 import { Fragment, Node, Slice } from 'prosemirror-model';
 import { nanoid } from 'nanoid';
 import { EditorView } from 'prosemirror-view';
 
 import { schema } from '@editor/Editor/plugins/schema';
 
-import { isSameNode } from '@editor/Editor/shared/index';
+import { getTopNode, isSameNode, getRangeByNode } from '@editor/Editor/shared/index';
 import { CellSelection } from '../nodes/table';
 import { markdownToBlock } from '../markdown/markdownToBlock';
 import { hasMarkdownSyntax } from '@editor/Editor/shared/markdown';
+import { MultiBlockSelection } from '../selection/multiBlock';
 
 export const acceptedMIMETypes = ['text/html', 'text/plain', 'Files'] as const;
 
@@ -145,69 +146,80 @@ export const copyPastePlugin = () => {
                         return false;
                     }
 
-                    // 获取选区范围内的所有子节点
-                    const slice = view.state.doc.slice($from.pos, $to.pos);
+                    let filteredContent: Node[] = [];
 
-                    // 修复slice
-                    const content = slice.content.content;
-                    const filteredContent: Node[] = [];
 
-                    for (let i = 0; i < content.length;) {
-                        const node = content[i];
+                    if (state.selection instanceof MultiBlockSelection) {
+                        const { $anchor, $head } = selection;
 
-                        // 如果是多级list， 则一定复制的还是list结构
-                        if (node.type.name === 'list_head') {
-                            // 当前节点是list_head， 向后找list_body， 如果有， 则合并， 并创建新的list
-                            // 向后找list_body
-                            let nextNode = content[i + 1];
-                            const listHead = node.cut(
-                                $from.parentOffset,
-                                isSameNode($from, $to) ? $to.parentOffset : undefined,
-                            );
+                        const slice = view.state.doc.slice($anchor.pos, $head.pos);
+                        filteredContent = slice.content.content as Node[];
+                    }
 
-                            if (nextNode.type.name === 'list_body') {
-                                filteredContent.push(
-                                    schema.nodes.list.create({
-                                        id: nanoid(8),
-                                    }, [
-                                        listHead,
-                                        nextNode,
-                                    ])
+                    if (state.selection instanceof TextSelection) {
+                        // 获取选区范围内的所有子节点
+                        const slice = view.state.doc.slice($from.pos, $to.pos);
+
+                        // 修复slice
+                        const content = slice.content.content;
+
+                        for (let i = 0; i < content.length;) {
+                            const node = content[i];
+
+                            // 如果是多级list， 则一定复制的还是list结构
+                            if (node.type.name === 'list_head') {
+                                // 当前节点是list_head， 向后找list_body， 如果有， 则合并， 并创建新的list
+                                // 向后找list_body
+                                let nextNode = content[i + 1];
+                                const listHead = node.cut(
+                                    $from.parentOffset,
+                                    isSameNode($from, $to) ? $to.parentOffset : undefined,
                                 );
 
-                                i = i + 2;
+                                if (nextNode.type.name === 'list_body') {
+                                    filteredContent.push(
+                                        schema.nodes.list.create({
+                                            id: nanoid(8),
+                                        }, [
+                                            listHead,
+                                            nextNode,
+                                        ])
+                                    );
+
+                                    i = i + 2;
+                                    continue;
+                                } else {
+                                    filteredContent.push(
+                                        schema.nodes.list.create({
+                                            id: nanoid(8),
+                                        }, [
+                                            listHead,
+                                        ])
+                                    );
+                                }
+
+                                i++;
                                 continue;
-                            } else {
-                                filteredContent.push(
-                                    schema.nodes.list.create({
-                                        id: nanoid(8),
-                                    }, [
-                                        listHead,
-                                    ])
-                                );
                             }
 
-                            i++;
-                            continue;
-                        }
-
-                        // 如果是textBlock， 则按照如下规则
-                        // 第一个只复制文本， 其他的都按照node复制
-                        if (i === 0) {
-                            if ($from.parentOffset === 0) {
+                            // 如果是textBlock， 则按照如下规则
+                            // 第一个只复制文本， 其他的都按照node复制
+                            if (i === 0) {
+                                if ($from.parentOffset === 0) {
+                                    filteredContent.push(node);
+                                } else {
+                                    filteredContent.push(
+                                        $from.parent?.cut(
+                                            $from.parentOffset,
+                                            isSameNode($from, $to) ? $to.parentOffset : undefined,
+                                        )
+                                    );
+                                }
+                            } else {
                                 filteredContent.push(node);
-                            } else {
-                                filteredContent.push(
-                                    $from.parent?.cut(
-                                        $from.parentOffset,
-                                        isSameNode($from, $to) ? $to.parentOffset : undefined,
-                                    )
-                                );
                             }
-                        } else {
-                            filteredContent.push(node);
+                            i++;
                         }
-                        i++;
                     }
 
                     const serializer = view.state.schema.cached.domSerializer;
@@ -285,7 +297,6 @@ export const copyPastePlugin = () => {
                     // 现在可以访问完整的文档结构，包括 html 和 body
                     const bodyElement = doc.body; // 获取 body 元素
                     
-
                     const { $from, $to, empty } = selection;
 
                     const tr = state.tr;
@@ -293,9 +304,48 @@ export const copyPastePlugin = () => {
                     // 使用 ProseMirror 的 DOMParser 解析整个结构
                     const domParser = view.state.schema.cached.domParser;
                     const slice = domParser.parseSlice(bodyElement);
+                    let content = slice.content;
 
-                    tr.replaceRangeWith($from.pos, $to.pos, clone(slice.content));
-                    
+                    if (content.content?.[0].type.name === 'body') {
+                        content = content.content[0].content;
+                    }
+
+                    const cloneContent = clone(content);
+
+                   
+                    // 空文本节点插入
+                    const topNode = getTopNode($from);
+                    if ($from.parentOffset === 0 && !topNode.textContent) {
+                        const [from, to] = getRangeByNode(state, topNode);
+
+                        tr.delete(from, to);
+                        tr.insert(from, cloneContent);
+
+                        // 计算替换后的新位置，确保不超出文档范围
+                        const newPos = Math.min(from + cloneContent.size, tr.doc.content.size);
+                        const resolvedPos = tr.doc.resolve(newPos);
+                        tr.setSelection(TextSelection.near(resolvedPos));
+                    } else {
+                        // cloneContent的第一个node要判断是否可否转为text， 比如header，如果可转， 则转为text， 否则直接插入。
+                        if (content.firstChild?.type.name === 'header') {
+                            const header = content.firstChild;
+                            const leftContentSize = cloneContent.size - header.nodeSize;
+
+                            tr.delete($from.pos, $to.pos);
+                            tr.insert($from.pos, header.content);
+                            tr.insert($from.pos + header.content.size, cloneContent.content.slice(1));
+
+                            const newPos = Math.min($from.pos + header.content.size + leftContentSize, tr.doc.content.size);
+                            const resolvedPos = tr.doc.resolve(newPos);
+                            tr.setSelection(TextSelection.near(resolvedPos));
+                        } else {
+                            tr.replaceRangeWith($from.pos, $to.pos, cloneContent);
+                            const newPos = Math.min($from.pos + cloneContent.size, tr.doc.content.size);
+                            const resolvedPos = tr.doc.resolve(newPos);
+                            tr.setSelection(TextSelection.near(resolvedPos));
+                        }
+                    }
+
                     dispatch(tr);
 
                     return true

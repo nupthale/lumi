@@ -22,7 +22,7 @@ export const bubbleMenuPlugin = () => {
                     },
                     keydown: () => {
                         // 先隐藏
-                        hidePopover$.next({ type: PopoverTypeEnum.BUBBLE_MENU });
+                        // hidePopover$.next({ type: PopoverTypeEnum.BUBBLE_MENU });
                         hidePopover$.next({ type: PopoverTypeEnum.FLOAT_MENU });
                     },
                 }

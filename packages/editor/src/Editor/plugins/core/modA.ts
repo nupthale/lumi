@@ -30,9 +30,6 @@ document.body.addEventListener('keydown', ((event: Event) => {
 
     event.preventDefault();
     event.stopPropagation();
-    
-    // 调用 modA 函数
-    modA(view.state, view.dispatch, view, true);
   }
 }) as EventListener, false); // 使用捕获阶段，确保在事件冒泡之前处理
 
@@ -80,8 +77,8 @@ export const modA = (state, dispatch, view: EditorView, fromDocument: boolean) =
   }
 
   lastNodeSelection = [
-    topPos.start(),
-    topPos.end(),
+    topPos.before(),
+    topPos.after(),
   ];
 
   tr.setSelection(

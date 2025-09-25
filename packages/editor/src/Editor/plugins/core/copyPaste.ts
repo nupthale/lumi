@@ -148,15 +148,18 @@ export const copyPastePlugin = () => {
 
                     let filteredContent: Node[] = [];
 
-
-                    if (state.selection instanceof MultiBlockSelection) {
+                    // Handle NodeSelection - when a complete node is selected
+                    if (state.selection instanceof NodeSelection) {
+                        const selectedNode = state.selection.node;
+                        filteredContent = [selectedNode];
+                    }
+                    else if (state.selection instanceof MultiBlockSelection) {
                         const { $anchor, $head } = selection;
 
                         const slice = view.state.doc.slice($anchor.pos, $head.pos);
                         filteredContent = slice.content.content as Node[];
                     }
-
-                    if (state.selection instanceof TextSelection) {
+                    else if (state.selection instanceof TextSelection) {
                         // 获取选区范围内的所有子节点
                         const slice = view.state.doc.slice($from.pos, $to.pos);
 
@@ -316,13 +319,8 @@ export const copyPastePlugin = () => {
                     // 空文本节点插入
                     const topNode = getTopNode($from);
                     if ($from.parentOffset === 0 && !topNode.textContent) {
-                        const [from, to] = getRangeByNode(state, topNode);
-
-                        tr.delete(from, to);
-                        tr.insert(from, cloneContent);
-
-                        // 计算替换后的新位置，确保不超出文档范围
-                        const newPos = Math.min(from + cloneContent.size, tr.doc.content.size);
+                        tr.replaceRangeWith($from.pos, $to.pos, cloneContent);
+                        const newPos = Math.min($from.pos + cloneContent.size, tr.doc.content.size);
                         const resolvedPos = tr.doc.resolve(newPos);
                         tr.setSelection(TextSelection.near(resolvedPos));
                     } else {
@@ -336,6 +334,18 @@ export const copyPastePlugin = () => {
                             tr.insert($from.pos + header.content.size, cloneContent.content.slice(1));
 
                             const newPos = Math.min($from.pos + header.content.size + leftContentSize, tr.doc.content.size);
+                            const resolvedPos = tr.doc.resolve(newPos);
+                            tr.setSelection(TextSelection.near(resolvedPos));
+                        } else if (content.firstChild?.type.name === 'textBlock') {
+                            // textBlockHead的content
+                            const textBlockHeadContent = content.firstChild?.content?.content;
+                            const leftContentSize = cloneContent.size - content.firstChild.nodeSize;
+
+                            tr.delete($from.pos, $to.pos);
+                            tr.insert($from.pos, textBlockHeadContent);
+                            tr.insert($from.pos + textBlockHeadContent.size, cloneContent.content.slice(1));
+
+                            const newPos = Math.min($from.pos + textBlockHeadContent.size + leftContentSize, tr.doc.content.size);
                             const resolvedPos = tr.doc.resolve(newPos);
                             tr.setSelection(TextSelection.near(resolvedPos));
                         } else {

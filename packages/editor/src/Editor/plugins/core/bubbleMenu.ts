@@ -35,7 +35,11 @@ export const bubbleMenuPlugin = () => {
                         const { empty, from, to, anchor, head } = selection;
 
                         // 如果选区为空，隐藏菜单
-                        if (selection instanceof TextSelection && (empty || from === to)) {
+                        // Windows 上输入标点符号时可能会产生一个单字符的选区，这种情况也应该隐藏菜单
+                        const isSpuriousSelection = !empty && (to - from === 1) && 
+                            prevState && prevState.selection.empty && prevState.selection.from === from;
+                        
+                        if (selection instanceof TextSelection && (empty || from === to || isSpuriousSelection)) {
                             hidePopover$.next({ type: PopoverTypeEnum.BUBBLE_MENU });
                             return;
                         }

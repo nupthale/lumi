@@ -47,6 +47,7 @@ export default defineComponent({
         }
 
         const handleViewDetail = () => {
+            contextStore.getState().setActiveCollectionId(props.id);
             contextStore.getState().setActiveRow(props.row);
         }
 

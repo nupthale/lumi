@@ -122,7 +122,7 @@ export default defineComponent({
 
         useSubscription(
             addRow$.pipe(
-                filter(({ id }) => id === props.fileId),
+                filter(({ id }) => id === props.collectionId),
                 tap(({ rowId, direction, count = 1 }) => {
                     const valuesDoc = getValuesDoc();
                     const values = valuesDoc.toArray();
@@ -148,7 +148,7 @@ export default defineComponent({
 
         useSubscription(
             deleteRow$.pipe(
-                filter(({ id }) => id === props.fileId),
+                filter(({ id }) => id === props.collectionId),
                 tap(({ rowId }) => {
                     const valuesDoc = getValuesDoc();
                     const values = valuesDoc.toArray();
@@ -163,7 +163,7 @@ export default defineComponent({
 
         useSubscription(
             addCol$.pipe(
-                filter(({ id }) => id === props.fileId),
+                filter(({ id }) => id === props.collectionId),
                 tap(({ columnId, direction, column }) => {
                     let insertPos = schemaRef.value.columns.findIndex(item => item.id === columnId);
                     if (insertPos < 0) {
@@ -195,7 +195,7 @@ export default defineComponent({
 
         useSubscription(
             deleteCol$.pipe(
-                filter(({ id }) => id === props.fileId),
+                filter(({ id }) => id === props.collectionId),
                 tap(({ columnId }) => {
                     let index = schemaRef.value.columns.findIndex(item => item.id === columnId);
 
@@ -215,7 +215,7 @@ export default defineComponent({
 
         useSubscription(
             cellValueUpdate$.pipe(
-                filter(({ id }) => id === props.fileId),
+                filter(({ id }) => id === props.collectionId),
                 tap(({ rowId, columnId, value }) => {
                     const valuesDoc = getValuesDoc();
                     const values = valuesDoc.toArray();
@@ -232,7 +232,7 @@ export default defineComponent({
 
         useSubscription(
             cellFileUploading$.pipe(
-                filter(({ id }) => id === props.fileId),
+                filter(({ id }) => id === props.collectionId),
                 tap(({ rowId, columnId, file }) => {
                     const valuesDoc = getValuesDoc();
                     const values = valuesDoc.toArray();
@@ -258,7 +258,7 @@ export default defineComponent({
 
         useSubscription(
             cellFileUploaded$.pipe(
-                filter(({ id }) => id === props.fileId),
+                filter(({ id }) => id === props.collectionId),
                 tap(({ rowId, columnId, fileId, file }) => {
                     const valuesDoc = getValuesDoc();
                     const values = valuesDoc.toArray();
@@ -294,7 +294,7 @@ export default defineComponent({
 
         useSubscription(
             updateColumnWidth$.pipe(
-                filter(({ id }) => id === props.fileId),
+                filter(({ id }) => id === props.collectionId),
                 tap(({ columnId, width }) => {
                     schemaRef.value.columns.find((col) => col.id === columnId)!.width = width;
 
@@ -308,7 +308,7 @@ export default defineComponent({
 
         useSubscription(
             updateSelectionValue$.pipe(
-                filter(({ id }) => id === props.fileId),
+                filter(({ id }) => id === props.collectionId),
                 tap(({ rowIds, refCell: { rowId, columnId } }) => {
                     const valuesDoc = getValuesDoc();
                     const values = valuesDoc.toArray();
@@ -335,7 +335,7 @@ export default defineComponent({
 
         useSubscription(
             addView$.pipe(
-                filter(({ id }) => id === props.fileId),
+                filter(({ id }) => id === props.collectionId),
                 tap(({ view }) => {
                     schemaRef.value.views.push(view);
 
@@ -352,7 +352,7 @@ export default defineComponent({
 
         useSubscription(
             switchView$.pipe(
-                filter(({ id }) => id === props.fileId),
+                filter(({ id }) => id === props.collectionId),
                 tap(({ view }) => {
                     schemaRef.value.viewId = view.id;
 
@@ -366,7 +366,7 @@ export default defineComponent({
 
         useSubscription(
             deleteView$.pipe(
-                filter(({ id }) => id === props.fileId),
+                filter(({ id }) => id === props.collectionId),
                 tap(({ view }) => {
                     schemaRef.value.views = schemaRef.value.views.filter(item => item.id !== view.id);
 
@@ -380,7 +380,7 @@ export default defineComponent({
 
         useSubscription(
             updateViewName$.pipe(
-                filter(({ id }) => id === props.fileId),
+                filter(({ id }) => id === props.collectionId),
                 tap(({ viewId, name }) => {
                     schemaRef.value.views.find(item => item.id === viewId)!.name = name;
 
@@ -394,7 +394,7 @@ export default defineComponent({
 
         useSubscription(
             updateColumnOrder$.pipe(
-                filter(({ id }) => id === props.fileId),
+                filter(({ id }) => id === props.collectionId),
                 tap(({ viewId, oldIndex, newIndex }) => {
                     const view = schemaRef.value.views.find(item => item.id === viewId);
 
@@ -415,7 +415,7 @@ export default defineComponent({
 
         useSubscription(
             updateColumnConfig$.pipe(
-                filter(({ id }) => id === props.fileId),
+                filter(({ id }) => id === props.collectionId),
                 tap(({ viewId, columnId, config }) => {
                     const view = schemaRef.value.views.find(item => item.id === viewId);
 
@@ -438,7 +438,7 @@ export default defineComponent({
 
         useSubscription(
             updateViewCardConfig$.pipe(
-                filter(({ id }) => id === props.fileId),
+                filter(({ id }) => id === props.collectionId),
                 tap(({ viewId, config }) => {
                     const view = schemaRef.value.views.find(item => item.id === viewId);
 
@@ -459,7 +459,7 @@ export default defineComponent({
 
         useSubscription(
             sort$.pipe(
-                filter(({ id }) => id === props.fileId),
+                filter(({ id }) => id === props.collectionId),
                 tap(({ viewId, orders }) => {
                     const view = schemaRef.value.views.find(item => item.id === viewId);
                     if (!view) {
@@ -477,7 +477,7 @@ export default defineComponent({
 
         useSubscription(
             filter$.pipe(
-                filter(({ id }) => id === props.fileId),
+                filter(({ id }) => id === props.collectionId),
                 tap(({ viewId, filter }) => {
                     const view = schemaRef.value.views.find(item => item.id === viewId);
                     if (!view) {
@@ -495,7 +495,7 @@ export default defineComponent({
 
         useSubscription(
             group$.pipe(
-                filter(({ id }) => id === props.fileId),
+                filter(({ id }) => id === props.collectionId),
                 tap(({ viewId, groupBy }) => {
                     const view = schemaRef.value.views.find(item => item.id === viewId);
                     if (!view) {
@@ -513,7 +513,7 @@ export default defineComponent({
 
         useSubscription(
             updateColSchema$.pipe(
-                filter(({ id }) => id === props.fileId),
+                filter(({ id }) => id === props.collectionId),
                 tap(({ column }) => {
                     const index = schemaRef.value.columns.findIndex((col) => col.id === column.id);
                     const lastType = schemaRef.value.columns[index].type;
@@ -561,7 +561,7 @@ export default defineComponent({
         return () => (
             <div>
                 <Collection
-                    id={props.fileId}
+                    id={props.collectionId}
                     schema={schemaRef.value}
                     values={valuesRef.value}
                 />

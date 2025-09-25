@@ -31,6 +31,8 @@ export default defineComponent({
         });
 
         const handleCardClick = () => {
+            debugger;
+            contextStore.getState().setActiveCollectionId(id);
             contextStore.getState().setActiveRow(props.row!);
         }
 
@@ -89,7 +91,7 @@ export default defineComponent({
     left: 0;
     right: 0;
     height: 100px;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgb(239 239 239 / 67%) 100%);
+    background: var(--template-card-bg-after);
 }
 
 .card .text-right {

@@ -1,36 +1,43 @@
 
 import { ViewEnum, ColumnTypeEnum, NumberFormatEnum } from '@collection/interface';
+import { nanoid } from 'nanoid';
 
 import { i18next } from '@collection/i18next';
 
-const getDefaultViews = () => [{
+const getDefaultViews = (columnIds: string[]) => [{
     id: 'defaultView',
     name: i18next.t('collection.defaultView'),
     type: ViewEnum.GRID,
     columnsConfig: [
-      { id: 'defaultColumnText', hidden: false },
-      { id: 'defaultColumnNumber', hidden: false },
-      { id: 'defaultColumnDate', hidden: false },
+      { id: columnIds[0], hidden: false },
+      { id: columnIds[1], hidden: false },
+      { id: columnIds[2], hidden: false },
     ],
     cardConfig: {},
 }];
   
 export const getDefaultSchema = () => {
-    const defaultViews = getDefaultViews();
+    const defaultColumnIds = [
+        nanoid(8),
+        nanoid(8),
+        nanoid(8),
+    ]
+
+    const defaultViews = getDefaultViews(defaultColumnIds);
 
     return {
         viewId: defaultViews[0].id,
         views: defaultViews,
         columns: [
             { 
-                id: 'defaultColumnText', 
+                id: defaultColumnIds[0], 
                 type: ColumnTypeEnum.TEXT, 
                 title: '文本', 
                 width: 180,
                 config: {}, 
             },
             { 
-                id: 'defaultColumnNumber', 
+                id: defaultColumnIds[1], 
                 type: ColumnTypeEnum.NUMBER,
                 title: '数字', 
                 width: 180, 
@@ -41,7 +48,7 @@ export const getDefaultSchema = () => {
                 },
             },
             { 
-                id: 'defaultColumnDate', 
+                id: defaultColumnIds[2], 
                 type: ColumnTypeEnum.DATE, 
                 title: '日期', 
                 width: 180,
@@ -53,8 +60,10 @@ export const getDefaultSchema = () => {
     }
 };
 
-export const getDefaultValues = () => [
-    { id: 'defaultId1' },
-    { id: 'defaultId2' },
-    { id: 'defaultId3' },
-];
+export const getDefaultValues = () => {
+    return [
+        { id: nanoid(8) },
+        { id: nanoid(8) },
+        { id: nanoid(8) },
+    ];
+};

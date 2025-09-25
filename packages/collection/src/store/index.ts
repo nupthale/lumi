@@ -9,12 +9,19 @@ type ActiveCellType = {
 }
 
 export const contextStore = createStore<{
+    activeCollectionId: string | null,
+
     activeCell: ActiveCellType | null,
     setActiveCell: (cell: ActiveCellType | null) => void,
 
     activeRow: Record<string, any> | null,
     setActiveRow: (row: Record<string, any> | null) => void,
 }>((set) => ({
+    activeCollectionId: null,
+    setActiveCollectionId: (id: string | null) => {
+        set({ activeCollectionId: id });
+    },
+
     activeCell: null,
     setActiveCell: (cell: ActiveCellType | null) => {
         set({ activeCell: cell });
@@ -27,6 +34,8 @@ export const contextStore = createStore<{
 }));
 
 export function useContextStore() {
+    const activeCollectionId = ref<string | null>(null);
+
     const activeCell = ref<ActiveCellType | null>(null);
 
     const activeRow = ref<Record<string, any> | null>(null);
@@ -35,6 +44,8 @@ export function useContextStore() {
 
     onMounted(() => {
         unsubscribeRef.value = contextStore.subscribe((newState, prevState) => {
+            activeCollectionId.value = newState.activeCollectionId;
+
             activeCell.value = newState.activeCell;
 
             activeRow.value = newState.activeRow;
@@ -49,6 +60,7 @@ export function useContextStore() {
 
     return {
         contextStore,
+        activeCollectionId,
         activeCell,
         activeRow,
     };

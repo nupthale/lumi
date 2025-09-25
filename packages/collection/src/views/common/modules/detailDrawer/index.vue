@@ -14,7 +14,7 @@ export default defineComponent({
         schema: Object as PropType<CollectionSchemaType>,
     },
     setup(props) {
-        const { activeRow } = useContextStore();
+        const { activeRow, activeCollectionId, contextStore } = useContextStore();
 
         const { titleColumnId } = useCard(toRef(props, 'schema'));
 
@@ -41,8 +41,13 @@ export default defineComponent({
             return '';
         }
 
+        const handleClose = () => {
+            contextStore.getState().setActiveCollectionId(null);
+            contextStore.getState().setActiveCell(null);
+        }
+
         return () => (
-            <Drawer open={!!activeRow.value} title={title.value} width={480} onClose={() => activeRow.value = null}>
+            <Drawer open={!!activeRow.value && activeCollectionId.value === props.id} title={title.value} width={480} onClose={() => handleClose()}>
                 {{
                     body: renderBody,
                 }}

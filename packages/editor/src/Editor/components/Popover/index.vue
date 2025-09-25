@@ -15,6 +15,7 @@ export default defineComponent({
             type: Boolean,
             default: true,
         },
+        contentClass: String,
     },
     setup(props, { slots }) {
         const { state, setPopoverVisible } = useContextStore();
@@ -198,7 +199,7 @@ export default defineComponent({
             <Teleport to={document.body}>
                 <div>
                     <div ref={targetRef} class="fixed"></div>
-                    <div ref={sourceRef} class={['content', props.contentBorder ? 'border' : '']}>
+                    <div ref={sourceRef} class={['content', props.contentClass, props.contentBorder ? 'border' : '', state.value?.popovers[props.type!] ? `visible` : '']}>
                         {state.value?.popovers[props.type!] ? slots.default?.() : ''}
                     </div>
                 </div>

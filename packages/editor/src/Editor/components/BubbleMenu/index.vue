@@ -47,7 +47,7 @@ export default defineComponent({
         }
 
         return () => (
-            <Popover type={PopoverTypeEnum.BUBBLE_MENU}>
+            <Popover type={PopoverTypeEnum.BUBBLE_MENU} contentClass="doc-bubbleMenu-popover">
                 {{
                     default: () => (
                         renderMenus()
@@ -63,6 +63,15 @@ export default defineComponent({
 
 .ant-popover .ant-popover-arrow {
     display: none;
+}
+
+.doc-bubbleMenu-popover {
+    transition: transform .1s ease;
+    transform: translateY(-8px) translateZ(0);
+}
+
+.doc-bubbleMenu-popover.visible {
+     transform: translateY(0) translateZ(0);
 }
 </style>
 

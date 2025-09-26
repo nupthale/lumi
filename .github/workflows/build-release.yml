@@ -119,7 +119,7 @@ jobs:
           name: lumi-${{ matrix.artifact_name }}
           path: |
             apps/client/dist/**/*
-          retention-days: 30
+          retention-days: 1
 
   release:
     name: Create Release

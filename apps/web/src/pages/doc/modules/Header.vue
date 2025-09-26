@@ -6,8 +6,6 @@ import i18next from 'i18next';
 
 import { events } from '@/database/index';
 
-import fallbackBanner from '@/assets/fallback_banner.png';
-
 import Emoji from './Emoji.vue';
 
 export default defineComponent({
@@ -151,7 +149,7 @@ export default defineComponent({
           
           {
             imageLoaded.value ? (
-              <div class="absolute left-0 top-0 header-bg w-full h-full bg-cover bg-center fade-in" style={{ backgroundImage: imageSrc.value ? `url(${imageSrc.value})` : fallbackBanner}}></div>
+              <div class="absolute left-0 top-0 header-bg w-full h-full bg-cover bg-center fade-in" style={{ backgroundImage: imageSrc.value ? `url(${imageSrc.value})` : ''}}></div>
             ) : ''
           }
 

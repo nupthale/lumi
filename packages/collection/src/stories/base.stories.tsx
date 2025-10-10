@@ -71,7 +71,7 @@ export const Base: Story = {
     }];
 
     const schema = ref<CollectionSchemaType>({
-      view: views[0],
+      viewId: '1',
       views,
       columns: [
         { 

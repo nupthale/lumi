@@ -1,5 +1,6 @@
 import { ref, computed, watch } from 'vue';
 import type { Ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import { useEventListener } from '@vueuse/core';
 import { useRouter } from 'vue-router';
 
@@ -13,6 +14,7 @@ export const useEvent = (matchedFiles: Ref<any[]>) => {
     const scrollContainer = ref();
 
     const contextStore = useContextStore();
+    const { searchModalVisible } = storeToRefs(contextStore);
 
     const crtItem = computed(() => matchedFiles.value[crtItemIndex.value || 0]);
 
@@ -83,6 +85,10 @@ export const useEvent = (matchedFiles: Ref<any[]>) => {
     };
 
     useEventListener(document.body, 'keydown', (e) => {
+        if (!searchModalVisible.value) {
+            return;
+        }
+
         switch(e.key) {
             case 'ArrowUp':
                 crtItemIndex.value = Math.max(0, crtItemIndex.value - 1);

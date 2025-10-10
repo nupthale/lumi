@@ -42,6 +42,7 @@ export class TextBlockHeadView extends BaseBlockView implements Convertible {
     getPlaceholderContent() {
       // 创建占位符容器
       const content = document.createElement('div');
+      content.contentEditable = 'false';
       // content.innerHTML = `
       //   <span>输入内容，</span>
       //   <span class="doc-placeholder__btn">空格</span>

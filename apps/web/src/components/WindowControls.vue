@@ -56,7 +56,7 @@ const close = () => {
 
 .control-btn {
   width: 32px;
-  height: 32px;
+  height: 24px;
   border: none;
   color: #666;
   cursor: pointer;

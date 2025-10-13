@@ -160,68 +160,147 @@ export const copyPastePlugin = () => {
                         filteredContent = slice.content.content as Node[];
                     }
                     else if (state.selection instanceof TextSelection) {
-                        // 获取选区范围内的所有子节点
-                        const slice = view.state.doc.slice($from.pos, $to.pos);
+                        // Check if this is a full header selection (macOS workaround)
+                        const isFullHeaderSelection = $from.parent.type.name === 'header' && 
+                                                     $from.parentOffset === 0 && 
+                                                     $to.parentOffset === $to.parent.content.size;
 
-                        // 修复slice
-                        const content = slice.content.content;
+                        if (isFullHeaderSelection) {
+                            // Find the header node and treat as node selection
+                            const resolvedPos = view.state.doc.resolve($from.before());
+                            const headerNode = resolvedPos.nodeAfter;
+                            if (headerNode) {
+                                filteredContent = [headerNode];
+                            } else {
+                                // Fallback to normal text selection handling
+                                // 获取选区范围内的所有子节点
+                                const slice = view.state.doc.slice($from.pos, $to.pos);
 
-                        for (let i = 0; i < content.length;) {
-                            const node = content[i];
+                                // 修复slice
+                                const content = slice.content.content;
 
-                            // 如果是多级list， 则一定复制的还是list结构
-                            if (node.type.name === 'list_head') {
-                                // 当前节点是list_head， 向后找list_body， 如果有， 则合并， 并创建新的list
-                                // 向后找list_body
-                                let nextNode = content[i + 1];
-                                const listHead = node.cut(
-                                    $from.parentOffset,
-                                    isSameNode($from, $to) ? $to.parentOffset : undefined,
-                                );
+                                for (let i = 0; i < content.length;) {
+                                    const node = content[i];
 
-                                if (nextNode.type.name === 'list_body') {
-                                    filteredContent.push(
-                                        schema.nodes.list.create({
-                                            id: nanoid(8),
-                                        }, [
-                                            listHead,
-                                            nextNode,
-                                        ])
-                                    );
-
-                                    i = i + 2;
-                                    continue;
-                                } else {
-                                    filteredContent.push(
-                                        schema.nodes.list.create({
-                                            id: nanoid(8),
-                                        }, [
-                                            listHead,
-                                        ])
-                                    );
-                                }
-
-                                i++;
-                                continue;
-                            }
-
-                            // 如果是textBlock， 则按照如下规则
-                            // 第一个只复制文本， 其他的都按照node复制
-                            if (i === 0) {
-                                if ($from.parentOffset === 0) {
-                                    filteredContent.push(node);
-                                } else {
-                                    filteredContent.push(
-                                        $from.parent?.cut(
+                                    // 如果是多级list， 则一定复制的还是list结构
+                                    if (node.type.name === 'list_head') {
+                                        // 当前节点是list_head， 向后找list_body， 如果有， 则合并， 并创建新的list
+                                        // 向后找list_body
+                                        let nextNode = content[i + 1];
+                                        const listHead = node.cut(
                                             $from.parentOffset,
                                             isSameNode($from, $to) ? $to.parentOffset : undefined,
-                                        )
-                                    );
+                                        );
+
+                                        if (nextNode.type.name === 'list_body') {
+                                            filteredContent.push(
+                                                schema.nodes.list.create({
+                                                    id: nanoid(8),
+                                                }, [
+                                                    listHead,
+                                                    nextNode,
+                                                ])
+                                            );
+
+                                            i = i + 2;
+                                            continue;
+                                        } else {
+                                            filteredContent.push(
+                                                schema.nodes.list.create({
+                                                    id: nanoid(8),
+                                                }, [
+                                                    listHead,
+                                                ])
+                                            );
+                                        }
+
+                                        i++;
+                                        continue;
+                                    }
+
+                                    // 如果是textBlock， 则按照如下规则
+                                    // 第一个只复制文本， 其他的都按照node复制
+                                    if (i === 0) {
+                                        if ($from.parentOffset === 0) {
+                                            filteredContent.push(node);
+                                        } else {
+                                            filteredContent.push(
+                                                $from.parent?.cut(
+                                                    $from.parentOffset,
+                                                    isSameNode($from, $to) ? $to.parentOffset : undefined,
+                                                )
+                                            );
+                                        }
+                                    } else {
+                                        filteredContent.push(node);
+                                    }
+                                    i++;
                                 }
-                            } else {
-                                filteredContent.push(node);
                             }
-                            i++;
+                        } else {
+                            // 获取选区范围内的所有子节点
+                            const slice = view.state.doc.slice($from.pos, $to.pos);
+
+                            // 修复slice
+                            const content = slice.content.content;
+
+                            for (let i = 0; i < content.length;) {
+                                const node = content[i];
+
+                                // 如果是多级list， 则一定复制的还是list结构
+                                if (node.type.name === 'list_head') {
+                                    // 当前节点是list_head， 向后找list_body， 如果有， 则合并， 并创建新的list
+                                    // 向后找list_body
+                                    let nextNode = content[i + 1];
+                                    const listHead = node.cut(
+                                        $from.parentOffset,
+                                        isSameNode($from, $to) ? $to.parentOffset : undefined,
+                                    );
+
+                                    if (nextNode.type.name === 'list_body') {
+                                        filteredContent.push(
+                                            schema.nodes.list.create({
+                                                id: nanoid(8),
+                                            }, [
+                                                listHead,
+                                                nextNode,
+                                            ])
+                                        );
+
+                                        i = i + 2;
+                                        continue;
+                                    } else {
+                                        filteredContent.push(
+                                            schema.nodes.list.create({
+                                                id: nanoid(8),
+                                            }, [
+                                                listHead,
+                                            ])
+                                        );
+                                    }
+
+                                    i++;
+                                    continue;
+                                }
+
+                                // 如果是textBlock， 则按照如下规则
+                                // 第一个只复制文本， 其他的都按照node复制
+                                if (i === 0) {
+                                    if ($from.parentOffset === 0) {
+                                        filteredContent.push(node);
+                                    } else {
+                                        filteredContent.push(
+                                            $from.parent?.cut(
+                                                $from.parentOffset,
+                                                isSameNode($from, $to) ? $to.parentOffset : undefined,
+                                            )
+                                        );
+                                    }
+                                } else {
+                                    filteredContent.push(node);
+                                }
+                                i++;
+                            }
                         }
                     }
 

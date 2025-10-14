@@ -77,9 +77,14 @@ import BeamBg from './components/Beam.vue';
               </span>
             </h1>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8" style="opacity: 1; will-change: auto; transform: none;">
+              <a class="cursor-pointer" href="https://lumidoc-res.oss-cn-beijing.aliyuncs.com/0.0.1/Lumi-1.0.0-alpha.2.dmg" target="_blank">
+                <img src="https://res.cloudinary.com/dybz0bvui/image/upload/v1756861300/macappstore_al6pay.svg" alt="macappstore" style="height: 52px;">
+              </a>
               <a class="cursor-pointer" href="https://lumidoc-res.oss-cn-beijing.aliyuncs.com/0.0.1/Lumi-Setup-1.0.0-alpha.2.exe" target="_blank">
-                <!-- <img src="https://res.cloudinary.com/dybz0bvui/image/upload/v1756861300/macappstore_al6pay.svg" alt="macappstore" width="200px"> -->
-                <img src="https://res.cloudinary.com/dybz0bvui/image/upload/v1760403911/winstore_iylxng.png" alt="macappstore" width="200px">
+                <img src="https://res.cloudinary.com/dybz0bvui/image/upload/v1760403911/winstore_iylxng.png" alt="winstore" style="height: 52px;">
+              </a>
+              <a class="cursor-pointer" href="https://lumidoc-res.oss-cn-beijing.aliyuncs.com/0.0.1/lumi-linux.zip" target="_blank">
+                <img src="https://res.cloudinary.com/dybz0bvui/image/upload/v1760422601/linuxstore_mpbhix.png" alt="linuxstore" style="height: 52px;">
               </a>
             </div>
           <div class="max-w-5xl mx-auto">

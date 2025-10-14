@@ -22,7 +22,7 @@ const WindowControls = ref(null);
 const { isWindows } = useOs();
 
 // 组件挂载时检测平台并动态导入
-onMounted(async () => {
+watchEffect(async () => {
   if (isWindows.value) {
     import('@/components/WindowControls.vue').then((module) => {
       WindowControls.value = module.default;

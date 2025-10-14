@@ -78,7 +78,8 @@ import BeamBg from './components/Beam.vue';
             </h1>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8" style="opacity: 1; will-change: auto; transform: none;">
               <a class="cursor-pointer">
-                <img src="https://res.cloudinary.com/dybz0bvui/image/upload/v1756861300/macappstore_al6pay.svg" alt="macappstore" width="200px">
+                <!-- <img src="https://res.cloudinary.com/dybz0bvui/image/upload/v1756861300/macappstore_al6pay.svg" alt="macappstore" width="200px"> -->
+                <img src="https://res.cloudinary.com/dybz0bvui/image/upload/v1760403911/winstore_iylxng.png" alt="macappstore" width="200px">
               </a>
             </div>
           <div class="max-w-5xl mx-auto">

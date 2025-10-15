@@ -272,7 +272,7 @@ export default defineComponent({
 }
 
 .docEmoji {
-    font-size: 24px;
+    font-size: 22px;
 }
 
 .docs-head {

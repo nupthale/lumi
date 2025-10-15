@@ -28,7 +28,7 @@ import BeamBg from './components/Beam.vue';
                 </span>
               </a>
               <div class="hidden gap-2 md:flex">
-                <a href="https://nupthale.github.io/lumi/" target="_blank" class="head-nav-link text-white">
+                <a href="https://github.com/nupthale/lumi" target="_blank" class="head-nav-link text-white">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <g clip-path="url(#a)">
                       <path fill-rule="evenodd" d="M12.015.044A12.003 12.003 0 0 0 8.221 23.44c.596.11.817-.266.817-.582v-2.041c-3.337.736-4.045-1.607-4.045-1.607a3.213 3.213 0 0 0-1.333-1.76c-1.084-.738.088-.738.088-.738a2.528 2.528 0 0 1 1.835 1.238 2.565 2.565 0 0 0 3.492 1.002 2.55 2.55 0 0 1 .737-1.606c-2.667-.302-5.467-1.334-5.467-5.931a4.642 4.642 0 0 1 1.23-3.22 4.37 4.37 0 0 1 .118-3.176s1.01-.324 3.301 1.23c1.968-.54 4.045-.54 6.013 0 2.291-1.554 3.293-1.23 3.293-1.23a4.347 4.347 0 0 1 .126 3.176 4.642 4.642 0 0 1 1.23 3.22c0 4.612-2.807 5.622-5.482 5.894a2.838 2.838 0 0 1 .818 2.21v3.294c0 .39.214.693.825.582A12.01 12.01 0 0 0 12.015 0v.044Z" clip-rule="evenodd"></path>
@@ -41,7 +41,7 @@ import BeamBg from './components/Beam.vue';
                   </svg>
                 </a>
 
-                <div class="head-nav-link flex items-center text-[14px] text-white">Home</div>
+                <a href="https://nupthale.github.io/lumi/" class="head-nav-link flex items-center text-[14px] text-white">Home</a>
               </div>
             </div>
           </div>

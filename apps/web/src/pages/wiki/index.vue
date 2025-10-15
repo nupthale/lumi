@@ -131,7 +131,7 @@ export default defineComponent({
       }
 
       return (
-        <div class="flex-1 h-full flex">
+        <div class="flex-1 h-full flex body">
           <Sider wiki={wiki.value} />
           <div class="main flex-1">
             <RouterView key={fileIdRef.value} />
@@ -177,5 +177,17 @@ export default defineComponent({
 
 .docs-empty_text {
     color: var(--light-text-color);
+}
+
+.body {
+  background: var(--home-sider-bg);
+}
+
+.main {
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 4px 2px;
+  background: var(--body-bg);
+  border: 1px solid var(--default-border-color);
 }
 </style>

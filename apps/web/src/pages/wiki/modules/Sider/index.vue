@@ -270,7 +270,7 @@ export default defineComponent({
 
     width: 298px;
     height: 100%;
-    border-right: 1px solid var(--default-border-color);
+    /* border-right: 1px solid var(--default-border-color); */
     background: var(--home-sider-bg);
 
     transition-duration: 200ms;
@@ -386,6 +386,6 @@ export default defineComponent({
 }
 
 .foldIcon.electron {
-  top: 48px; 
+  top: 40px; 
 }
 </style>

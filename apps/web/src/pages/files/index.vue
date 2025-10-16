@@ -91,8 +91,8 @@ export default defineComponent({
 
         return filteredFiles.value?.map((file) => (
             <div class="list-row" onClick={() => handleDocClick(file)}>
-                <div class="flex items-center overflow-hidden">
-                    <div class="mr-3">
+                <div class="flex items-center">
+                    <div class="mr-3 flex-shrink-0">
                         {
                             file.emoji ? (
                                 <div class="docEmoji">{file.emoji}</div>
@@ -273,6 +273,9 @@ export default defineComponent({
 
 .docEmoji {
     font-size: 22px;
+    width: 22px;
+    display: flex;
+    justify-content: center;
 }
 
 .docs-head {

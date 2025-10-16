@@ -128,7 +128,7 @@ export default defineComponent({
                                 {
                                     matchedFiles.value?.length ? matchedFiles.value?.map((file, index) => (
                                         <div class={['searchItem', 'py-2', 'px-3', 'flex', 'items-start', index === crtItemIndex.value ? 'active' : '']} data-id={file._id} key={file._id} onClick={() => handleClickItem(file)} onMouseenter={() => handleHoverItem(index)}>
-                                            <div class="searchItem__icon mr-3">
+                                            <div class="searchItem__icon mr-3 flex-shrink-0">
                                                 {
                                                     file.emoji ? (
                                                         <div class="docEmoji">{file.emoji}</div>
@@ -137,7 +137,7 @@ export default defineComponent({
                                                     )
                                                 }
                                             </div>
-                                            <div class="flex-1">
+                                            <div class="flex-1 overflow-hidden">
                                                 <div class="searchItem__title mb-1">
                                                     {file.title ? <span innerHTML={highlight(file.title)}></span> : i18next.t('home.main.table.titlePlaceholder')}
                                                     {
@@ -284,6 +284,9 @@ export default defineComponent({
 }
 
 .docEmoji {
-    font-size: 24px;
+    font-size: 22px;
+    width: 22px;
+    display: flex;
+    justify-content: center;
 }
 </style>

@@ -1,5 +1,5 @@
 <script lang="tsx">
-import { defineComponent, ref, watch, computed, onMounted } from 'vue';
+import { defineComponent, ref, watch, computed, onMounted, watchEffect } from 'vue';
 import { Input, Button } from 'ant-design-vue';
 import { filter, tap, debounceTime } from 'rxjs/operators';
 import { useSubscription } from '@vueuse/rxjs';
@@ -38,10 +38,11 @@ export default defineComponent({
 
         const { height } = useElementSize(elRef);
 
-        const { state: commentState } = useCommentStore();
+        const commentStore = useCommentStore();
+        const { state: commentState } = commentStore;
 
         const commentInfo = computed(() => {
-            return commentState.value?.commentInfoMap?.[props.id!] as CommentInfoType || {};
+            return commentState.value.commentInfoMap?.[props.id!] as CommentInfoType || {};
         });
 
         watch(height, (newHeight) => {

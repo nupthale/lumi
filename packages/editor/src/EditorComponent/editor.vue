@@ -161,8 +161,12 @@ export default defineComponent({
       collectionsWatcher.unwatch(props.doc?.fileId);
     });
 
+    const handleDocScroll = (e) => {
+      docScroll$.next({ e });
+    }
+
     return () => (
-      <div class="w-full h-full overflow-auto" id="scrollEl" ref={scrollEl} onScroll={(e) => docScroll$.next({ e })}>
+      <div class="w-full h-full overflow-auto" id="scrollEl" ref={scrollEl} onScroll={handleDocScroll}>
         {slots.header?.()}
         
         {/* 左侧目录 */}

@@ -11,7 +11,6 @@ export const getUploadConfig = () => {
 
     const randomIndex = Math.floor(Math.random() * presets.length);
 
-    debugger;
     return { 
         upload_preset: presets[randomIndex], 
         cloud_name: cloudNames[randomIndex],

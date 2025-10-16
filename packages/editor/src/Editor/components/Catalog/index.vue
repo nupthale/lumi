@@ -4,7 +4,7 @@ import { switchMap, debounceTime } from 'rxjs/operators';
 import { useSubscription } from '@vueuse/rxjs';
 
 import { contextStore } from '../../store/context';
-import { docChanged$, docScrollTo$  } from '../../event';
+import { docInit$, docChanged$, docScrollTo$  } from '../../event';
 
 import { manualSetActiveId$ } from './event';
 import { useActive } from './useActive';
@@ -49,6 +49,16 @@ export default defineComponent({
 
         useSubscription(
             docChanged$.pipe(
+                debounceTime(300),
+                switchMap(async () => {
+                    const view = contextStore.getState().editorView;
+                    docJsonRef.value = view?.state.toJSON();
+                }),
+            ).subscribe()
+        );
+
+        useSubscription(
+            docInit$.pipe(
                 debounceTime(300),
                 switchMap(async () => {
                     const view = contextStore.getState().editorView;

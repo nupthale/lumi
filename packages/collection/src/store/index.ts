@@ -10,6 +10,7 @@ type ActiveCellType = {
 
 export const contextStore = createStore<{
     activeCollectionId: string | null,
+    setActiveCollectionId: (id: string | null) => void,
 
     activeCell: ActiveCellType | null,
     setActiveCell: (cell: ActiveCellType | null) => void,

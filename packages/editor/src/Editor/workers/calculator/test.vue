@@ -6,7 +6,6 @@ import Worker from './index.ts?worker';
 const worker = new Worker();
 
 worker.onmessage = (e) => {
-    debugger;
     console.info(e);
 }
 

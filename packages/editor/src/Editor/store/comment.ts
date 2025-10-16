@@ -154,9 +154,12 @@ export function useCommentStore() {
 
     const commentsVisible = ref(localStorage.getItem('commentsVisible') === 'false' ? false : true);
 
+    const docComments = ref<Record<string, string[]>>({});
+
     const unsubscribe = commentStore.subscribe((newState) => {
         state.value = newState;
 
+        docComments.value = newState.docComments;
         commentsVisible.value = newState.commentsVisible;
     });
 
@@ -166,6 +169,7 @@ export function useCommentStore() {
 
     return {
         state,
+        docComments,
         commentsVisible,
     };
 }

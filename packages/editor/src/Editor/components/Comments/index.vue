@@ -19,7 +19,7 @@ import LikeSection from './LikeSection.vue';
 export default defineComponent({
     setup() {
         const store = useCommentStore();
-        const { state, commentsVisible } = store;
+        const { state, docComments, commentsVisible } = store;
 
         const containerRef = ref();
 
@@ -30,22 +30,22 @@ export default defineComponent({
 
         useScroll(offsetY, updateOffsetY);
 
-        watch(() => state.value?.docComments, () => {
+        watch(() => docComments.value, () => {
             setTimeout(() => {
                 layoutComments$.next();
-            }, 0);
+            }, 200);
         });
 
-        useEventListener(containerRef , 'mousedown', (e) => {
+        useEventListener(containerRef.value, 'mousedown', (e) => {
             e.stopPropagation();
         });
 
         const filteredCommentsCount = computed(() => {
             let count = 0;
 
-            Object.keys(state.value?.docComments).map((refId) => {
+            Object.keys(docComments.value).map((refId) => {
                 if (filteredDocCommentsRef.value[refId]) {
-                    count += state.value.docComments[refId]?.length || 0
+                    count += docComments.value[refId]?.length || 0
                 }
             });
 
@@ -97,8 +97,8 @@ export default defineComponent({
                         }}
                     >
                         {
-                            Object.keys(state.value?.docComments).map((refId) => (
-                                filteredDocCommentsRef.value[refId] ? (state.value.docComments[refId].map((commentId) => (
+                            Object.keys(docComments.value).map((refId) => (
+                                filteredDocCommentsRef.value[refId] ? (docComments.value[refId].map((commentId) => (
                                     <CommentPanel
                                         active={state.value?.activeDocCommentId === commentId}
                                         key={commentId} 

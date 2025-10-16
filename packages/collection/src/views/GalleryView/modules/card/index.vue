@@ -31,7 +31,6 @@ export default defineComponent({
         });
 
         const handleCardClick = () => {
-            debugger;
             contextStore.getState().setActiveCollectionId(id);
             contextStore.getState().setActiveRow(props.row!);
         }

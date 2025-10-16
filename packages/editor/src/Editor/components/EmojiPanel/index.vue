@@ -45,7 +45,7 @@ export default defineComponent({
         });
 
         return () => (
-            <div ref={panelRef}></div>
+            <div ref={panelRef} onWheel={stopEvt}></div>
         );
     }
 });

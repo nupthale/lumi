@@ -5,7 +5,7 @@ import { i18next } from '@editor/i18n';
 import { EventEmit } from '../../../../../shared/event';
 import { download } from '../../../../../shared/file';
 
-import { upload_preset, cloud_name } from '~/token';
+import { getUploadConfig } from '~/token';
 
 import './index.less';
 
@@ -99,19 +99,21 @@ export class Video extends EventEmit {
 
         if (!file) return;
 
-        if (window.isElectron) {
-            return this.uploadLocal(e);
-        }
+        // if (window.isElectron) {
+        //     return this.uploadLocal(e);
+        // }
 
         this.updateLoading(true);
 
         const formData = new FormData();
         formData.append('file', file);
+
+        const { upload_preset, cloud_name } = getUploadConfig();
         formData.append('upload_preset', upload_preset); // 从 Cloudinary 控制台获取
         formData.append('cloud_name', cloud_name);       // 从 Cloudinary 控制台获取
 
         const response = await fetch(
-            `https://api.cloudinary.com/v1_1/dybz0bvui/video/upload`,
+            `https://api.cloudinary.com/v1_1/${cloud_name}/video/upload`,
             {
                 method: 'POST',
                 body: formData

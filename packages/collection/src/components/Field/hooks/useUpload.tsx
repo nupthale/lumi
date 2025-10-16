@@ -7,7 +7,7 @@ import i18next from 'i18next';
 import { ColumnType, FileType } from "@collection/interface";
 import { cellFileUploaded$, cellFileUploading$ } from '@collection/events';
 
-import { upload_preset, cloud_name } from '~/token';
+import { getUploadConfig } from '~/token';
 
 export const useUpload = (
     id: string,
@@ -36,11 +36,13 @@ export const useUpload = (
     
         const formData = new FormData();
         formData.append('file', file);
+
+        const { upload_preset, cloud_name } = getUploadConfig();
         formData.append('upload_preset', upload_preset); // 从 Cloudinary 控制台获取
         formData.append('cloud_name', cloud_name);       // 从 Cloudinary 控制台获取
     
         const response = await fetch(
-            `https://api.cloudinary.com/v1_1/dybz0bvui/image/upload`,
+            `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
             {
                 method: 'POST',
                 body: formData

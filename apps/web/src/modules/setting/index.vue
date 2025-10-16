@@ -77,7 +77,7 @@ export default defineComponent({
               <div>
                 <Appearance />
                 <Language />
-                <Location />
+                {/* <Location /> */}
               </div>
             </div>
         </div>

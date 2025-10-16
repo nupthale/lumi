@@ -228,7 +228,8 @@ export default defineComponent({
 .wiki-cover {
     width: 100%;
     height: 120px;
-    background: var(--wiki-cover);
+    background-image: var(--wiki-cover);
+    background-color: var(--image-empty-bg);
     background-size: cover;
     border-radius: 6px;
 }

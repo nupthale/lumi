@@ -13,11 +13,12 @@ import CalendarSelect from '../../components/CalendarSelect.vue';
 
 export default defineComponent({
   props: {
-    journals: Object as PropType<FileSchema[]>
+    journals: Object as PropType<FileSchema[]>,
   },  
   emits: ['selectDate'],
   setup(props, { emit }) {
     const yearMonth = ref(dayjs());
+    const crtDate = ref(dayjs());
 
     const daysContainerRef = ref<HTMLDivElement>();
     const daysWrapRef = ref<HTMLDivElement>();
@@ -82,6 +83,7 @@ export default defineComponent({
     }
 
     const handleSelectDate = (date: Dayjs) => {
+        crtDate.value = date;
         // 如果有文档， 就展示， 没有就创建后展示
         emit('selectDate', date);
     }
@@ -113,10 +115,10 @@ export default defineComponent({
             </div>
             <div class="days flex items-center relative">
                 <div class="overflow-hidden" ref={daysContainerRef}>
-                    <div class="flex items-center w-fit daysWrap" ref={daysWrapRef}>
+                    <div class="flex items-center w-fit daysWrap gap-1" ref={daysWrapRef}>
                         {
                             days.value.map((day, index) => (
-                                <div key={index} class={['dayItem', 'flex-1', 'flex-shrink-0', day.isSame(dayjs(), 'day') ? 'today' : '']} onClick={() => handleSelectDate(day)}>
+                                <div key={index} class={['dayItem', 'flex-1', 'flex-shrink-0', day.isSame(dayjs(), 'day') ? 'today' : '', day.isSame(crtDate.value, 'day') ? 'selected' : '']} onClick={() => handleSelectDate(day)}>
                                     
                                     <div class="dayItemInner flex items-center flex-col">
                                         <div class="date font-semibold text-2xl">{day.format('DD')}</div>
@@ -188,6 +190,10 @@ export default defineComponent({
 }
 
 .dayItem:hover {
+    background: var(--menu-item-hover);
+}
+
+.dayItem.selected {
     background: var(--menu-item-hover);
 }
 

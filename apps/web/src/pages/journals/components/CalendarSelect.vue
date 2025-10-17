@@ -44,7 +44,7 @@ const getPopupContainer = () => containerRef.value;
         <TextButton class="header-calendarBtn" @click="handleToggle">
             <CalendarDays width="16" />
             <span>{{ formatYearMonth(props.value) }}</span>
-            <DatePicker v-if="dateDropdownOpen" class="header-calendar-picker" :bordered="false" picker="month" :open="dateDropdownOpen" :getPopupContainer="getPopupContainer" @change="handleChange"  />
+            <DatePicker v-if="dateDropdownOpen" :value="value" class="header-calendar-picker" :bordered="false" picker="month" :open="dateDropdownOpen" :getPopupContainer="getPopupContainer" @change="handleChange"  />
         </TextButton>
     </div>
 </template>

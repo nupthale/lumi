@@ -109,7 +109,7 @@ export default defineComponent({
     return () => (
         <div class="wrap w-full">
             <div class="flex items-center justify-center mb-4">
-                <CalendarSelect />
+                <CalendarSelect value={yearMonth.value} onUpdate={val => yearMonth.value = val} />
             </div>
             <div class="days flex items-center relative">
                 <div class="overflow-hidden" ref={daysContainerRef}>

@@ -2,6 +2,7 @@
 import { defineComponent, ref } from 'vue';
 import { UserAvatar } from '@zsfe/zsui';
 import i18next from 'i18next';
+import { Tag } from '@zsfe/zsui';
 
 import { formatTime } from '@/shared/date';
 
@@ -65,10 +66,12 @@ export default defineComponent({
                 <UserAvatar showText={false} username="m" size="small" class="mr-2" />
                 {formatTime(props.doc?.contentUpdatedAt)} 修改
                 <div class="divider"></div>
-                <div class="flex items-center">
-                    <span class="text-lg mr-1">{emojiRef.value}</span>
-                    {helloRef.value}
-                </div>
+                <Tag color="orange">
+                    <div class="flex items-center">
+                        <span class="text-lg mr-1">{emojiRef.value}</span>
+                        {helloRef.value}
+                    </div>
+                </Tag>
             </div>
         );
     }

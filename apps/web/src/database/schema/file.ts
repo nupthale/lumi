@@ -3,7 +3,7 @@ import type { Database } from '../database';
 
 export interface FileSchema extends SharableBase {
     _id: string; // id 作为主键
-    type: string;
+    type: string; // type是为了后续扩展，比如以后pdf等格式。
     wiki: string;
     title: string;
     tags: string[];

@@ -1,12 +1,15 @@
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
 import i18next from 'i18next';
+import weekday from 'dayjs/plugin/weekday';
 import 'dayjs/locale/zh-cn'; // 导入中文语言包
 import 'dayjs/locale/en'; // 导入英文语言包
 import 'dayjs/locale/ja';
 
 dayjs.extend(relativeTime);
+// Extend dayjs with weekday plugin
+dayjs.extend(weekday);
 
 i18next.on('languageChanged', (lng) => {
    // Set the locale based on current language
@@ -31,6 +34,20 @@ export const getDateFormat = (locale: string) => {
         thisYear: 'MM月DD日 HH:mm',
         otherYear: 'YYYY年MM月DD日 HH:mm'
       };
+  }
+};
+
+// 根据语言获取年月格式
+export const formatYearMonth = (date: Dayjs) => {
+  const locale = i18next.language;
+
+  switch (locale) {
+    case 'zh-cn':
+      return date.format('YYYY年MM月');
+    case 'en-US':
+      return date.format('MM/YYYY');
+    default:
+      return date.format('YYYY年MM月');
   }
 };
 

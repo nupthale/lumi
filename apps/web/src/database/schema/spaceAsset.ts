@@ -4,6 +4,7 @@ import type { Database } from '../database';
 export enum SpaceAssetType {
     FILE = 'file',
     WIKI = 'wiki',
+    JOURNAL = 'journal',
 }
 
 export interface SpaceAssetsSchema extends Base {

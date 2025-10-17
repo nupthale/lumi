@@ -24,6 +24,7 @@ export default {
             collapse: '收起侧边栏',
             expand: '展开侧边栏',
             freeTag: '免费版',
+            journal: '日记',
         },
         space: {
             space: '空间',
@@ -339,5 +340,27 @@ export default {
     },
     feedback: {
         tooltipTitle: '反馈问题',
+    },
+    greetings: {
+        greeting1: "今日份的小确幸",
+        greeting2: "保持微笑每一天",
+        greeting3: "生活处处有惊喜",
+        greeting4: "阳光总在风雨后",
+        greeting5: "今天的你会更好",
+        greeting6: "平凡日子也精彩",
+        greeting7: "用心感受美好",
+        greeting8: "简单快乐最珍贵",
+        greeting9: "愿你被温柔以待",
+        greeting10: "幸福其实很简单",
+        greeting11: "每天都值得期待",
+        greeting12: "心中有光不惧暗",
+        greeting13: "温暖如初照人心",
+        greeting14: "岁月静好心安然",
+        greeting15: "愿你永远热爱",
+        greeting16: "人间值得且珍惜",
+        greeting17: "星辰大海皆可期",
+        greeting18: "愿你眼中有光芒",
+        greeting19: "时光不负有心人",
+        greeting20: "一切皆有可能"
     }
 }

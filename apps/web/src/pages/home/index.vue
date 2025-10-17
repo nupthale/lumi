@@ -5,7 +5,7 @@ import { Menu, Input, Tooltip } from 'ant-design-vue';
 import { TextButton } from '@zsfe/zsui';
 import { storeToRefs } from 'pinia';
 import { useLocalStorage } from '@vueuse/core';
-import { FileText, Star, Menu as MenuIcon, Settings, HardDrive, BookOpenText } from 'lucide-vue-next';
+import { FileText, Star, Menu as MenuIcon, Settings, HardDrive, CalendarDays } from 'lucide-vue-next';
 import i18next from 'i18next';
 
 import LucideIcon from '@/components/LucideIcon/index.vue';
@@ -90,6 +90,11 @@ export default defineComponent({
                   <MenuItem key="2" icon={<LucideIcon icon="BookOpenText" width={18} color={themeTokens.lightTextColor()} />} class="flex items-center" onClick={handleMenuClick}>
                     <RouterLink to="/wikis">
                       {i18next.t('home.sider.wiki')}
+                    </RouterLink>
+                  </MenuItem>
+                  <MenuItem key="3" icon={<LucideIcon icon="CalendarDays" width={18} color={themeTokens.lightTextColor()} />} class="flex items-center" onClick={handleMenuClick}>
+                    <RouterLink to="/journals">
+                      {i18next.t('home.sider.journal')}
                     </RouterLink>
                   </MenuItem>
                 </Menu>
@@ -224,7 +229,7 @@ export default defineComponent({
   height: 22px;
   background: var(--blur-bg);
   backdrop-filter: blur(4px);
-  z-index: 10;
+  z-index: 100;
 }
 
 .sider-head {

@@ -37,6 +37,10 @@ const router = createRouter({
             component: () => import('../pages/wiki/modules/Doc/index.vue'),
           }]
         }]
+      }, {
+        path: 'journals',
+        name: 'journals',
+        component: () => import('../pages/journals/index.vue'),
       }]
     },
     {

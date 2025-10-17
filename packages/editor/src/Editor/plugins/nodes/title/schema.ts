@@ -9,6 +9,7 @@ export const titleSchema: Record<string, NodeSpec> = {
       attrs: {
         id: { default: "" },
         placeholder: { default: "" },
+        editable: { default: true },
       },
       parseDOM: [{ 
         tag: "div.doc-title", 
@@ -17,6 +18,7 @@ export const titleSchema: Record<string, NodeSpec> = {
           return {
             id: dom.getAttribute('data-id') || '',
             placeholder: dom.getAttribute('data-placeholder') || '',
+            editable: dom.getAttribute('data-editable') === 'false' ? false : true,
           };
         }
       }],
@@ -24,6 +26,7 @@ export const titleSchema: Record<string, NodeSpec> = {
         return ["div", { 
           'data-id': node.attrs.id,
           'data-placeholder': node.attrs.placeholder,
+          'data-editable': node.attrs.editable ? 'true' : 'false',
           class: "doc-title", 
         }, 0] 
       },

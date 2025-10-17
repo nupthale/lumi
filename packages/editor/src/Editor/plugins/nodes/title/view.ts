@@ -25,6 +25,10 @@ export class TitleView implements NodeView {
     this.dom.className = 'doc-title-container';
     this.dom.setAttribute('data-id', node.attrs.id);
 
+    if (!node.attrs.editable) {
+      this.dom.contentEditable = 'false';
+    }
+
     // 创建标题元素
     const titleElement = document.createElement('h1');
     titleElement.className = 'doc-title';
@@ -89,6 +93,11 @@ export class TitleView implements NodeView {
   update(node: Node) {
     if (node.type !== this.node.type) return false;
     this.node = node;
+    
+    if (!this.node.attrs.editable) {
+      this.dom.contentEditable = 'false';
+    }
+
     return true;
   }
 

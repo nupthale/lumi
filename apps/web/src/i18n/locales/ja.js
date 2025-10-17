@@ -15,6 +15,7 @@ export default {
             collapse: 'サイドバーを折りたたむ',
             expand: 'サイドバーを展開する',
             freeTag: '無料版',
+            journal: 'ジャーナル',
         },
         space: {
             createSpace: 'スペースを作成',
@@ -213,5 +214,27 @@ export default {
     },
     feedback: {
         tooltipTitle: 'フィードバック',
+    },
+    greetings: {
+        greeting1: "今日の小さな幸せ",
+        greeting2: "毎日笑顔で過ごして",
+        greeting3: "人生は驚喜に満ちている",
+        greeting4: "雨後の Sunshine",
+        greeting5: "今日のあなたはもっと良い",
+        greeting6: "平凡な日も素晴らしい",
+        greeting7: "周りの美しさを感じて",
+        greeting8: "シンプルな喜びは大切",
+        greeting9: "あなたが優しく扱われますように",
+        greeting10: "幸せはシンプルです",
+        greeting11: "毎日が期待に満ちて",
+        greeting12: "心の光は闇を照らす",
+        greeting13: "初日の暖かさのように",
+        greeting14: "穏やかな年月、静かな心",
+        greeting15: "いつも情熱的でいて",
+        greeting16: "人生は大切にすべきもの",
+        greeting17: "星と海は手が届くところに",
+        greeting18: "あなたの目が輝きますように",
+        greeting19: "時間を大切にすれば報われる",
+        greeting20: "すべては可能"
     }
 } 

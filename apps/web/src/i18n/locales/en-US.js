@@ -24,6 +24,7 @@ export default {
             collapse: 'Collapse sidebar',
             expand: 'Expand sidebar',
             freeTag: 'Free',
+            journal: 'Journal',
         },
         space: {
             space: 'Space',
@@ -339,5 +340,27 @@ export default {
     },
     feedback: {
         tooltipTitle: 'Feedback',
+    },
+    greetings: {
+        greeting1: "Today's little happiness",
+        greeting2: "Keep smiling every day",
+        greeting3: "Life is full of surprises",
+        greeting4: "Sunshine after rain",
+        greeting5: "You'll be better today",
+        greeting6: "Ordinary days can be wonderful",
+        greeting7: "Feel the beauty around you",
+        greeting8: "Simple joys are precious",
+        greeting9: "May you be treated gently",
+        greeting10: "Happiness is simple",
+        greeting11: "Every day is worth expecting",
+        greeting12: "Light in your heart conquers darkness",
+        greeting13: "Warmth like the first sun",
+        greeting14: "Peaceful years, calm heart",
+        greeting15: "May you always be passionate",
+        greeting16: "Life is worth cherishing",
+        greeting17: "Stars and sea are within reach",
+        greeting18: "May your eyes shine bright",
+        greeting19: "Time rewards those who try",
+        greeting20: "Everything is possible"
     }
 }

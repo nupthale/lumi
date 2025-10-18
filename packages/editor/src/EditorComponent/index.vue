@@ -14,6 +14,9 @@ export default defineComponent({
     collectionComponent: {
       type: Object,
     },
+    titleFormatter: {
+      type: Function,
+    },
     user: Object as PropType<UserType>
   },
   setup(props, { slots }) {
@@ -35,6 +38,7 @@ export default defineComponent({
         user={props.user}
         docMetaComponent={props.docMetaComponent} 
         collectionComponent={props.collectionComponent}
+        titleFormatter={props.titleFormatter}
       >
         {slots}
       </Editor>

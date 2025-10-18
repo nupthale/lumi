@@ -6,9 +6,11 @@ import { TitleView } from './view';
 
 import { schema } from '@editor/Editor/plugins/schema/index';
 
+import { titleDecorationPlugin } from './decorations/date';
 
 export function title(_schema: Schema): Plugin[] {
   return [
+    titleDecorationPlugin,
     new Plugin({
       key: new PluginKey('title'),
       props: {

@@ -94,7 +94,7 @@ export class TitleView implements NodeView {
     if (node.type !== this.node.type) return false;
     this.node = node;
     
-    if (!this.node.attrs.editable) {
+    if (!node.attrs.editable) {
       this.dom.contentEditable = 'false';
     }
 

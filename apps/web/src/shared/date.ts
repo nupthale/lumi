@@ -51,6 +51,20 @@ export const formatYearMonth = (date: Dayjs) => {
   }
 };
 
+// 根据语言获取年月格式
+export const formatDate = (date: Dayjs) => {
+  const locale = i18next.language;
+
+  switch (locale) {
+    case 'zh-cn':
+      return date.format('YYYY年MM月DD日');
+    case 'en-US':
+      return date.format('MMM D, YYYY');
+    default:
+      return date.format('YYYY年MM月DD日');
+  }
+};
+
 // HTML实体解码函数
 export const decodeHTML = (str: string) => {
   const textarea = document.createElement('textarea');

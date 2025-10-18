@@ -24,6 +24,8 @@ import DocMeta from './modules/Meta/index.vue';
 
 import { AppModeEnum } from '@/types/setting';
 
+import { formatDate } from '@/shared/date';
+
 import '@editor/index.css';
 
 import { getDefaultDoc } from './defaultDoc';
@@ -128,6 +130,10 @@ export default defineComponent({
         }
       });
 
+      const titleFormatter = (text) => {
+        return formatDate(dayjs(text));
+      }
+
       return (
         <Editor
             key={doc.value?.fileId}
@@ -135,6 +141,7 @@ export default defineComponent({
             user={user.value}
             doc={doc.value}
             docMetaComponent={docMetaComponent}
+            titleFormatter={titleFormatter}
             isLocalMode={window.__appMode__ === AppModeEnum.LOCAL}
         >
           {{

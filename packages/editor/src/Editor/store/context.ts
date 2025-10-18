@@ -11,6 +11,8 @@ export const contextStore = createStore<{
     popovers: Record<PopoverTypeEnum, boolean>,
     hasPopoverVisible: boolean,
     docMetaComponent: any,
+    titleFormatter?: Function,
+    setTitleFormatter: (formatter?: Function) => void,
     setDocInfo: (docInfo: Record<string, any>) => void,
     setEditorView: (view: EditorView) => void,
     setScrollEl: (el: HTMLElement | null) => void,
@@ -21,16 +23,20 @@ export const contextStore = createStore<{
     editorView: null,
     scrollEl: null,
     docMetaComponent: null,
+    titleFormatter: undefined,
     popovers: {
         [PopoverTypeEnum.MENTION]: false,
         [PopoverTypeEnum.BUBBLE_MENU]: false,
         [PopoverTypeEnum.FLOAT_MENU]: false,
         [PopoverTypeEnum.EMOJI]: false,
+        [PopoverTypeEnum.LINK]: false,
+        [PopoverTypeEnum.AUTO_COMPLETE]: false,
     },
     get hasPopoverVisible() {
         return Object.values(get().popovers).some(visible => visible);
     },
     
+    setTitleFormatter: (formatter?: Function) => set({ titleFormatter: formatter }),
     setDocInfo: (docInfo: Record<string, any>) => set({ docInfo }),
     setEditorView: (view: EditorView | null) => set({ editorView: view }),
     setScrollEl: (el: HTMLElement | null) => set({ scrollEl: el }),
@@ -63,5 +69,7 @@ export function useContextStore() {
         setPopoverVisible: contextStore.getState().setPopoverVisible,
         setDocMetaComponent: contextStore.getState().setDocMetaComponent,
         getDocMetaComponent: () => contextStore.getState().docMetaComponent,
+        setTitleFormatter: contextStore.getState().setTitleFormatter,
+        titleFormatter: contextStore.getState().titleFormatter,
     };
 }

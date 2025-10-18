@@ -49,6 +49,9 @@ export default defineComponent({
     collectionComponent: {
       type: Object,
     },
+    titleFormatter: {
+      type: Function,
+    },
     user: Object as PropType<UserType>,
     isLocalMode: Boolean,
   },
@@ -133,6 +136,7 @@ export default defineComponent({
       contextState.setDocInfo(props.doc!);
       contextState.setDocMetaComponent(props.docMetaComponent);
       contextState.setScrollEl(scrollEl.value);
+      contextState.setTitleFormatter(props.titleFormatter);
 
       commentStore.getState().setFileId(props.doc?.fileId);
 

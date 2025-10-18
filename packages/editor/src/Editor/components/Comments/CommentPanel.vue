@@ -38,11 +38,10 @@ export default defineComponent({
 
         const { height } = useElementSize(elRef);
 
-        const commentStore = useCommentStore();
-        const { state: commentState } = commentStore;
+        const { state: commentState } = useCommentStore();
 
         const commentInfo = computed(() => {
-            return commentState.value.commentInfoMap?.[props.id!] as CommentInfoType || {};
+            return commentState.value?.commentInfoMap?.[props.id!] as CommentInfoType || {};
         });
 
         watch(height, (newHeight) => {

@@ -54,12 +54,22 @@ export const useActiveComment = (docCommentRefMap, transformYMap) => {
             tap(({ refId, id }) => {
                 // 找到refId的第一个comment
                 const ref = docCommentRefMap.value[refId];
+
+                if (!ref) {
+                    return;
+                };
+
                 const commentIds = ref.comments;
                 const commentId = id ? id : commentIds[0];
 
                 if (!commentId) return;    
                 commentState.value?.setActiveDocCommentId(commentId);
                 offsetY.value = transformYMap.value[commentId] - (ref?.refTop || 0);
+                
+                if (offsetY.value <= 10) {
+                    // 評論頭部header的高度為120， 爲了防止遮住
+                    offsetY.value = -120;
+                }
             }),
         ).subscribe(),
     );

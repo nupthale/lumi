@@ -66,6 +66,7 @@ const close = () => {
   margin-left: 2px;
   border-radius: 4px;
   transition: all 0.2s;
+  outline: none!important;
 }
 
 .control-btn:hover {

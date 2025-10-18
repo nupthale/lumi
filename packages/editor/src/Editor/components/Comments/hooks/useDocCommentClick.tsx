@@ -16,7 +16,7 @@ export const useDocCommentClick = () => {
             });
         }
     }
-    
+
     onMounted(() => {
         document.addEventListener('click', handleClick, true);
     });

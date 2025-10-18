@@ -33,7 +33,7 @@ export default defineComponent({
         watch(() => docComments.value, () => {
             setTimeout(() => {
                 layoutComments$.next();
-            }, 200);
+            }, 10);
         });
 
         useEventListener(containerRef.value, 'mousedown', (e) => {
@@ -136,7 +136,7 @@ export default defineComponent({
 .doc-comments_title {
     padding: 8px 0;
     position: sticky;
-    top: var(64px + 14px);
+    top: calc(64px + 14px);
     border-bottom: 1px solid var(--float-border-color);
     font-weight: 500;
     font-size: 14px;

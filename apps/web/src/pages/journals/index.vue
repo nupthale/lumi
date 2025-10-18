@@ -145,11 +145,13 @@ export default defineComponent({
     }
 
     return () => (
-        <div class="relative">
+        <div class="relative w-full h-screen journalPage">
           <div class="calendarBarWrap sticky top-0" style={{ marginTop: globalThis.isElectron ? '-22px' : '0', top: globalThis.isElectron ? '-22px' : 0 }}>
             <CalendarBar journals={journals.value} onSelectDate={handleSelectDate} />
           </div>
-          {renderBody({ paddingTop: '0' })}
+          <div class="absolute top-0 left-0 right-0 bottom-0 pt-[160px]">
+            {renderBody({ paddingTop: '0' })}
+          </div>
         </div>
     );
   }
@@ -185,8 +187,13 @@ export default defineComponent({
 .calendarBarWrap {
   z-index: 1000;
   background: var(--body-bg);
+  height: 160px;
 
   background: var(--blur-bg-filter);
   backdrop-filter: saturate(1.5) blur(16px);
+}
+
+.journalPage :deep(.doc-comments_title) {
+  top: 0;
 }
 </style>

@@ -9,7 +9,7 @@ import { useLocalStorage } from '@vueuse/core';
 import { events } from '@/database/index';
 import { queryClient } from '@/store/queries/client';
 import { appBarHeight } from '@/shared/electron';
-import { docChanged$ } from '@editor/Editor/event'; 
+import { docChanged$, docInit$ } from '@editor/Editor/event'; 
 import { useContextStore } from '@/store/ui-states/context';
 import { getText } from '@editor/Editor/components/Catalog/util';
 
@@ -35,6 +35,14 @@ export default defineComponent({
 
     const contextStore = useContextStore();
     const { crtSpace } = storeToRefs(contextStore);
+
+    useSubscription(
+        docInit$.pipe(
+            tap(({ doc }) => {
+                titleRef.value = getText(doc.content?.[0]?.content) || i18next.t('doc.head.titlePlaceholder');
+            }),
+        ).subscribe(),
+    );
 
     useSubscription(
         docChanged$.pipe(

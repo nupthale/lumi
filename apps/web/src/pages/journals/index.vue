@@ -145,8 +145,8 @@ export default defineComponent({
     }
 
     return () => (
-        <div>
-          <div class="calendarBarWrap sticky top-0">
+        <div class="relative">
+          <div class="calendarBarWrap sticky top-0" style={{ marginTop: globalThis.isElectron ? '-22px' : '0', top: globalThis.isElectron ? '-22px' : 0 }}>
             <CalendarBar journals={journals.value} onSelectDate={handleSelectDate} />
           </div>
           {renderBody({ paddingTop: '0' })}

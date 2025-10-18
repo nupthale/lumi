@@ -5,7 +5,7 @@ import { storeToRefs } from 'pinia';
 import { debounceTime, filter, tap, switchMap } from 'rxjs/operators';
 import i18next from 'i18next';
 
-import { docChanged$ } from '@editor/Editor/event'; 
+import { docChanged$, docInit$ } from '@editor/Editor/event'; 
 import { useContextStore } from '@/store/ui-states/context';
 import { getText } from '@editor/Editor/components/Catalog/util';
 
@@ -30,6 +30,14 @@ export default defineComponent({
 
     const contextStore = useContextStore();
     const { crtSpace } = storeToRefs(contextStore);
+
+    useSubscription(
+        docInit$.pipe(
+            tap(({ doc }) => {
+                titleRef.value = getText(doc.content?.[0]?.content) || i18next.t('doc.head.titlePlaceholder');
+            }),
+        ).subscribe(),
+    );
 
     useSubscription(
         docChanged$.pipe(

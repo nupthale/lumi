@@ -83,7 +83,7 @@ import BeamBg from './components/Beam.vue';
               <a class="cursor-pointer" href="https://lumidoc-res.oss-cn-beijing.aliyuncs.com/0.0.2/Lumi-Setup-1.0.0-alpha.2.exe" target="_blank">
                 <img src="https://res.cloudinary.com/dybz0bvui/image/upload/v1760403911/winstore_iylxng.png" alt="winstore" style="height: 52px;">
               </a>
-              <a class="cursor-pointer" href="https://lumidoc-res.oss-cn-beijing.aliyuncs.com/0.0.2/lumi-linux%20%281%29.zip" target="_blank">
+              <a class="cursor-pointer" href="https://lumidoc-res.oss-cn-beijing.aliyuncs.com/0.0.2/lumi-linux.zip" target="_blank">
                 <img src="https://res.cloudinary.com/dybz0bvui/image/upload/v1760422601/linuxstore_mpbhix.png" alt="linuxstore" style="height: 52px;">
               </a>
             </div>

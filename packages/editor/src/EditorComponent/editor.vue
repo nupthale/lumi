@@ -32,6 +32,7 @@ import { useDragToSelect } from '@editor/Editor/hooks/useDragToSelect';
 import { useStopTab } from '@editor/Editor/hooks/useStopTab';
 import { initDocumentCollab, removeDocumentCollab } from '@editor/Editor/plugins/collab/index';
 import { useHistory } from '@editor/Editor/hooks/useHistory';
+import { useExport } from '@editor/Editor/hooks/useExport';
 
 import { loadSharedDoc, cleanupAllCollab } from '@editor/Editor/plugins/collab/core';
 import { collectionsWatcher } from '@editor/Editor/plugins/collab/collection';
@@ -71,6 +72,7 @@ export default defineComponent({
     useDocScrollTo();
     useHistory(props.doc?.fileId, editorRef);
     useStopTab(editorRef);
+    useExport(() => view);
 
     const initEditor = () => {
       if (!editorRef.value || isInit.value) return;

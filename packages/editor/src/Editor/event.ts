@@ -127,3 +127,7 @@ export const updateCollectionsMap$ = new Subject<{
     values: Record<string, any>,
   }>,
 }>();
+
+export const exportToJSON$ = new Subject<{ fileId: string }>();
+
+export const exportToMarkdown$ = new Subject<{ fileId: string }>();

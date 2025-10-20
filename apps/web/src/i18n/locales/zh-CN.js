@@ -12,6 +12,9 @@ export default {
         logout: '登出',
         select: '选择',
         open: '打开',
+        export: '导出',
+        import: '导入',
+        exportPending: '导出中...'
     },
     home: {
         myspace: '我的空间',
@@ -362,5 +365,14 @@ export default {
         greeting18: "愿你眼中有光芒",
         greeting19: "时光不负有心人",
         greeting20: "一切皆有可能"
+    },
+    export: {
+        json: '导出 Json 文件',
+        markdown: '导出 Markdown',
+        failedMessage: '导出失败',
+    },
+    import: {
+        uploadText: '点击或拖拽至此区域上传',
+        hint: '支持.json和.md格式的文件',
     }
 }

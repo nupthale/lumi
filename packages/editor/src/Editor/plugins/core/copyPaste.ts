@@ -13,7 +13,7 @@ import { MultiBlockSelection } from '../selection/multiBlock';
 
 export const acceptedMIMETypes = ['text/html', 'text/plain', 'Files'] as const;
 
-const removeComment = (node: Node) => {
+export const removeComment = (node: Node) => {
     if (!node.isText) {
         return node;
     }

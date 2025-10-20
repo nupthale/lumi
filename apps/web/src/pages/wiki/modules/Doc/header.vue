@@ -13,6 +13,8 @@ import { docChanged$, docInit$ } from '@editor/Editor/event';
 import { useContextStore } from '@/store/ui-states/context';
 import { getText } from '@editor/Editor/components/Catalog/util';
 
+import Actions from '../../../doc/modules/Actions.vue';
+
 enum SaveStatusEnum {
     INIT = 'init',
     SAVING = 'saving',
@@ -88,13 +90,14 @@ export default defineComponent({
     })
 
     return () => (
-        <div class="header" style={{ height: `calc(64px + ${appBarHeight}px)` }}>
+        <div class="header" style={{ height: `calc(64px)` }}>
             <div style={{ paddingLeft: siderCollapsed.value ? '32px' : '0' }}>
                 <div>{titleRef.value || ''}</div>
                 <div class="doc-autosave">
                     {renderStatusText.value}
                 </div>
             </div>
+            <Actions />
         </div>
     );
   }

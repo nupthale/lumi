@@ -102,6 +102,8 @@ export default defineComponent({
     left: 20px;
     height: 0px;
     max-width: 495px;
+    z-index: 2;
+    
 }
 
 @media screen and (max-width: 1600px)  {
@@ -115,6 +117,9 @@ export default defineComponent({
     padding-top: 60px;
 
     width: 100%;
+    border-radius: 12px;
     overflow-x: hidden;
+    background: var(--blur-bg);
+    backdrop-filter: blur(4px);
 }
 </style>

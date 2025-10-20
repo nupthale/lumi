@@ -19,26 +19,23 @@ import { useFileSearchIndex } from '@/hooks/useFileSearchIndex';
 
 import Title from './modules/Title.vue';
 import DocMeta from './meta/index.vue';
-import { useOnlineUsers } from './hooks/useOnlineUsers';
-
-import UserGroup from './modules/UserGroup.vue';
 import Header from './modules/Header.vue';
 import { AppModeEnum } from '@/types/setting';
+
+import Actions from './modules/Actions.vue';
 
 import '@editor/index.css';
 
 export default defineComponent({
-  setup(props) {
+  setup() {
     const route = useRoute();
 
     const contextStore = useContextStore();
     const { crtSpace } = storeToRefs(contextStore);
 
-    const { files, tags } = useFiles(crtSpace);
+    const { tags } = useFiles(crtSpace);
 
     const fileIdRef = ref(route.params.fileId as string);
-
-    const { onlineUsers } = useOnlineUsers();
 
     useFileSearchIndex(fileIdRef);
 
@@ -113,9 +110,7 @@ export default defineComponent({
           {{
             title: () => <Title id={doc.value?.id} fileId={fileIdRef.value} />,
             actions: () => (
-              <div class="h-[28px]">
-                  <UserGroup users={onlineUsers.value} maxCount={10} />
-              </div>
+              <Actions fileId={doc.value?.fileId} />
             ),
             default: (params) => renderBody(params),
           }}

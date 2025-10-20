@@ -127,7 +127,7 @@ export default defineComponent({
 .divider {
     width: 1px;
     height: 18px;
-    background: #e8e8e8;
+    background: var(--N400);
     margin: 0 8px;
 }
 

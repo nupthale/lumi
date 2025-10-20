@@ -123,18 +123,18 @@ export const toMarkdown = (title: string, doc: Record<string, any>, collections:
     const indexStr = getOrderedIndex(map[listId]);
 
     const markdown = (child, level = 0) => {
-        child.content.forEach(child => {
+        child.content?.forEach(child => {
             if (child.type === 'list_head') {
                 const listType = child.attrs.type;
 
-                const inlineText = child.content.map(item => getInlineText(item)).join('');
+                const inlineText = child.content?.map(item => getInlineText(item)).join('') || '';
 
                 if (listType === ListTypeEnum.TODO) {
                     listText += '\t'.repeat(level) + `[] ${inlineText}\n`
                 } else if (listType === ListTypeEnum.ORDERED) {
                     listText += '\t'.repeat(level) + `${indexStr}. ${inlineText}\n`
                 } else {
-                    listText += '\t'.repeat(level) + `* ${child.content.map(item => getInlineText(item)).join('')}`
+                    listText += '\t'.repeat(level) + `* ${child.content?.map(item => getInlineText(item)).join('') || ''}`
                 }
             } else if (child.type === 'list_body') {
                 child.content.forEach(item => {

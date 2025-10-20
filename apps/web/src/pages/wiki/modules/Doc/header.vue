@@ -90,7 +90,7 @@ export default defineComponent({
     })
 
     return () => (
-        <div class="header" style={{ height: `calc(64px)` }}>
+        <div class="header" style={{ height: `calc(64px + ${appBarHeight}px)`, paddingTop: `${appBarHeight}px` }}>
             <div style={{ paddingLeft: siderCollapsed.value ? '32px' : '0' }}>
                 <div>{titleRef.value || ''}</div>
                 <div class="doc-autosave">

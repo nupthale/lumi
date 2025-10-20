@@ -31,7 +31,7 @@ export default defineComponent({
                                 transition={{ ease: ['linear'] }}
                             >
                                 <div class="wrap">
-                                    <div class="header" style={{ paddingTop: `${appBarHeight}px`, height: `calc(${props.headerHeight || 72}px)`, display: props.hideHeader ? 'none' : '' }}>
+                                    <div class="header" style={{ paddingTop: `${appBarHeight}px`, height: `calc(${props.headerHeight || 82}px)`, display: props.hideHeader ? 'none' : '' }}>
                                         {slots.header ? slots.header() : (
                                             <>
                                                 <Space align="center">

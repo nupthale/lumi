@@ -147,6 +147,7 @@ export const copyPastePlugin = () => {
                     }
 
                     let filteredContent: Node[] = [];
+                    debugger;
 
                     // Handle NodeSelection - when a complete node is selected
                     if (state.selection instanceof NodeSelection) {
@@ -162,6 +163,7 @@ export const copyPastePlugin = () => {
                     else if (state.selection instanceof TextSelection) {
                         // Check if this is a full header selection (macOS workaround)
                         const isFullHeaderSelection = $from.parent.type.name === 'header' && 
+                                                     $from.parent === $to.parent &&
                                                      $from.parentOffset === 0 && 
                                                      $to.parentOffset === $to.parent.content.size;
 

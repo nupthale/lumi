@@ -116,7 +116,7 @@ export default defineComponent({
     z-index: 10;
     padding-top: 60px;
 
-    width: 100%;
+    max-width: 100%;
     border-radius: 12px;
     overflow-x: hidden;
     background: var(--blur-bg);

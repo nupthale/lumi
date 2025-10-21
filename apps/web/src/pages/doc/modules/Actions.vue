@@ -26,7 +26,7 @@ export default defineComponent({
 
         const renderActionOverlay = () => {
             return (
-                <div class="dropdownContainer w-[180px]">
+                <div class="dropdownContainer min-w-[180px] max-w-[360px]">
                 <Menu activeKey='-1'>
                     <MenuItem key="1" onClick={() => exportToMarkdown$.next({ fileId: props.fileId })}>
                         <div class="flex items-center gap-2">

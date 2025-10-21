@@ -25,6 +25,7 @@ import DocMeta from './modules/Meta/index.vue';
 import { AppModeEnum } from '@/types/setting';
 
 import { formatDate } from '@/shared/date';
+import { createJournal } from '@/shared/file';
 
 import '@editor/index.css';
 
@@ -54,27 +55,11 @@ export default defineComponent({
 
     const handleAddEmptyDoc = async (title: string) => {
       try {
-          const fileId = uniqueId();
-
-          if (!user.value?.id) {
-            throw Error('用户不存在');
-          }
-
-          await createDoc(fileId, getDefaultDoc(title));
-
-          events.fileCreated({
-              id: fileId,
-              type: 'Doc',
-              title,
-              cover: '',
-              creator: user.value?.id,
-          });
-
-          events.spaceAssetsCreated({
-              id: uniqueId(),
-              space: crtSpace.value,
-              asset: fileId,
-              type: SpaceAssetType.JOURNAL,
+          const { fileId } = await createJournal({
+              title, 
+              content: getDefaultDoc(title), 
+              userId: user.value?.id,
+              spaceId: crtSpace.value,
           });
 
           return fileId;
@@ -108,6 +93,7 @@ export default defineComponent({
         );
       }
 
+      debugger;
       if (error.value || !doc.value) {
         return (
           <div class="docs-empty" style={{ paddingTop: paddingTop }}>
@@ -153,7 +139,7 @@ export default defineComponent({
 
     return () => (
         <div class="relative w-full h-screen journalPage">
-          <div class="calendarBarWrap sticky top-0" style={{ marginTop: globalThis.isElectron ? '-22px' : '0', top: globalThis.isElectron ? '-22px' : 0 }}>
+          <div class="calendarBarWrap sticky top-0 z-0" style={{ marginTop: globalThis.isElectron ? '-22px' : '0', top: globalThis.isElectron ? '-22px' : 0 }}>
             <CalendarBar journals={journals.value} onSelectDate={handleSelectDate} />
           </div>
           <div class="absolute top-0 left-0 right-0 bottom-0 pt-[160px]">
@@ -192,7 +178,7 @@ export default defineComponent({
 }
 
 .calendarBarWrap {
-  z-index: 1000;
+  z-index: 100;
   background: var(--body-bg);
   height: 160px;
 

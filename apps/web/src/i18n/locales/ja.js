@@ -4,12 +4,25 @@ export default {
         cancelText: 'キャンセル',
         delete: '削除',
         edit: '編集',
+        guest: 'ゲスト',
+        placeholder: '入力してください',
+        selectPlaceholder: '選択してください',
+        show: '表示',
+        hide: '非表示',
+        logout: 'ログアウト',
+        select: '選択',
+        open: '開く',
+        export: 'エクスポート',
+        import: 'インポート',
+        exportPending: 'エクスポート中...',
+        offlineMessage: 'オフライン編集モードに移行',
     },
     home: {
         myspace: 'マイスペース',
         myspaceDescription: 'システムのデフォルトスペース',
         sider: {
             doc: 'ドキュメント',
+            wiki: 'Wiki',
             favorite: 'お気に入り',
             tag: 'タグ',
             collapse: 'サイドバーを折りたたむ',
@@ -18,6 +31,7 @@ export default {
             journal: 'ジャーナル',
         },
         space: {
+            space: 'スペース',
             createSpace: 'スペースを作成',
             spaceName: 'スペース名',
             spaceNamePlaceholder: 'スペースの名前を入力してください',
@@ -30,11 +44,13 @@ export default {
         main: {
             searchPlaceholder: 'ドキュメントを検索',
             createDocBtnText: '新規ドキュメント',
+            createDocByTemplateBtnText: 'テンプレート',
             title: 'ドキュメント',
             table: {
                 title: 'タイトル',
                 titlePlaceholder: '無題のドキュメント',
                 lastUpate: '最終更新',
+                owner: '所有者',
                 action: 'アクション',
                 favorite: 'お気に入りに追加',
                 unfavorite: 'お気に入りから削除',
@@ -49,6 +65,11 @@ export default {
             title: 'お気に入り',
             nodocs: 'お気に入りのドキュメントがまだありません',
         },
+        wikis: {
+            title: 'Wiki',
+            createWikiBtnText: 'Wikiを作成',
+            nowikis: 'Wikiがまだありません',
+        },
     },
     template: {
         emptyDoc: '新規ドキュメント',
@@ -56,6 +77,17 @@ export default {
         todolist: 'To-Doリスト',
         weeklyReport: 'ミーティングノート',
         brainStorm: 'ブレインストーミング',
+        projectManagement: 'プロジェクト管理',
+        productPRD: 'プロダクト要件',
+        designSpec: 'デザイン仕様',
+        marketingCampaign: 'マーケティングキャンペーン',
+        operationsSOP: 'オペレーションSOP',
+        salesPlaybook: 'セールスプレイブック',
+        hrOnboarding: 'HRオンボーディング',
+        adminOfficePolicy: '管理者オフィスポリシー',
+        okrPlan: 'OKR計画',
+        meetingNotes: '会議メモ',
+        bugReport: 'バグレポート',
     },
     setting: {
         title: '設定',
@@ -96,9 +128,12 @@ export default {
     editor: {
         titlePlaceholder: 'タイトルを入力',
         commentTitle: 'コメント',
+        placeholder: 'コンテンツを入力してください。{{slash}}で提案を表示',
+        thumbsUp: '{{user}}がいいね',
         commands: {
             strong: '太字',
             italic: '斜体',
+            link: 'リンク',
             underline: '下線',
             strike: '取り消し線',
             code: 'コード',
@@ -122,6 +157,9 @@ export default {
             insertAfter: '下に追加',
         },
         commonUseTitle: 'よく使うもの',
+        basicTitle: '基本',
+        mediaTitle: 'メディア',
+        layoutTitle: 'レイアウト',
         columnTitle: 'カラムレイアウト',
         blockType: {
             text: 'テキスト',
@@ -145,6 +183,8 @@ export default {
             column2: '2カラムレイアウト',
             column3: '3カラムレイアウト',
             column4: '4カラムレイアウト',
+            collection: 'データベース',
+            emoji: '絵文字'
         },
         colorPalette: {
             text: '文字色',
@@ -188,29 +228,119 @@ export default {
             reupload: '再アップロード',
         },
     },
+    collection: {
+        addColumn: 'フィールドを追加',
+        editColumn: 'フィールドを編集',
+        insertColumnLeft: '左にフィールドを挿入',
+        insertColumnRight: '右にフィールドを挿入',
+        deleteColumn: 'フィールドを削除',
+        addRow: 'レコードを追加',
+        emptyPlaceholder: '空の値',
+        recordsCount: '{{count}}レコード',
+        insertBefore: '前に{{count}}件を挿入',
+        insertAfter: '後に{{count}}件を挿入',
+        viewDetail: '詳細を表示',
+        deleteRecord: 'レコードを削除',
+        columnType: {
+            text: 'テキスト',
+            number: '数値',
+            date: '日付',
+            select: '選択',
+            currency: '通貨',
+            image: '画像'
+        },
+        newView: '新しいビュー',
+        defaultView: 'デフォルトリストビュー',
+        viewType: {
+            grid: 'テーブル',
+            board: 'ボード',
+            gallery: 'ギャラリー',
+        },
+        viewAction: {
+            rename: '名前を変更',
+            delete: '削除',
+            placeholder: 'ビュー名を入力してください',
+        },
+        header: {
+            setting: 'フィールド設定',
+            filter: 'フィルター',
+            sort: 'ソート',
+            group: 'グループ',
+        },
+        operators: {
+            equal: '等しい',
+            notEqual: '等しくない',
+            contains: '含む',
+            notContains: '含まない',
+            greaterThan: 'より大きい',
+            lessThan: 'より小さい',
+            greaterThanOrEqual: '以上',
+            lessThanOrEqual: '以下',
+            isEmpty: '空である',
+            isNotEmpty: '空ではない',
+        },
+        filter: {
+            title: 'フィルター条件を設定',
+            matches: '以下の{{match}}条件に一致',
+            matchesAll: 'すべて',
+            matchesAny: 'いずれか',
+            fieldPlaceholder: 'フィールドを選択',
+            addCondition: '条件を追加',
+        },
+        group: {
+            ungroup: 'グループ解除',
+        },
+        sort: {
+            title: 'ソートを設定',
+            fieldPlaceholder: 'フィールドを選択',
+            ascending: '昇順',
+            descending: '降順',
+            addSort: '条件を追加',
+        },
+        gallery: {
+            coverField: 'カバーフィールド',
+            titleFiled: 'タイトルフィールド',
+            tagField: 'タグフィールド',
+        },
+        config: {
+            base: {
+                fieldTitle: 'フィールド',
+                fieldNameTitle: 'フィールド名',
+                fieldNamePlaceholder: 'フィールド名を入力してください',
+            },
+            select: {
+                optionTitle: 'オプション',
+                multiple: '複数選択',
+                placeholder: 'オプション名を入力してください',
+                addOption: 'オプションを追加',
+            },
+            currency: {
+                title: '通貨',
+                placeholder: '通貨を選択してください',
+            },
+            date: {
+                title: '日付形式',
+                placeholder: '日付形式を選択してください',
+            },
+            number: {
+                formatTitle: '形式',
+                formatPlaceholder: '形式を選択してください',
+                formatInt: '整数',
+                formatFloat: '小数',
+                formatPercent: 'パーセント',
+                precisionTitle: '精度',
+                precisionPlaceholder: '精度を選択してください',
+                digitGroup: '桁区切り形式',
+            }
+        }
+    },
     date: {
         updateTime: {
             justNow: 'たった今',
             minuteAgo_one: '{{count}}分前',
             minuteAgo_other: '{{count}}分前',
             today: '今日 {{date}}'
-        }
-    },
-    common: {
-        okText: '確定',
-        cancelText: 'キャンセル',
-        delete: '削除',
-        edit: '編集',
-    },
-    space: {
-        createSpace: 'スペースを作成',
-        spaceName: 'スペース名',
-        spaceNamePlaceholder: 'スペースの名前を入力してください',
-        spaceDesc: 'スペースの説明',
-        spaceDescPlaceholder: 'このスペースについて説明してください',
-        setSpaceDefault: 'デフォルトスペースとして設定',
-        spaceNameExist: 'このスペース名は既に存在します。別の名前を選択してください',
-        spaceLimit: '無料版では最大10個のスペースまで作成できます。より多くのスペースが必要な場合は、プロ版にアップグレードしてください',
+        }, 
     },
     feedback: {
         tooltipTitle: 'フィードバック',
@@ -236,5 +366,15 @@ export default {
         greeting18: "あなたの目が輝きますように",
         greeting19: "時間を大切にすれば報われる",
         greeting20: "すべては可能"
+    },
+    export: {
+        json: 'JSONファイルをエクスポート',
+        markdown: 'Markdownをエクスポート',
+        failedMessage: 'エクスポートに失敗しました',
+    },
+    import: {
+        uploadText: 'クリックして或はドラッグしてこの領域にドラッグしてインポート',
+        hint: 'サポート.jsonと.md形式のファイル',
+        parseJsonError: 'JSONファイルの解析に失敗しました',
     }
-} 
+}

@@ -85,7 +85,7 @@ const close = () => {
 
 /* 深色主题 */
 [data-theme="dark"] .control-btn {
-  background: rgba(0, 0, 0, 0.2);
+  /* background: rgba(0, 0, 0, 0.2); */
   color: #ccc;
 }
 

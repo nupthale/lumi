@@ -3,6 +3,7 @@ import { defineComponent } from 'vue';
 import { storeToRefs } from 'pinia';
 import { Hash } from 'lucide-vue-next';
 import i18next from 'i18next';
+import { useRouter } from 'vue-router';
 
 import { useFiles } from '@/store/queries/docs/useFiles';
 import { useContextStore } from '@/store/ui-states/context';
@@ -11,6 +12,8 @@ import { useHomeStore } from '@/store/ui-states/home/index';
 
 export default defineComponent({
     setup() {
+        const router = useRouter();
+
         const contextStore = useContextStore();
         const { crtSpace } = storeToRefs(contextStore);
 
@@ -27,6 +30,8 @@ export default defineComponent({
             }
 
             homeStore.setSelectedTag(tag);
+
+            router.replace('/files');
         }
 
         return () => (

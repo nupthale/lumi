@@ -14,6 +14,12 @@ export const useContextStore = defineStore('context', () => {
 
     const searchModalVisible = ref(false);
 
+    // 文档上传
+    const fileImportModalVisible = ref(false);
+
+    // 日记上传
+    const journalImportModalVisible = ref(false);
+
     // 因为doc资源比较大， 动态import比较耗时， 加个loading
     const docResLoading = ref(false);
 
@@ -42,6 +48,14 @@ export const useContextStore = defineStore('context', () => {
         docResLoading.value = loading;
     }
 
+    const setFileImportModalVisible = (visible: boolean) => {
+        fileImportModalVisible.value = visible;
+    }
+
+    const setJournalImportModalVisible = (visible: boolean) => {
+        journalImportModalVisible.value = visible;
+    }
+
     return {
         crtSpace,
         setCrtSpace,
@@ -59,5 +73,10 @@ export const useContextStore = defineStore('context', () => {
         editSpaceModalVisible,
         setEditSpaceModalVisible,
         setSettingModalVisible,
+
+        fileImportModalVisible,
+        setFileImportModalVisible,
+        journalImportModalVisible,
+        setJournalImportModalVisible,
     };
 });

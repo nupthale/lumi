@@ -1,11 +1,11 @@
 <script lang="tsx">
-import { defineComponent, ref, provide, watch } from 'vue';
+import { defineComponent, ref, provide, computed } from 'vue';
 import { RouterLink, RouterView, useRoute } from 'vue-router';
-import { Menu, Input, Tooltip } from 'ant-design-vue';
+import { Menu, Modal, Tooltip } from 'ant-design-vue';
 import { TextButton } from '@zsfe/zsui';
 import { storeToRefs } from 'pinia';
 import { useLocalStorage } from '@vueuse/core';
-import { FileText, Star, Menu as MenuIcon, Settings, HardDrive, CalendarDays } from 'lucide-vue-next';
+import { FileText, Star, Menu as MenuIcon, Settings, HardDrive, Upload as UploadIcon } from 'lucide-vue-next';
 import i18next from 'i18next';
 
 import LucideIcon from '@/components/LucideIcon/index.vue';
@@ -25,6 +25,8 @@ import Templates from './modules/templates/index.vue';
 import Search from './modules/search/index.vue';
 
 import Wikis from './modules/wikis/index.vue';
+import { useJournalsStore } from '@/store/ui-states/journals/index';
+import { formatDate } from '@/shared/date';
 
 const MenuItem = Menu.Item;
 
@@ -43,7 +45,14 @@ export default defineComponent({
 
     const homeStore = useHomeStore();
 
+    const journalsStore = useJournalsStore();
+    const { crtDate } = storeToRefs(journalsStore);
+
     const selectedKeys = ref<any[]>([route.path.includes('files') ? '1' : '2']);
+
+    const showImportBtn = computed(() => {
+      return route.name === 'files';
+    });
 
     const handleMenuClick = () => {
       homeStore.setSelectedTag(null);
@@ -55,6 +64,21 @@ export default defineComponent({
 
     const handleSearchClick = () => {
       contextStore.setSearchModalVisible(true);
+    }
+
+    const handleImportClick = () => {
+      if (route.name === 'journals') {
+        Modal.confirm({
+          title: '提示',
+          centered: true,
+          content: `确定导入至${formatDate(crtDate.value)}吗？`,
+          onOk: () => {
+            contextStore.setFileImportModalVisible(true);
+          },
+        });
+      } else {
+        contextStore.setFileImportModalVisible(true);
+      }
     }
 
     provide('showFooterText', isScrollable)
@@ -112,7 +136,16 @@ export default defineComponent({
                     }
                     
                   </div>
-                  <div>
+                  <div class="flex items-center gap-2">
+                    {
+                      showImportBtn.value ? (
+                        <Tooltip title={i18next.t('common.import')}>
+                          <TextButton onClick={handleImportClick}>
+                            <UploadIcon width={20} height={20} color="#a6a6a6" />
+                          </TextButton>
+                        </Tooltip>
+                      ) : ''
+                    }
                     <Tooltip title={i18next.t('setting.title')}>
                       <TextButton onClick={handleSettingClick}>
                         <Settings width={20} height={20} color="#a6a6a6" />
@@ -136,11 +169,7 @@ export default defineComponent({
 
             <div class={['main']} ref={scrollEl}>
               <div ref={scrollContentEl}>
-                <div class="main-head flex items-center justify-between px-6">
-                  <div>
-                    {/* <User username="张三" showText={false} size="large" /> */}
-                  </div>
-                </div>
+                <div class="main-head flex items-center justify-between px-6"></div>
                 
                 <RouterView />
               </div>

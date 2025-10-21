@@ -14,7 +14,8 @@ export default {
         open: '打开',
         export: '导出',
         import: '导入',
-        exportPending: '导出中...'
+        exportPending: '导出中...',
+        offlineMessage: '进入离线编辑模式',
     },
     home: {
         myspace: '我的空间',
@@ -372,7 +373,8 @@ export default {
         failedMessage: '导出失败',
     },
     import: {
-        uploadText: '点击或拖拽至此区域上传',
+        uploadText: '点击或拖拽至此区域导入',
         hint: '支持.json和.md格式的文件',
+        parseJsonError: '解释Json文件失败',
     }
 }

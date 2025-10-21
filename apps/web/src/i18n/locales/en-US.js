@@ -12,6 +12,10 @@ export default {
         logout: 'Logout',
         select: 'Select',
         open: 'Open',
+        export: 'Export',
+        import: 'Import',
+        exportPending: 'Exporting...',
+        offlineMessage: 'Enter offline edit mode',
     },
     home: {
         myspace: 'My Space',
@@ -362,5 +366,15 @@ export default {
         greeting18: "May your eyes shine bright",
         greeting19: "Time rewards those who try",
         greeting20: "Everything is possible"
+    },
+    export: {
+        json: 'Export Json File',
+        markdown: 'Export Markdown',
+        failedMessage: 'Export Failed',
+    },
+    import: {
+        uploadText: 'Click or drag and drop into the area to import',
+        hint: 'Supports .json and .md file formats',
+        parseJsonError: 'Failed to parse Json file',
     }
 }

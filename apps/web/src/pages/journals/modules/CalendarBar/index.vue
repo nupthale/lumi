@@ -9,7 +9,9 @@ import { useElementSize } from '@vueuse/core';
 
 import { FileSchema } from '@/database/schema/file';
 
-import CalendarSelect from '../../components/CalendarSelect.vue';
+import { useJournalsStore } from '@/store/ui-states/journals/index';
+import CalendarSelect from '@/components/DateSelect/CalendarSelect.vue';
+import { storeToRefs } from 'pinia';
 
 export default defineComponent({
   props: {
@@ -17,8 +19,8 @@ export default defineComponent({
   },  
   emits: ['selectDate'],
   setup(props, { emit }) {
-    const yearMonth = ref(dayjs());
-    const crtDate = ref(dayjs());
+    const journalsStore = useJournalsStore();
+    const { yearMonth, crtDate } = storeToRefs(journalsStore);
 
     const daysContainerRef = ref<HTMLDivElement>();
     const daysWrapRef = ref<HTMLDivElement>();
@@ -83,7 +85,7 @@ export default defineComponent({
     }
 
     const handleSelectDate = (date: Dayjs) => {
-        crtDate.value = date;
+        journalsStore.setCrtDate(date);
         // 如果有文档， 就展示， 没有就创建后展示
         emit('selectDate', date);
     }
@@ -111,7 +113,7 @@ export default defineComponent({
     return () => (
         <div class="wrap w-full">
             <div class="flex items-center justify-center mb-4">
-                <CalendarSelect value={yearMonth.value} onUpdate={val => yearMonth.value = val} />
+                <CalendarSelect value={yearMonth.value} onUpdate={val => journalsStore.setYearMonth(val as Dayjs)} />
             </div>
             <div class="days flex items-center relative">
                 <div class="overflow-hidden" ref={daysContainerRef}>

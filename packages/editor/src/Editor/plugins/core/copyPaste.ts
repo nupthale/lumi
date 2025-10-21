@@ -147,7 +147,6 @@ export const copyPastePlugin = () => {
                     }
 
                     let filteredContent: Node[] = [];
-                    debugger;
 
                     // Handle NodeSelection - when a complete node is selected
                     if (state.selection instanceof NodeSelection) {

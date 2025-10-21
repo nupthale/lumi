@@ -15,11 +15,18 @@ import { useBootstrap } from '@/hooks/useBootstrap';
 import { useOffline } from '@/hooks/useOffline';
 import { useOs } from '@/hooks/useOs';
 
+import ImportMask from '@/modules/importMask/index.vue';
+
 import SettingModal from '@/modules/setting/index.vue';
+
+import { useContextStore } from '@/store/ui-states/context';
 
 // 只在Windows平台导入WindowControls
 const WindowControls = ref(null);
 const { isWindows } = useOs();
+
+const contextStore = useContextStore();
+const { fileImportModalVisible } = storeToRefs(contextStore);
 
 // 组件挂载时检测平台并动态导入
 watchEffect(async () => {
@@ -76,6 +83,8 @@ const handleFeedbackClick = () => {
       </div>
 
       <SettingModal /> 
+      
+      <ImportMask v-if="fileImportModalVisible"/>
       
       <Tooltip :title="i18next.t('feedback.tooltipTitle')" placement="left">
         <div class="feedback" @click="handleFeedbackClick">

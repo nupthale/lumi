@@ -5,16 +5,11 @@ import { Plus } from 'lucide-vue-next';
 import { useRouter } from 'vue-router';
 import i18next from 'i18next';
 
-import { uniqueId } from '@/shared/id';
-import { events } from '@/database/index';
 import { useContextStore } from '@/store/ui-states/context';
 import { useUserStore } from '@/store/user';
 import { useHomeStore } from '@/store/ui-states/home/index';
-import { SpaceAssetType } from '@/database/schema/spaceAsset';
 
-import { insertColllection } from '@editor/Editor/plugins/collab/collection';
-
-import { createDoc } from '@/shared/yjs';
+import { createDocFile } from '@/shared/file';
 
 export default defineComponent({
     props: {
@@ -39,34 +34,13 @@ export default defineComponent({
 
             setTimeout(async () => {
                 try {
-                    const fileId = uniqueId();
-
-                    await createDoc(fileId, props.template?.content);
-                    
-                    events.fileCreated({
-                        id: fileId,
-                        type: 'Doc',
-                        title: props.template?.title,
-                        cover: '',
-                        creator: user.value.id,
-                    });
-
-                    events.spaceAssetsCreated({
-                        id: uniqueId(),
-                        space: crtSpace.value,
-                        asset: fileId,
-                        type: SpaceAssetType.FILE,
-                    });
-
-                    // 如果有数据库表， 需要初始化yjs
-                    const collectionMap = props.template?.collectionMap;
-                    if (collectionMap) {
-                        Object.keys(collectionMap).forEach(key => {
-                            const { schema, values } = collectionMap[key];
-                            
-                            insertColllection(fileId, key, schema, values);
-                        });
-                    }
+                    const { fileId } = await createDocFile({
+                        title: props.template?.title, 
+                        content: props.template?.content, 
+                        collectionMap: props.template?.collectionMap,
+                        userId: user.value.id,
+                        spaceId: crtSpace.value,
+                    })
 
                     setTimeout(() => {
                         // 跳转到新建的doc

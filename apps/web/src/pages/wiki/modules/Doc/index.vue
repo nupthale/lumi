@@ -36,7 +36,7 @@ export default defineComponent({
 
     const router = useRouter();
 
-    const { doc } = useDoc(fileIdRef);
+    const { doc, pending, error } = useDoc(fileIdRef);
 
     const userStore = useUserStore();
     const { user } = storeToRefs(userStore);
@@ -44,7 +44,15 @@ export default defineComponent({
     useBlockSystemSave();
 
     const renderBody = () => {
-      if (!doc.value) {
+      if (pending.value) {
+        return (
+          <div class="docs-empty" style={{ width: '140px', paddingTop: '200px' }}>
+            <Loading style="width: 140px" />
+          </div>
+        );
+      }
+
+      if (!doc.value || error.value) {
         return (
           <div class="docs-empty">
             <div class="docs-empty_illustration ">

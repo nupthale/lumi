@@ -17,11 +17,9 @@
     "build:mac": "electron-builder --mac",
     "build:linux": "electron-builder --linux",
     "build:all": "electron-builder --mac --win --linux",
-    "dist": "npm run copy-web && electron-builder",
-    "dist:win": "npm run copy-web && electron-builder --win",
-    "dist:mac": "npm run copy-web && electron-builder --mac",
-    "dist:linux": "npm run copy-web && electron-builder --linux",
-    "publish": "npm run copy-web && electron-builder --publish=always"
+    "package:mac": "electron-builder build --publish never",
+    "package:mac-test": "electron-builder build -c.mac.identity=null --publish never",
+    "publish:mac": "./build-config/mac/mac.sh"
   },
   "keywords": [],
   "author": {
@@ -46,21 +44,23 @@
     "which": "^5.0.0"
   },
   "devDependencies": {
+    "@electron/notarize": "^3.1.0",
     "@electron/osx-sign": "^2.2.0",
     "cross-env": "^7.0.3",
     "electron": "38.1.0",
-    "electron-builder": "^24.13.3",
+    "electron-builder": "24.9.1",
     "png2icons": "^2.0.1",
     "rimraf": "^5.0.5",
     "sharp": "^0.34.3",
     "shx": "^0.3.4"
   },
   "build": {
-    "appId": "com.lumi.app",
+    "appId": "com.pixergo.lumi",
     "productName": "Lumi",
     "copyright": "Copyright © 2024 Lumi Team",
     "electronVersion": "38.1.0",
     "electronDist": "node_modules/electron/dist",
+    "asar": true,
     "directories": {
       "output": "dist"
     },
@@ -88,26 +88,31 @@
       "category": "public.app-category.productivity",
       "icon": "public/icon.icns",
       "target": [
-        {
-          "target": "dmg",
-          "arch": [
-            "x64",
-            "arm64"
-          ]
-        },
-        {
-          "target": "zip",
-          "arch": [
-            "x64",
-            "arm64"
-          ]
-        }
+        "dmg",
+        "zip"
       ],
+      "type": "distribution",
+      "entitlements": "build-config/mac/entitlements.mac.plist",
+      "entitlementsInherit": "build-config/mac/entitlements.mac.plist",
       "darkModeSupport": true,
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
-      "entitlements": "build-config/entitlements.mac.plist",
-      "entitlementsInherit": "build-config/entitlements.mac.plist"
+      "notarize": {
+          "teamId": "9SDBH87QGB"
+      },
+      "extendInfo": {
+        "ElectronTeamID": "9SDBH87QGB"
+      }
+    },
+    "pkg": {
+      "isRelocatable": false,
+      "overwriteAction": "upgrade"
+    },
+    "mas": {
+      "icon": "public/icon.icns",
+      "hardenedRuntime": true,
+      "entitlements": "build-config/mac/entitlements.mac.plist",
+      "entitlementsInherit": "build-config/mac/entitlements.mac.plist"
     },
     "dmg": {
       "title": "Lumi ${version}",

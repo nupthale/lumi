@@ -73,7 +73,7 @@ export default defineComponent({
             try {
                 await formRef.value?.validate();
 
-                const isEdit = Boolean(editWikiItem.value.id);
+                const isEdit = Boolean(editWikiItem.value._id);
 
                 if (!user.value?.id) {
                     throw Error('用户id不存在');
@@ -81,7 +81,7 @@ export default defineComponent({
 
                 if (isEdit) {
                     events.wikiUpdated({
-                        id: editWikiItem.value.id,
+                        id: editWikiItem.value._id,
                         ...editWikiItem.value,
                     });
                 } else {
@@ -171,7 +171,7 @@ export default defineComponent({
 
                         <div class="flex items-center justify-end" onClick={handleSubmit}>
                             <Button type="primary">
-                                {editWikiItem.value.id ? '更新文档集' : '创建文档集'}
+                                {editWikiItem.value._id ? '更新文档集' : '创建文档集'}
                             </Button>
                         </div>
                     </div>

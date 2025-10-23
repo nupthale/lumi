@@ -138,7 +138,7 @@ export default defineComponent({
                         </div>
                     ),
                     overlay: () => (
-                        <div class="w-[160px]">
+                        <div class="menuContainer w-[160px]">
                             <Menu
                                 class={['customMenu']}
                                 mode="inline"
@@ -288,6 +288,12 @@ export default defineComponent({
 
 .docs-empty_text {
     color: #646a73;
+}
+
+.menuContainer {
+    border: 1px solid var(--float-border-color);
+    border-radius: 8px;
+    box-shadow: var(--overlay-shadow);
 }
 </style>
 

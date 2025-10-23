@@ -8,7 +8,7 @@ export const useWikis = (spaceId: Ref<string>) => {
 
     // 使用 pouchdb-find 查询 files
     const wikis = useLiveQuery(
-        ['files', 'docs'],
+        ['files', 'docs', 'wikis'],
         async () => {
             const currentSpaceId = spaceId.value;
             if (!currentSpaceId) return [];

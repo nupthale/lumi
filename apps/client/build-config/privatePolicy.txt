@@ -1,0 +1,76 @@
+Privacy Policy for Lumi
+
+Last Updated: October 24, 2025
+
+Lumi ("the App") is a local-first personal knowledge management system that works seamlessly even when offline. This privacy policy explains how we collect, use, and protect your information when you use our application.
+
+Data Collection and Usage
+
+1. Local Data Storage
+Lumi operates on a "local-first" principle, meaning all your data is primarily stored on your device:
+- Your documents, notes, and wiki content
+- Your application settings and preferences
+- Your organizational structure (spaces, pages, etc.)
+- Any files you upload through the application
+
+2. Machine Identification
+To provide certain functionalities, Lumi generates a unique machine identifier using industry-standard libraries:
+- This identifier is used solely for application functionality
+- It is stored locally on your device
+- It is not transmitted to any external servers under normal operation
+- It helps maintain consistency in your local settings
+
+3. File Handling
+When you upload files through Lumi:
+- Files are stored locally in your designated storage directory
+- Files are never automatically transmitted to external servers
+- You have full control over where your files are stored
+
+4. Network Usage
+Lumi may connect to the internet in the following scenarios:
+- Application Updates: When checking for and downloading updates through secure channels
+- Optional Sync Services: If you choose to enable synchronization between devices, data will be transmitted to servers you configure
+- Real-time Collaboration: If you use collaborative features, data will be transmitted to servers you configure
+
+5. Analytics and Telemetry
+Lumi does not collect any analytics, telemetry, or usage statistics by default. We do not track your usage patterns, feature preferences, or any personal information.
+
+Data Sharing and Disclosure
+
+We do not share, sell, or rent your personal data to third parties. Your data remains under your control. Lumi may interact with third-party services only if you choose to enable them:
+- Synchronization Services: If you enable sync features, your data may be transmitted to servers you configure
+- Collaboration Services: If you use real-time collaboration features, your data may be transmitted to servers you configure
+- Update Services: Application updates are downloaded through standard secure update mechanisms
+
+Your Rights and Choices
+
+Since Lumi stores data locally, you have complete access to and control over your data:
+- You can view all your data in the application's storage directory
+- You can export your data at any time
+- You can delete your data by removing the application's storage directory
+- You can opt out of any network features by disabling synchronization and collaboration features
+
+Data Security
+
+We implement appropriate technical and organizational measures to protect your data:
+- All data is stored locally on your device
+- Optional encryption can be enabled for synchronization
+- Access to your data requires access to your device
+
+Children's Privacy
+
+Lumi is not intended for use by children under 13 years of age. We do not knowingly collect personal information from children under 13.
+
+Changes to This Privacy Policy
+
+We may update this privacy policy from time to time. We will notify you of any changes by posting the new privacy policy on this page and updating the "Last Updated" date.
+
+Contact Us
+
+If you have any questions about this Privacy Policy, please contact us at:
+- GitHub: https://github.com/nupthale/lumi
+- Email: team@lumi.app
+
+Effective Date
+
+This privacy policy is effective as of October 24, 2025.

@@ -90,27 +90,34 @@
     ],
     "mac": {
       "category": "public.app-category.productivity",
-      "icon": "public/icon.icns",
-      "target": [
-        "mas"
-      ],
+      "icon": "public/AppIcon.icns",
+      "target": [{
+          "target": "mas",
+          "arch": "universal"
+      }],
       "type": "distribution",
       "entitlements": "build-config/mac/entitlements.mac.plist",
       "entitlementsInherit": "build-config/mac/entitlements.mac.plist",
       "darkModeSupport": true,
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
+      "x64ArchFiles": "*",
       "notarize": {
           "teamId": "9SDBH87QGB"
       },
       "extendInfo": {
         "ElectronTeamID": "9SDBH87QGB",
-        "CFBundleIconName": "public/macIcons"
+        "CFBundleIconFile": "AppIcon.icns",
+        "CFBundleIconName": "AppIcon"
       },
       "extraFiles": [
         {
           "from": "public/Assets.car",
           "to": "Resources/Assets.car"
+        },
+        {
+          "from": "public/AppIcon.icns",
+          "to": "Resources/AppIcon.icns"
         }
       ]
     },
@@ -119,7 +126,7 @@
       "overwriteAction": "upgrade"
     },
     "mas": {
-      "icon": "public/icon.icns",
+      "icon": "public/AppIcon.icns",
       "hardenedRuntime": true,
       "entitlements": "build-config/mac/entitlements.mac.plist",
       "entitlementsInherit": "build-config/mac/entitlements.mac.plist",

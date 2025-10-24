@@ -1,5 +1,5 @@
 import { NodeSelection, Plugin, TextSelection } from 'prosemirror-state';
-import { Fragment, Node, Slice } from 'prosemirror-model';
+import { Fragment, Node, Slice, DOMSerializer } from 'prosemirror-model';
 import { nanoid } from 'nanoid';
 import { EditorView } from 'prosemirror-view';
 
@@ -305,14 +305,15 @@ export const copyPastePlugin = () => {
                         }
                     }
 
-                    const serializer = view.state.schema.cached.domSerializer;
+                    // Use DOMSerializer.fromSchema instead of accessing cached property
+                    const serializer = DOMSerializer.fromSchema(view.state.schema);
                     const dom = document.createElement('div');
                     
                     // 序列化过滤后的内容
                     filteredContent.forEach(node => {
                         if (['textBlock_head', 'list_head'].includes(node.type.name)) {
                             // serializeFragment只会复制node的content内容， serializeNode会复制完整的node
-                            dom.appendChild(serializer.serializeFragment(node));
+                            dom.appendChild(serializer.serializeFragment(Fragment.from(node)));
                             return;
                         }
 

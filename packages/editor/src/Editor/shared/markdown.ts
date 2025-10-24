@@ -76,9 +76,9 @@ export const hasMarkdownSyntax = (text: string) => {
         // 转义字符 (\)
         /\\[#\-\*\+\.\[\]\(\)\{\}\!\`]/,
 
-        // 数学公式 ($...$ 或 $$...$$)
-        /\$[^$]+\$/,
-        /\$\$[^$]+\$\$/,
+        // 数学公式 ($...$ 或 $$...$$)， 暂时去掉， 因为还不支持， 要不然没转换会被识别为markdown文本
+        // /\$[^$]+\$/,
+        // /\$\$[^$]+\$\$/,
     ];
     
     return markdownPatterns.some(pattern => pattern.test(text));

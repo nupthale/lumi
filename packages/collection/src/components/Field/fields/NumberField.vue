@@ -53,6 +53,11 @@ export default defineComponent({
                 return;
             }
 
+            // 允许输入小数点
+            if (e.key === '.') {
+                return;
+            }
+
             // 允许负号，但只能在开头且只允许一个
             if (e.key === '-') {
                 const el = e.currentTarget as HTMLElement;

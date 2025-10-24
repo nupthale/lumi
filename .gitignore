@@ -50,3 +50,4 @@ apps/server-pouchdb/pouchdb-logs.txt
 *.provisionprofile
 *.p12
 apps/client/build-config/mac/*
+private.md

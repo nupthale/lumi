@@ -1,9 +1,10 @@
 <script lang="tsx">
-import { defineComponent, PropType, inject } from 'vue';
+import { defineComponent, PropType, inject, ref } from 'vue';
 import { TextButton } from '@zsfe/zsui';
 import { Dropdown, Menu } from 'ant-design-vue';
 import { ChevronDown, Ellipsis } from 'lucide-vue-next';
 import { nanoid } from 'nanoid';
+import { onClickOutside } from '@vueuse/core';
 
 import { i18next } from '@collection/i18next';
 
@@ -22,6 +23,14 @@ export default defineComponent({
   },
   setup(props) {
     const id = inject<string>('id')!;
+
+    const visibleRef = ref(false);
+    const containerRef = ref();
+
+    onClickOutside(containerRef, () => {
+        debugger;
+        visibleRef.value = false;
+    });
 
     const handleAddView = (type: ViewEnum) => {
         addView$.next({
@@ -56,10 +65,10 @@ export default defineComponent({
         const view = props.schema?.views.find(view => view.id === props.schema?.viewId);
 
         return (
-            <Dropdown onOpenChange={handleOpenChange} destroyPopupOnHide>
+            <Dropdown open={visibleRef.value} onOpenChange={handleOpenChange} destroyPopupOnHide>
                 {{
                     default: () => (
-                        <TextButton>
+                        <TextButton onClick={() => visibleRef.value = !visibleRef.value}>
                             <div class="flex items-center gap-2">
                                 <ViewIcon type={view?.type} size={16} />
                                 {view?.name || '-'}
@@ -68,7 +77,7 @@ export default defineComponent({
                         </TextButton>
                     ),
                     overlay: () => (
-                        <div class="dropdownContainer !p-0 w-[220px]">
+                        <div class="dropdownContainer !p-0 w-[220px]" ref={containerRef}>
                             <Menu selectedKeys={[]}>
                                 {
                                     props.schema?.views?.map(view => (

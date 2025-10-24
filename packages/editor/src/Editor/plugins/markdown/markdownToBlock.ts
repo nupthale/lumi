@@ -1,6 +1,8 @@
 import { isNil } from "lodash";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
+import remarkBreaks from 'remark-breaks';
+import remarkMath from 'remark-math';
 import {
   remarkProseMirror,
   toPmNode,
@@ -19,6 +21,8 @@ export function createProcessor() {
     return unified()
     // Use remarkParse to parse the markdown string
     .use(remarkParse)
+    .use(remarkBreaks)
+    // .use(remarkMath)
     // 支持table、tasklist等。
     .use(remarkGfm)
     // Convert to ProseMirror with the remarkProseMirror plugin.
@@ -66,7 +70,9 @@ export function createProcessor() {
             const children = state.all(node);
             return schema.nodes.quote.spec.create(schema, {}, children);
         },
-        break: toPmNode(schema.nodes.hardBreak),
+        break(node, _, state) {
+          return schema.nodes.hardBreak.create();
+        },
         // code 对应代码块（block-level）
         code(node, _, state) {
             return schema.nodes.coder.spec.create(schema, {}, node.value ? schema.text(node.value || '') : []);
@@ -205,9 +211,10 @@ export function createProcessor() {
 export function markdownToBlock(markdown: string): Node {
     try {
       console.log('Input markdown:', markdown);
-    
+      const source =  markdown.replace(/\n/gi, '\n\n');
+
       const processor = createProcessor();
-      const result = processor.processSync(markdown);
+      const result = processor.processSync(source);
 
       console.log('Parsed result:', result);
       return result.result as Node;

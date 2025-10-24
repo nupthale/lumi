@@ -9,6 +9,8 @@ import { useUserStore } from '@/store/user';
 import { createDocFile } from '@/shared/file';
 
 import { markdownToBlock } from '@editor/Editor/plugins/markdown/markdownToBlock';
+import { uniqueId } from '../../../shared/id';
+import { schema } from '@editor/Editor/plugins/schema';
 
 export const useImportMd = () => {
     const contextStore = useContextStore();
@@ -21,6 +23,13 @@ export const useImportMd = () => {
         try {
             const node = await markdownToBlock(md);
             const json = node.toJSON();
+
+            const titleNode = json.content[0];
+            titleNode.attrs.id = uniqueId();
+            titleNode.content = [{
+                type: 'text',
+                text: title,
+            }];
 
             await createDocFile({
                 title,

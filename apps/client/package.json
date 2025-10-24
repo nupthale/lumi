@@ -1,7 +1,7 @@
 {
   "name": "lumi",
   "productName": "Lumi",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0",
   "description": "Lumi - Local-first personal knowledge management system with real-time collaboration",
   "repository": {
     "type": "git",
@@ -88,8 +88,7 @@
       "category": "public.app-category.productivity",
       "icon": "public/icon.icns",
       "target": [
-        "dmg",
-        "zip"
+        "mas"
       ],
       "type": "distribution",
       "entitlements": "build-config/mac/entitlements.mac.plist",
@@ -101,8 +100,15 @@
           "teamId": "9SDBH87QGB"
       },
       "extendInfo": {
-        "ElectronTeamID": "9SDBH87QGB"
-      }
+        "ElectronTeamID": "9SDBH87QGB",
+        "CFBundleIconName": "public/macIcons"
+      },
+      "extraFiles": [
+        {
+          "from": "public/Assets.car",
+          "to": "Resources/Assets.car"
+        }
+      ]
     },
     "pkg": {
       "isRelocatable": false,
@@ -112,7 +118,8 @@
       "icon": "public/icon.icns",
       "hardenedRuntime": true,
       "entitlements": "build-config/mac/entitlements.mac.plist",
-      "entitlementsInherit": "build-config/mac/entitlements.mac.plist"
+      "entitlementsInherit": "build-config/mac/entitlements.mac.plist",
+      "provisioningProfile": "build-config/mac/lumiprofile.provisionprofile"
     },
     "dmg": {
       "title": "Lumi ${version}",

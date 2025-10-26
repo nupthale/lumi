@@ -8,12 +8,14 @@ import { useSubscription } from '@vueuse/rxjs';
 import { filter, tap } from 'rxjs/operators';
 import { isEqual } from 'lodash-es';
 
-import { commentStore  } from '../../store/comment';
+import { commentStore  } from '../../../../store/comment';
 import UserGroup from '../UserGroup/index.vue';
 import { docLikesChange$, ydocPersistenceSync$, ydocProviderSync$ } from '@editor/Editor/event';
 
 import { getTotalLikesCount, getLikesUsers, syncLikeCountToRemote } from '@editor/Editor/plugins/collab/likes';
 import { useUserStore } from '@editor/Editor/store/user';
+
+import Statistics from './statistics.vue';
 
 export default defineComponent({
     props: {
@@ -131,7 +133,8 @@ export default defineComponent({
                         </TextButton>
                     </Tooltip>
                 </div>
-                {
+                <Statistics />
+                {/* {
                     likesCount.value ? (
                         <div class="px-3 mt-3 mb-3 lightText">
                             <div class="doc-likeUsers">
@@ -139,7 +142,7 @@ export default defineComponent({
                             </div>
                         </div>
                     ) : ''
-                }
+                } */}
             </div>
         );
     }

@@ -13,7 +13,7 @@ import { docChanged$, docInit$ } from '@editor/Editor/event';
 import { useContextStore } from '@/store/ui-states/context';
 import { getText } from '@editor/Editor/components/Catalog/util';
 
-import Actions from '../../../doc/modules/Actions.vue';
+import Actions from '../../../doc/modules/actions/index.vue';
 
 enum SaveStatusEnum {
     INIT = 'init',

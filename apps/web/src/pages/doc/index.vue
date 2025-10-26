@@ -22,7 +22,7 @@ import DocMeta from './meta/index.vue';
 import Header from './modules/Header.vue';
 import { AppModeEnum } from '@/types/setting';
 
-import Actions from './modules/Actions.vue';
+import Actions from './modules/actions/index.vue';
 
 import '@editor/index.css';
 

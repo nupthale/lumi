@@ -227,6 +227,10 @@ export default {
             preview: 'Full Screen Preview',
             reupload: 'Re-upload',
         },
+        statistics: {
+            words: '{{count}} words',
+            chars: '{{count}} characters',
+        }
     },
     collection: {
         addColumn: 'Add Field',

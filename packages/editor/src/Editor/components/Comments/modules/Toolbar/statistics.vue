@@ -3,7 +3,8 @@ import { defineComponent, ref } from 'vue';
 import { Pencil } from 'lucide-vue-next';
 import { useSubscription } from '@vueuse/rxjs';
 import { tap, debounceTime } from 'rxjs/operators';
-import count from 'word-count'
+import count from 'word-count';
+import { i18next } from '@editor/i18n';
 
 import { getText } from '@editor/Editor/components/Catalog/util';
 import { docInit$, docChanged$ } from '@editor/Editor/event';
@@ -52,8 +53,16 @@ export default defineComponent({
             <div class="doc-statistics px-3 py-2">
                 <div class="flex items-center">
                     <Pencil class="mr-2" size={14} />
-                    <div class="lightText mr-3">{toDigitGroup(totalWords.value)} 个词</div>
-                    <div class="lightText">{toDigitGroup(totalChars.value)} 个字符</div>
+                    <div class="lightText mr-3">
+                        {i18next.t('editor.statistics.words', {
+                            count: toDigitGroup(totalWords.value)
+                        })}
+                    </div>
+                    <div class="lightText">
+                        {i18next.t('editor.statistics.chars', {
+                            count: toDigitGroup(totalChars.value)
+                        })}
+                    </div>
                 </div>
             </div>
         ) : '';

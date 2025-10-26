@@ -227,6 +227,10 @@ export default {
             preview: '全屏预览',
             reupload: '重新上传',
         },
+        statistics: {
+            words: '{{count}} 个词',
+            chars: '{{count}} 个字符',
+        }
     },
     collection: {
         addColumn: '添加字段',
@@ -376,5 +380,5 @@ export default {
         uploadText: '点击或拖拽至此区域导入',
         hint: '支持.json和.md格式的文件',
         parseJsonError: '解释Json文件失败',
-    }
+    },
 }

@@ -3,6 +3,12 @@ const path = require('path');
 const log = require('electron-log');
 const isDev = process.env.NODE_ENV === 'development';
 
+// Handle single instance lock
+if (!app.requestSingleInstanceLock()) {
+  app.quit();
+  process.exit(0);
+}
+
 // Helper function to get the correct icon path
 const getIconPath = (iconName) => {
   if (isDev || process.platform !== 'darwin') {
@@ -158,6 +164,15 @@ const createMenu = () => {
   Menu.setApplicationMenu(menu);
 };
 
+// Handle second instance launch
+app.on('second-instance', (event, commandLine, workingDirectory) => {
+  // Someone tried to run a second instance, we should focus our window.
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.focus();
+  }
+});
+
 app.whenReady().then(() => {
   // 调整 IndexedDB 配额限制（单位：字节）
   // 示例：设置为 20GB（20 * 1024^3 字节）
@@ -218,4 +233,3 @@ ipcMain.on('window-maximize', () => {
 ipcMain.on('window-close', () => {
   if (mainWindow) mainWindow.close();
 });
-

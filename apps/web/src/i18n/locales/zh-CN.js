@@ -228,6 +228,10 @@ export default {
             preview: '全屏预览',
             reupload: '重新上传',
         },
+        statistics: {
+            words: '{{count}} 个词',
+            chars: '{{count}} 个字符',
+        }
     },
     collection: {
         addColumn: '添加字段',

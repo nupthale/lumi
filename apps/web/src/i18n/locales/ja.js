@@ -227,6 +227,10 @@ export default {
             preview: '全画面プレビュー',
             reupload: '再アップロード',
         },
+        statistics: {
+            words: '{{count}} 語',
+            chars: '{{count}} 文字',
+        }
     },
     collection: {
         addColumn: 'フィールドを追加',

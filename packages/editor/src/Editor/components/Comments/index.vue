@@ -14,7 +14,7 @@ import { useScroll } from './hooks/useScroll';
 import { layoutComments$ } from './event';
 import { commentStore, useCommentStore } from '../../store/comment';
 
-import LikeSection from './LikeSection.vue';
+import Toolbar from './modules/Toolbar/index.vue';
 
 export default defineComponent({
     setup() {
@@ -84,7 +84,7 @@ export default defineComponent({
                     ref={containerRef}
                 >
                     <div class="doc-comments_title">
-                        <LikeSection fileId={store.state.value?.fileId} />
+                        <Toolbar fileId={store.state.value?.fileId} />
                         <div class="doc-commentTitleWrap px-3 pt-2">
                             {i18next.t('editor.commentTitle')}（{ filteredCommentsCount.value }）
                         </div>

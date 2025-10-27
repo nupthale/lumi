@@ -5,6 +5,7 @@ import i18next from 'i18next';
 import { Tag } from '@zsfe/zsui';
 
 import { formatTime } from '@/shared/date';
+import ExportFile from '@/pages/doc/modules/actions/ExportFile.vue';
 
 const hellos = [
   i18next.t('greetings.greeting1'),
@@ -62,16 +63,21 @@ export default defineComponent({
         const emojiRef = ref(emojis[Math.floor(Math.random() * emojis.length)]);
 
         return () => (
-            <div class="flex items-center lightText">
-                <UserAvatar showText={false} username="m" size="small" class="mr-2" />
-                {formatTime(props.doc?.contentUpdatedAt)} 修改
-                <div class="divider"></div>
-                <Tag color="orange">
-                    <div class="flex items-center">
-                        <span class="text-lg mr-1">{emojiRef.value}</span>
-                        {helloRef.value}
-                    </div>
-                </Tag>
+            <div class="w-full flex items-center justify-between lightText">
+                <div class="flex items-center">
+                    <UserAvatar showText={false} username="m" size="small" class="mr-2" />
+                    {formatTime(props.doc?.contentUpdatedAt)} 修改
+                    <div class="divider"></div>
+                    <Tag color="orange">
+                        <div class="flex items-center">
+                            <span class="text-lg mr-1">{emojiRef.value}</span>
+                            {helloRef.value}
+                        </div>
+                    </Tag>
+                </div>
+                <div>
+                    <ExportFile fileId={props.doc.fileId} />
+                </div>
             </div>
         );
     }

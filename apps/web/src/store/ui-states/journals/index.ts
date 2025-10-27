@@ -5,7 +5,9 @@ import { defineStore } from 'pinia';
 export const useJournalsStore = defineStore('journals', () => {    
     // state
     const yearMonth = ref(dayjs());
-    const crtDate = ref(dayjs());
+    const crtDate = ref();
+
+    const crtFileId = ref();
 
     // actions
     const setYearMonth = (date: Dayjs) => {
@@ -16,11 +18,18 @@ export const useJournalsStore = defineStore('journals', () => {
         crtDate.value = date;
     };
 
+    const setCrtFileId = (fileId: string) => {
+        crtFileId.value = fileId;
+    };
+
     return {
         yearMonth,
         setYearMonth,
 
         crtDate,
         setCrtDate,
+
+        crtFileId,
+        setCrtFileId,
     };
 });

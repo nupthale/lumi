@@ -24,6 +24,7 @@ import { AppModeEnum } from '@/types/setting';
 
 import { formatDate } from '@/shared/date';
 import { createJournal } from '@/shared/file';
+import { useJournalsStore } from '@/store/ui-states/journals/index';
 
 import { useJournalStat } from './hooks/useJournalStat';
 
@@ -38,19 +39,20 @@ export default defineComponent({
     const contextStore = useContextStore();
     const { crtSpace } = storeToRefs(contextStore);
 
-    const { journals, isLoading } = useJournals(crtSpace);
+    const journalsStore = useJournalsStore();
+    const { crtFileId } = storeToRefs(journalsStore);
 
-    const fileIdRef = ref('');
+    const { journals, isLoading } = useJournals(crtSpace);
 
     useJournalStat();
 
     watch([journals], () => {
-      if (!fileIdRef.value && crtSpace.value) {
+      if (!crtFileId.value && crtSpace.value ) {
         handleSelectDate(dayjs());
       }
     });
 
-    const { doc, pending, error } = useDoc(fileIdRef);
+    const { doc, pending, error } = useDoc(crtFileId);
 
     const userStore = useUserStore();
     const { user } = storeToRefs(userStore);
@@ -79,9 +81,10 @@ export default defineComponent({
         const file = journals.value.find(item => item.title === fileName);
 
         if (file) {
-          fileIdRef.value = file?._id || '';
+          journalsStore.setCrtFileId(file?._id || '');
         } else {
-          fileIdRef.value = await handleAddEmptyDoc(fileName);
+          const newFileId = await handleAddEmptyDoc(fileName);
+          journalsStore.setCrtFileId(newFileId);
         }
       } catch(e) {
         console.error(e);
@@ -90,8 +93,8 @@ export default defineComponent({
 
     useSubscription(
       switchFile$.pipe(
-        tap(({ fileId }) => { 
-          fileIdRef.value = fileId;
+        tap(({ fileId }) => {
+          journalsStore.setCrtFileId(fileId);
         })
       ).subscribe()
     )

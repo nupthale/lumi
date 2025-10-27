@@ -15,7 +15,6 @@ import { useJournalStats } from '@/store/queries/docs/useJournalStats';
 import CalendarSelect from '@/components/DateSelect/CalendarSelect.vue';
 
 import { storeToRefs } from 'pinia';
-import { title } from '../../../../../../../packages/editor/src/Editor/plugins/nodes/title/plugin';
 
 export default defineComponent({
   props: {

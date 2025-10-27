@@ -1,13 +1,9 @@
 <script lang="tsx">
 import { defineComponent, ref } from 'vue';
 import { Pencil } from 'lucide-vue-next';
-import { useSubscription } from '@vueuse/rxjs';
-import { tap, debounceTime } from 'rxjs/operators';
-import count from 'word-count';
 import { i18next } from '@editor/i18n';
 
-import { getText } from '@editor/Editor/components/Catalog/util';
-import { docInit$, docChanged$ } from '@editor/Editor/event';
+import { useDocWordsCount } from '@editor/Editor/hooks/useDocWordsCount';
 
  // 千分位展示
 const toDigitGroup = (val: number) => {
@@ -16,38 +12,7 @@ const toDigitGroup = (val: number) => {
 
 export default defineComponent({
     setup() {
-        const totalWords = ref(0);
-        const totalChars = ref(0);
-
-        const updateStatistics = (text) => {
-            totalWords.value = count(text);
-            totalChars.value = text.length;
-        }
-
-        useSubscription(
-            docInit$.pipe(
-                tap(({ doc, text }) => {
-                    const title = getText(doc.content?.[0]?.content);
-
-                    const bodyText = title ? text.replace(title, '') : text;
-
-                    updateStatistics(bodyText);
-                })
-            ).subscribe()
-        );
-
-        useSubscription(
-            docChanged$.pipe(
-                debounceTime(600),
-                tap(({ doc, text }) => {
-                    const title = getText(doc.content?.[0]?.content);
-
-                    const bodyText = title ? text.replace(title, '') : text;
-
-                    updateStatistics(bodyText);
-                })
-            ).subscribe()
-        );
+        const { totalWords, totalChars } = useDocWordsCount();
 
         return () => (totalWords.value || totalChars.value ) ? (
             <div class="doc-statistics px-3 py-2">

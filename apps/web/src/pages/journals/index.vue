@@ -25,6 +25,8 @@ import { AppModeEnum } from '@/types/setting';
 import { formatDate } from '@/shared/date';
 import { createJournal } from '@/shared/file';
 
+import { useJournalStat } from './hooks/useJournalStat';
+
 import '@editor/index.css';
 
 import { getDefaultDoc } from './defaultDoc';
@@ -39,6 +41,8 @@ export default defineComponent({
     const { journals, isLoading } = useJournals(crtSpace);
 
     const fileIdRef = ref('');
+
+    useJournalStat();
 
     watch([journals], () => {
       if (!fileIdRef.value && crtSpace.value) {

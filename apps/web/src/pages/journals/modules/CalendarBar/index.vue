@@ -9,10 +9,13 @@ import { useElementSize } from '@vueuse/core';
 
 import { FileSchema } from '@/database/schema/file';
 
+import { useContextStore } from '@/store/ui-states/context';
 import { useJournalsStore } from '@/store/ui-states/journals/index';
+import { useJournalStats } from '@/store/queries/docs/useJournalStats';
 import CalendarSelect from '@/components/DateSelect/CalendarSelect.vue';
 
 import { storeToRefs } from 'pinia';
+import { title } from '../../../../../../../packages/editor/src/Editor/plugins/nodes/title/plugin';
 
 export default defineComponent({
   props: {
@@ -20,13 +23,42 @@ export default defineComponent({
   },  
   emits: ['selectDate'],
   setup(props, { emit }) {
+    const contextStore = useContextStore();
+    const { crtSpace } = storeToRefs(contextStore);
+
     const journalsStore = useJournalsStore();
     const { yearMonth, crtDate } = storeToRefs(journalsStore);
 
     const daysContainerRef = ref<HTMLDivElement>();
     const daysWrapRef = ref<HTMLDivElement>();
 
-    const docTitles = computed(() => props.journals?.map(item => item.title));
+    const { journalStats } = useJournalStats(crtSpace);
+
+    const getStatusCls = (date: string) => {
+        const journal = journalStats.value?.find(item => item._id === date);
+
+        if (!journal) {
+            return ``;
+        }
+
+        if (!journal.wordsCount && !journal.charCount) {
+            if (journal.hasMediaBlock) {
+                return 'status-3';
+            }
+        }
+
+        const count = Math.max(journal.wordsCount, journal.charCount);
+
+        if (count >= 0 && count < 50) {
+            return 'status-1';
+        } else if (count >= 50 && count < 100) {
+            return 'status-2';
+        } else if (count >= 100 && count < 200) {
+            return 'status-3';
+        } else {
+            return 'status-4';
+        }
+    }
 
     const scrollLeft = ref(0);
 
@@ -127,7 +159,7 @@ export default defineComponent({
                                         <div class="date font-semibold text-2xl">{day.format('DD')}</div>
                                         <div class="text-xs mt-.5 font-light">{day.locale(i18next.language).format('ddd')}</div>
                                     </div>
-                                    <div class={['statusBar', docTitles.value?.includes(day.format('YYYYMMDD')) ? 'hasDoc' : '']}></div>
+                                    <div class={['statusBar', getStatusCls(day.format('YYYYMMDD'))]}></div>
                                 </div>
                             ))
                         }
@@ -218,13 +250,25 @@ export default defineComponent({
 
 .statusBar {
     margin-top: 8px;
-    width: 20px;
-    height: 4px;
-    border-radius: 4px;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
    
 }
 
-.statusBar.hasDoc {
-    background: #56d364; 
+.statusBar.status-1 {
+    background: var(--graphlevel-1); 
+}
+
+.statusBar.status-2 {
+    background: var(--graphlevel-2); 
+}
+
+.statusBar.status-3 {
+    background: var(--graphlevel-3); 
+}
+
+.statusBar.status-4 {
+    background: var(--graphlevel-4); 
 }
 </style>

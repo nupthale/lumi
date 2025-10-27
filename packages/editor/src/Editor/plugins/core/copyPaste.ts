@@ -352,123 +352,96 @@ export const copyPastePlugin = () => {
                     return true
                 }
 
-                if (format === 'text/plain') {
-                    const text = event.clipboardData.getData('text/plain');
-                    if (!text) return true;
-                    
-                    if (hasMarkdownSyntax(text)) {
-                        return handleMarkdown(text, view);
-                    }
-
-                    return false;
-                } if (format === 'text/html') {
-                    // html格式， 先获取plain， 看是否有markdown，如果有就用plain处理， 用html还要转换问题多。
-                    const text = event.clipboardData.getData('text/plain');
-                    if (hasMarkdownSyntax(text)) {
-                        if (handleMarkdown(text, view)) {
-                            return true;
+                try {
+                    if (format === 'text/plain') {
+                        const text = event.clipboardData.getData('text/plain');
+                        if (!text) return true;
+                        
+                        if (hasMarkdownSyntax(text)) {
+                            return handleMarkdown(text, view);
                         }
-                    }
+
+                        return false;
+                    } if (format === 'text/html') {
+                        // html格式， 先获取plain， 看是否有markdown，如果有就用plain处理， 用html还要转换问题多。
+                        const text = event.clipboardData.getData('text/plain');
+                        if (hasMarkdownSyntax(text)) {
+                            if (handleMarkdown(text, view)) {
+                                return true;
+                            }
+                        }
+                        
+                        let data = event.clipboardData!.getData(format);
+                        if (!data) return true;
+
+                        // 如果不是 markdown 或解析失败，按原来的 HTML 处理逻辑
+                        // 创建一个 DOMParser 实例
+                        const parser = new DOMParser();
+                        // 解析 HTML 字符串为完整的文档
+                        const doc = parser.parseFromString(data, 'text/html');
+                        // 现在可以访问完整的文档结构，包括 html 和 body
+                        const bodyElement = doc.body; // 获取 body 元素
+                        
+                        const { $from, $to, empty } = selection;
+
+                        const tr = state.tr;
+
+                        // 使用 ProseMirror 的 DOMParser 解析整个结构
+                        const domParser = view.state.schema.cached.domParser;
+                        const slice = domParser.parseSlice(bodyElement);
+                        let content = slice.content;
+
+                        if (content.content?.[0].type.name === 'body') {
+                            content = content.content[0].content;
+                        }
+
+                        const cloneContent = clone(content);
+
                     
-                    let data = event.clipboardData!.getData(format);
-                    if (!data) return true;
-
-                    // 如果不是 markdown 或解析失败，按原来的 HTML 处理逻辑
-                    // 创建一个 DOMParser 实例
-                    const parser = new DOMParser();
-                    // 解析 HTML 字符串为完整的文档
-                    const doc = parser.parseFromString(data, 'text/html');
-                    // 现在可以访问完整的文档结构，包括 html 和 body
-                    const bodyElement = doc.body; // 获取 body 元素
-                    
-                    const { $from, $to, empty } = selection;
-
-                    const tr = state.tr;
-
-                    // 使用 ProseMirror 的 DOMParser 解析整个结构
-                    const domParser = view.state.schema.cached.domParser;
-                    const slice = domParser.parseSlice(bodyElement);
-                    let content = slice.content;
-
-                    if (content.content?.[0].type.name === 'body') {
-                        content = content.content[0].content;
-                    }
-
-                    const cloneContent = clone(content);
-
-                   
-                    // 空文本节点插入
-                    const topNode = getTopNode($from);
-                    if ($from.parentOffset === 0 && !topNode.textContent) {
-                        tr.replaceRangeWith($from.pos, $to.pos, cloneContent);
-                        const newPos = Math.min($from.pos + cloneContent.size, tr.doc.content.size);
-                        const resolvedPos = tr.doc.resolve(newPos);
-                        tr.setSelection(TextSelection.near(resolvedPos));
-                    } else {
-                        // cloneContent的第一个node要判断是否可否转为text， 比如header，如果可转， 则转为text， 否则直接插入。
-                        if (content.firstChild?.type.name === 'header') {
-                            const header = content.firstChild;
-                            const leftContentSize = cloneContent.size - header.nodeSize;
-
-                            tr.delete($from.pos, $to.pos);
-                            tr.insert($from.pos, header.content);
-                            tr.insert($from.pos + header.content.size, cloneContent.content.slice(1));
-
-                            const newPos = Math.min($from.pos + header.content.size + leftContentSize, tr.doc.content.size);
-                            const resolvedPos = tr.doc.resolve(newPos);
-                            tr.setSelection(TextSelection.near(resolvedPos));
-                        } else if (content.firstChild?.type.name === 'textBlock') {
-                            // textBlockHead的content
-                            const textBlockHeadContent = content.firstChild?.content?.content;
-                            const leftContentSize = cloneContent.size - content.firstChild.nodeSize;
-
-                            tr.delete($from.pos, $to.pos);
-                            tr.insert($from.pos, textBlockHeadContent);
-                            tr.insert($from.pos + textBlockHeadContent.size, cloneContent.content.slice(1));
-
-                            const newPos = Math.min($from.pos + textBlockHeadContent.size + leftContentSize, tr.doc.content.size);
-                            const resolvedPos = tr.doc.resolve(newPos);
-                            tr.setSelection(TextSelection.near(resolvedPos));
-                        } else {
+                        // 空文本节点插入
+                        const topNode = getTopNode($from);
+                        if ($from.parentOffset === 0 && !topNode.textContent) {
                             tr.replaceRangeWith($from.pos, $to.pos, cloneContent);
                             const newPos = Math.min($from.pos + cloneContent.size, tr.doc.content.size);
                             const resolvedPos = tr.doc.resolve(newPos);
                             tr.setSelection(TextSelection.near(resolvedPos));
+
+                            dispatch(tr);
+
+                            return true;
                         }
-                    }
+                    } else if (format === 'Files') {
+                        const files = event.clipboardData.files;
+                        if (!files || files.length === 0) return true;
+                        for (let i = 0; i < files.length; i++) {
+                            const file = files[i];
+                            if (file.type && file.type.startsWith('image/')) {
+                                const reader = new FileReader();
+                                reader.onload = function(e) {
+                                    const src = e.target?.result;
+                                    if (!src) return;
+                                    const img = new window.Image();
+                                    img.onload = function() {
+                                        const width = img.width;   // 图片实际宽度（像素）
 
-                    dispatch(tr);
-
-                    return true
-                } else if (format === 'Files') {
-                    const files = event.clipboardData.files;
-                    if (!files || files.length === 0) return true;
-                    for (let i = 0; i < files.length; i++) {
-                        const file = files[i];
-                        if (file.type && file.type.startsWith('image/')) {
-                            const reader = new FileReader();
-                            reader.onload = function(e) {
-                                const src = e.target?.result;
-                                if (!src) return;
-                                const img = new window.Image();
-                                img.onload = function() {
-                                    const width = img.width;   // 图片实际宽度（像素）
-
-                                    // 你可以根据需要设置 imageNode 的 width/height 属性
-                                    const imageNode = schema.nodes.image.create({
-                                        id: nanoid(8),
-                                        src,
-                                        width: Math.min(width, 820), // 或 '100%'，或其它
-                                        align: 'left',
-                                    });
-                                    dispatch(view.state.tr.replaceSelectionWith(imageNode));
+                                        // 你可以根据需要设置 imageNode 的 width/height 属性
+                                        const imageNode = schema.nodes.image.create({
+                                            id: nanoid(8),
+                                            src,
+                                            width: Math.min(width, 820), // 或 '100%'，或其它
+                                            align: 'left',
+                                        });
+                                        dispatch(view.state.tr.replaceSelectionWith(imageNode));
+                                    };
+                                    img.src = src as string;
                                 };
-                                img.src = src as string;
-                            };
-                            reader.readAsDataURL(file);
+                                reader.readAsDataURL(file);
+                            }
                         }
+                        return true;
                     }
-                    return true;
+                } catch(e) {
+                    console.error(e);
                 }
             }
         }

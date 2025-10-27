@@ -6,6 +6,7 @@ export interface JournalStatSchema extends Base {
     space: string;
     wordsCount: number; // 字数
     charCount: number; // 字符数
+    hasMediaBlock: boolean; // collection, video, image是否存在
 }
 
 export const createJournalStatIndex = async (db: Database) => {
@@ -22,6 +23,7 @@ export const registerJournalStatsEvents = (db: Database) => {
         space = '',
         wordsCount = 0,
         charCount = 0,
+        hasMediaBlock = false,
         creator = '',
     }) => {
         if (!db.journalStats) return;
@@ -32,6 +34,7 @@ export const registerJournalStatsEvents = (db: Database) => {
                 space,
                 wordsCount,
                 charCount,
+                hasMediaBlock,
                 creator,
                 createdAt: now,
                 updatedAt: now,
@@ -42,26 +45,44 @@ export const registerJournalStatsEvents = (db: Database) => {
         }
     };
 
-    const journalStatUpdated = async ({
+    const journalStatUpserted = async ({
         id,
+        space = '',
         wordsCount,
         charCount,
+        hasMediaBlock = false,
+        creator = '',
     }: {
         id: string;
+        space: string;
         wordsCount: number;
         charCount: number;
+        hasMediaBlock: boolean;
+        creator: string;
     }) => {
-        if (!db.journalStats) return;
-        const existing = await db.journalStats.get(id);
-        if (!existing) return;
         try {
+            if (!db.journalStats) return;
+            const existing = await db.journalStats.get(id);
+
             await db.journalStats.put({
                 ...existing,
                 wordsCount,
                 charCount,
+                hasMediaBlock,
                 updatedAt: new Date().toISOString(),
+                deleted: 0,
             });
         } catch(e) {
+            if (e.status === 404) {
+                 await journalStatCreated({
+                    id,
+                    space,
+                    wordsCount,
+                    charCount,
+                    hasMediaBlock,
+                    creator,
+                });
+            }
             console.error(e);
         }
     };
@@ -84,7 +105,7 @@ export const registerJournalStatsEvents = (db: Database) => {
 
     return {
         journalStatCreated,
-        journalStatUpdated,
+        journalStatUpserted,
         journalStatDeleted,
     };
 };

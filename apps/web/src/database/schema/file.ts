@@ -93,7 +93,7 @@ export const registerFileEvents = (db: Database) => {
         if (!db.files) return;
         try {
             const existing = await db.files.get(id);
-            debugger;
+
             if (existing) {
                 await db.files.put({
                     ...existing,

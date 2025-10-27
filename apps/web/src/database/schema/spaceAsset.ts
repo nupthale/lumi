@@ -14,6 +14,14 @@ export interface SpaceAssetsSchema extends Base {
     type: SpaceAssetType;
 }
 
+export const createSpaceAssetsIndex = async (db: Database) => {
+    db.spaceAssets?.createIndex({
+        index: {
+            fields: ['_id', 'deleted', 'type', 'space'],
+        }
+    });
+}
+
 export const registerSpaceAssetsEvents = (db: Database) => {
     const spaceAssetsCreated = async ({ 
         id = '', 
@@ -23,6 +31,7 @@ export const registerSpaceAssetsEvents = (db: Database) => {
         creator = '',
     }) => {
         if (!db.spaceAssets) return;
+
         try {
             const now = new Date().toISOString();
             await db.spaceAssets.put({

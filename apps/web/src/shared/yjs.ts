@@ -2,7 +2,7 @@ import * as Y from 'yjs';
 
 import { prosemirrorJSONToYDoc } from 'y-prosemirror';
 import { schema } from '@editor/Editor/plugins/schema';
-import { getYDoc } from '@editor/Editor/plugins/collab/core';
+import { getYDoc, cleanupDocument } from '@editor/Editor/plugins/collab/core';
 
 export const createDoc = async (fileId: string, content: Record<string, any>) => {
     try {
@@ -28,3 +28,15 @@ export const createDoc = async (fileId: string, content: Record<string, any>) =>
         throw error;
     }
 };
+
+export const deleteDoc = async (fileId: string) => {
+    try {
+        const ydoc = getYDoc(fileId);
+
+        ydoc.destroy();
+
+        cleanupDocument(fileId);
+    } catch(e) {
+        console.error(e);
+    }
+}

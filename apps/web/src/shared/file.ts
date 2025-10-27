@@ -1,5 +1,5 @@
 
-import { createDoc } from '@/shared/yjs';
+import { createDoc, deleteDoc } from '@/shared/yjs';
 import { events } from '@/database/index';
 import { SpaceAssetType } from '@/database/schema/spaceAsset';
 import { insertColllection } from '@editor/Editor/plugins/collab/collection';
@@ -81,4 +81,16 @@ export const createJournal = async ({
         spaceId,
         type: SpaceAssetType.JOURNAL,
     })
+}
+
+export const deleteJournal = async (fileId: string) => {
+    deleteDoc(fileId);
+    
+    events.fileDeleted({
+        id: fileId,
+    });
+
+    events.spaceAssetsDeleted({
+        asset: fileId,
+    });
 }

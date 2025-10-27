@@ -16,6 +16,7 @@ export default {
         import: '导入',
         exportPending: '导出中...',
         offlineMessage: '进入离线编辑模式',
+        warningTitle: '提示',
     },
     home: {
         myspace: '我的空间',
@@ -376,5 +377,7 @@ export default {
         uploadText: '点击或拖拽至此区域导入',
         hint: '支持.json和.md格式的文件',
         parseJsonError: '解释Json文件失败',
+        journalOverrideExist: '{{date}}已存在，是否要覆盖？',
+        journalImportConfirm: '确定导入至{{date}}吗？'
     }
 }

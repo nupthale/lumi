@@ -28,7 +28,6 @@ export default defineComponent({
     const containerRef = ref();
 
     onClickOutside(containerRef, () => {
-        debugger;
         visibleRef.value = false;
     });
 

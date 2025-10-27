@@ -11,7 +11,7 @@ export const useJournals = (spaceId: Ref<string>) => {
 
     // 使用 pouchdb-find 查询 files
     const journals = useLiveQuery(
-        ['spaceassets'],
+        ['spaceassets', 'files'],
         async () => {
             const currentSpaceId = spaceId.value;
 

@@ -7,6 +7,7 @@ import type { SpaceSchema } from './schema/space';
 import type { SpaceAssetsSchema } from './schema/spaceAsset';
 import type { WikiSchema } from './schema/wiki';
 import type { WikiTreeSchema } from './schema/wikiTree';
+import type { JournalStatSchema } from './schema/journalStat';
 import type { SharableBase } from './schema/_common';
 
 import { createIndexes } from './schema/index';
@@ -33,6 +34,7 @@ export class Database {
     // doc内容的分享是通过yjs房间分享的，docs内容本身是本地的；能拿到房间号， 就可以拿到文件内容。
     public docs: PouchDB.Database<DocSchema> | undefined;
     public spaceAssets: PouchDB.Database<SpaceAssetsSchema> | undefined;
+    public journalStats: PouchDB.Database<JournalStatSchema> | undefined;
 
     // 分享表
     public files: PouchDB.Database<FileSchema> | undefined;
@@ -48,6 +50,7 @@ export class Database {
         // 用户专属库
         this.spaces = new PouchDB<SpaceSchema>(`spaces_${userId}`);
         this.spaceAssets = new PouchDB<SpaceAssetsSchema>(`spaceassets_${userId}`);
+        this.journalStats = new PouchDB<JournalStatSchema>(`journalStats_${userId}`);
 
         // 可分享的库
         this.files = new PouchDB(`files_${userId}`);
@@ -74,6 +77,7 @@ export class Database {
 
       list.push([this.spaces!, `${remoteCouchBase}/spaces_${this.userId}`]);
       list.push([this.spaceAssets!, `${remoteCouchBase}/spaceassets_${this.userId}`]);
+      list.push([this.journalStats!, `${remoteCouchBase}/journalStats_${this.userId}`]);
       list.push([this.files!, `${remoteCouchBase}/files`]);
       list.push([this.wikis!, `${remoteCouchBase}/wikis`]);
       list.push([this.wikiTrees!, `${remoteCouchBase}/wikitrees`]);
@@ -180,7 +184,7 @@ export class Database {
 
     // 监听本地变化
     watchChange() {
-      const keys = ['spaces', 'spaceAssets', 'files', 'wikis', 'wikiTrees'] as DatabaseKey[];
+      const keys = ['spaces', 'spaceAssets', 'journalStats', 'files', 'wikis', 'wikiTrees'] as DatabaseKey[];
       
       keys.forEach(key => {
           const db = this[key] as PouchDB.Database;

@@ -4,15 +4,13 @@ import i18next from 'i18next';
 import { storeToRefs } from 'pinia';
 import { Loading } from '@zsfe/zsui';
 import dayjs, { Dayjs } from 'dayjs';
+import { useSubscription } from '@vueuse/rxjs';
+import { tap } from 'rxjs/operators';
 
 import { Editor } from '@editor/index';
 import { useDoc } from '@/store/queries/docs/useDoc';
 import { useUserStore } from '@/store/user';
 import { useJournals } from '@/store/queries/docs/useJournals';
-import { uniqueId } from '@/shared/id';
-import { events } from '@/database/index';
-import { createDoc } from '@/shared/yjs';
-import { SpaceAssetType } from '@/database/schema/spaceAsset';
 
 import DocLoadErrorIllustration from '@/components/icons/DocLoadErrorIllustration.vue';
 import { useContextStore } from '@/store/ui-states/context';
@@ -31,6 +29,8 @@ import '@editor/index.css';
 
 import { getDefaultDoc } from './defaultDoc';
 
+import { switchFile$ } from './event';
+
 export default defineComponent({
   setup() {
     const contextStore = useContextStore();
@@ -40,8 +40,8 @@ export default defineComponent({
 
     const fileIdRef = ref('');
 
-    watch(journals, () => {
-      if (!fileIdRef.value) {
+    watch([journals], () => {
+      if (!fileIdRef.value && crtSpace.value) {
         handleSelectDate(dayjs());
       }
     });
@@ -84,6 +84,14 @@ export default defineComponent({
       }
     };
 
+    useSubscription(
+      switchFile$.pipe(
+        tap(({ fileId }) => { 
+          fileIdRef.value = fileId;
+        })
+      ).subscribe()
+    )
+
     const renderBody = ({ paddingTop }: { paddingTop: string }) => {
       if (pending.value || isLoading.value) {
         return (
@@ -93,7 +101,6 @@ export default defineComponent({
         );
       }
 
-      debugger;
       if (error.value || !doc.value) {
         return (
           <div class="docs-empty" style={{ paddingTop: paddingTop }}>

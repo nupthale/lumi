@@ -46,6 +46,7 @@ export const useAllFiles = () => {
                     
                     file.space = spaces.value.find(space => space._id === asset?.space);
                     file.spaceId = asset?.space;
+                    file.assetType = asset?.type;
 
                     filesResult.push(file);
                 }
@@ -76,6 +77,7 @@ export const useAllFiles = () => {
                     wiki.space = spaces.value.find(space => space._id === asset?.space);
                     wiki.spaceId = asset?.space;
                     wiki.fileId = wikiFile._id;
+                    wiki.fileTitle = wikiFile.title;
 
                     wikisResult.push(wiki);
                 }

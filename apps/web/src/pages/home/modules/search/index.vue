@@ -42,6 +42,7 @@ export default defineComponent({
 
             if (!val?.length) {
                 matchedFiles.value = files.value || [];
+                debugger;
                 return;
             }
 
@@ -133,16 +134,14 @@ export default defineComponent({
                                                     file.emoji ? (
                                                         <div class="docEmoji">{file.emoji}</div>
                                                     ) : (
-                                                        <div class={file.wiki ? 'wikiIcon' : 'docIcon'}></div>
+                                                        <div class={file.assetType === 'journal' ? 'journalIcon' : file.wiki ? 'wikiIcon' : 'docIcon'}></div>
                                                     )
                                                 }
                                             </div>
                                             <div class="flex-1 overflow-hidden">
                                                 <div class="searchItem__title mb-1">
+                                                    {file.wiki ? <span>{file.fileTitle} - </span> : ''}
                                                     {file.title ? <span innerHTML={highlight(file.title)}></span> : i18next.t('home.main.table.titlePlaceholder')}
-                                                    {
-                                                        file.wiki ? (<Tag size="small" color="green" class="ml-1">{i18next.t('home.sider.wiki')}</Tag>) : ''
-                                                    }
                                                 </div>
                                                 {file.matchedText && (
                                                     <div class="searchItem__context text-sm lightText" innerHTML={highlight(file.matchedText)}></div>
@@ -252,6 +251,13 @@ export default defineComponent({
     width: 22px;
     height: 22px;
     background: url('@/assets/wiki-round.svg') no-repeat center;
+    background-size: contain;
+}
+
+.journalIcon {
+    width: 22px;
+    height: 22px;
+    background: url('@/assets/journal-round.svg') no-repeat center;
     background-size: contain;
 }
 

@@ -380,5 +380,8 @@ export default {
         uploadText: 'Click or drag and drop into the area to import',
         hint: 'Supports .json and .md file formats',
         parseJsonError: 'Failed to parse Json file',
+        parseMdError: 'Failed to parse Markdown file',
+        journalOverrideExist: '{{date}} exists, do you want to override it?',
+        journalImportConfirm: 'are you sure to import to {{date}}'
     }
 }

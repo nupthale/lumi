@@ -79,11 +79,14 @@ export default defineComponent({
             <div class="doc-catalog-wrap">
                 <div class="doc-catalog-container w-fit h-fit">
                     <div 
-                        class={['header', 'font-medium', 'text-[15px]', 'mb-2', 'cursor-pointer', activeIdRef.value === titleRef.value?.id ? 'active' : '']} 
+                        class={['header', 'flex-shrink-0', 'font-medium', 'text-[15px]', 'mb-2', 'cursor-pointer', activeIdRef.value === titleRef.value?.id ? 'active' : '']} 
                         onClick={handleTitleClick}>
                         {docTitle.value}
                     </div>
-                    <Tree headers={headersRef.value} activeId={activeIdRef.value} />
+                    <div class="flex-1 overflow-y-auto">
+                        <Tree headers={headersRef.value} activeId={activeIdRef.value} />
+                    </div>
+                    
                 </div>
             </div>
         ) : '';
@@ -117,9 +120,13 @@ export default defineComponent({
     padding-top: 60px;
 
     max-width: 100%;
+    max-height: 100vh;
     border-radius: 12px;
     overflow-x: hidden;
     background: var(--blur-bg);
     backdrop-filter: blur(4px);
+
+    display: flex;
+    flex-direction: column;
 }
 </style>

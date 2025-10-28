@@ -380,5 +380,8 @@ export default {
         uploadText: 'クリックして或はドラッグしてこの領域にドラッグしてインポート',
         hint: 'サポート.jsonと.md形式のファイル',
         parseJsonError: 'JSONファイルの解析に失敗しました',
+        parseMdError: 'Markdown ファイルの解析に失敗しました',
+        journalOverrideExist: '{{date}} は既に存在します。上書きしますか？',
+        journalImportConfirm: '{{date}} にインポートしてもよろしいですか'
     }
 }

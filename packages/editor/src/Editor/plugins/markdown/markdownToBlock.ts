@@ -10,11 +10,11 @@ import {
   type RemarkProseMirrorOptions,
 } from "@handlewithcare/remark-prosemirror";
 import remarkGfm from 'remark-gfm';
+import { nanoid } from "nanoid";
 
 import type { Node, Schema } from "prosemirror-model";
 
 import { schema } from "@editor/Editor/plugins/schema";
-import { nanoid } from "nanoid";
 import { ListTypeEnum } from "../nodes/list/interface";
 
 export function createProcessor() {
@@ -62,20 +62,31 @@ export function createProcessor() {
         root(node, _, state) {
             const children = state.all(node);
             return schema.node('doc', {}, [
-                schema.node('title', {}, []),
-                schema.node('body', {}, children),
+                schema.node('title', {
+                  id: nanoid(8),
+                }, []),
+                schema.node('body', {
+                  id: nanoid(8),
+                }, children),
             ]);
         },
         blockquote(node, _, state) {
             const children = state.all(node);
-            return schema.nodes.quote.spec.create(schema, {}, children);
+            return schema.nodes.quote.spec.create(schema, {
+              id: nanoid(8),
+            }, children);
         },
         break(node, _, state) {
           return schema.nodes.hardBreak.create();
         },
+        thematicBreak(node, _, state) {
+          return schema.nodes.divider.create({ id: nanoid(8) });
+        },
         // code 对应代码块（block-level）
         code(node, _, state) {
-            return schema.nodes.coder.spec.create(schema, {}, node.value ? schema.text(node.value || '') : []);
+            return schema.nodes.coder.spec.create(schema, {
+              id: nanoid(8)
+            }, node.value ? schema.text(node.value || '') : []);
         },
         emphasis: toPmMark(schema.marks.italic),
         strong: toPmMark(schema.marks.strong),
@@ -121,11 +132,13 @@ export function createProcessor() {
          
           return schema.nodes.header.spec.create(schema, {
             level: node.depth,
+            id: nanoid(8),
           }, children);
         },
         image(node, _, state) {
           return schema.nodes.image.spec.create(schema, {
             src: node.url,
+            id: nanoid(8),
           }, []);
         },
         delete: toPmMark(schema.marks.strikethrough),

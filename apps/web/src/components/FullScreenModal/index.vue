@@ -1,5 +1,5 @@
 <script lang="tsx">
-import { defineComponent, Teleport } from 'vue';
+import { defineComponent, Teleport, ref } from 'vue';
 import { Space } from 'ant-design-vue';
 import { TextButton } from '@zsfe/zsui';
 import { ArrowLeft } from 'lucide-vue-next';
@@ -18,6 +18,8 @@ export default defineComponent({
     },
     emits: ['close'],
     setup(props, { slots, emit }) {
+        const animationComplete = ref(false);
+
         return () => (
             <Teleport to={document.body}>
                 <AnimatePresence initial={true}>
@@ -29,6 +31,7 @@ export default defineComponent({
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0 }}
                                 transition={{ ease: ['linear'] }}
+                                onAnimationComplete={() => setTimeout(() => animationComplete.value = true, 400)}
                             >
                                 <div class="wrap">
                                     <div class="header" style={{ paddingTop: `${appBarHeight}px`, height: `calc(${props.headerHeight || 82}px)`, display: props.hideHeader ? 'none' : '' }}>
@@ -60,7 +63,7 @@ export default defineComponent({
                                         )}
                                     </div>
                                     <div class="body" style={{ '--doc-header-height': `calc(${props.headerHeight || 64}px + ${appBarHeight}px + 14px)` }}>
-                                        {slots.default && slots.default({ paddingTop: `${appBarHeight}px)` })}
+                                        {slots.default && animationComplete.value && slots.default({ paddingTop: `${appBarHeight}px)` })}
                                     </div>
                                 </div>
                             </motion.div>

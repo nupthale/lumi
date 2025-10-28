@@ -41,7 +41,7 @@ export const useImportMd = () => {
             contextStore.setFileImportModalVisible(false);
 
         } catch(e) {
-            message.error(i18next.t('import.parseJsonError'));
+            message.error(i18next.t('import.parseMdError'));
             console.error(e);
         }
     }

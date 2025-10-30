@@ -111,7 +111,7 @@ export default defineComponent({
 
 @media screen and (max-width: 1600px)  {
     .doc-catalog-wrap {
-        max-width: 150px;
+        max-width: 240px;
     }
 }
 

@@ -1,8 +1,9 @@
 <script lang="tsx">
-import { defineComponent } from 'vue';
-import { Button } from 'ant-design-vue';
+import { defineComponent, onMounted } from 'vue';
+import { Button, Input } from 'ant-design-vue';
 import { UserAvatar } from '@zsfe/zsui';
 import { storeToRefs } from 'pinia';
+import { debounce } from 'lodash-es';
 
 import i18next from 'i18next';
 import { useUserStore } from '@/store/user';
@@ -29,11 +30,31 @@ export default defineComponent({
         }
     }
 
+    const handleUpdateName = debounce(async (name: string) => {
+        try {
+            user.value.name = name;
+
+            if (window.clientAPI) {
+                await window.clientAPI.saveSetting({
+                    key: 'aliasName',
+                    value: name,
+                });
+            }
+        } catch(e) {
+            console.error(e);
+        }
+    }, 300);
+
     return () => (
         <div class="settingItem">
-            <div class="settingItem__left">
-                <UserAvatar username={user.value?.name} size="large" showText={false} />
-                <span class="ml-2">{user.value?.name}</span>
+            <div class="settingItem__left flex items-center">
+                <UserAvatar class="mr-2" username={user.value?.name} size="large" showText={false} />
+                <Input 
+                    placeholder="请输入用户别名"
+                    style="width: 240px; border: none; box-shadow: none; outline: none; " 
+                    value={user.value?.name}
+                    onChange={(e) => handleUpdateName(e.target.value || '')}
+                />
             </div>
             {
                 !isLocalMode ? (

@@ -1,8 +1,11 @@
 <script lang="tsx">
 import { defineComponent, computed } from 'vue';
 import { UserAvatar } from '@zsfe/zsui';
+import { storeToRefs } from 'pinia';
 
 import { formatTime } from '@/shared/date';
+
+import { useUserStore } from '@/store/user';
 
 export default defineComponent({
     props: {
@@ -13,9 +16,12 @@ export default defineComponent({
         user: Object,
     },
     setup(props) {
+        const userStore = useUserStore();
+        const { user } = storeToRefs(userStore);
+
         return () => (
             <div class="flex items-center lightText">
-                <UserAvatar showText={false} username="m" size="small" class="mr-2" />
+                <UserAvatar showText={false} username={user.value?.name} size="small" class="mr-2" />
                 {formatTime(props.doc?.contentUpdatedAt)} 修改
             </div>
         );

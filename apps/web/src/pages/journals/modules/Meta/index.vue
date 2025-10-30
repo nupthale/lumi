@@ -3,9 +3,12 @@ import { defineComponent, ref } from 'vue';
 import { UserAvatar } from '@zsfe/zsui';
 import i18next from 'i18next';
 import { Tag } from '@zsfe/zsui';
+import { storeToRefs } from 'pinia';
 
 import { formatTime } from '@/shared/date';
 import ExportFile from '@/pages/doc/modules/actions/ExportFile.vue';
+
+import { useUserStore } from '@/store/user';
 
 const hellos = [
   i18next.t('greetings.greeting1'),
@@ -59,13 +62,16 @@ export default defineComponent({
         user: Object,
     },
     setup(props) {
+        const userStore = useUserStore();
+        const { user } = storeToRefs(userStore);
+
         const helloRef = ref(hellos[Math.floor(Math.random() * hellos.length)]);
         const emojiRef = ref(emojis[Math.floor(Math.random() * emojis.length)]);
 
         return () => (
             <div class="w-full flex items-center justify-between lightText">
                 <div class="flex items-center">
-                    <UserAvatar showText={false} username="m" size="small" class="mr-2" />
+                    <UserAvatar showText={false} username={user.value?.name} size="small" class="mr-2" />
                     {formatTime(props.doc?.contentUpdatedAt)} 修改
                     <div class="divider"></div>
                     <Tag color="orange">

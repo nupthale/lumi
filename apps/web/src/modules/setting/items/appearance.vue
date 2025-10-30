@@ -74,7 +74,7 @@ export default defineComponent({
                             <TextButton>
                                 <div class="flex items-center">
                                     <span class="mr-1">{appearanceText.value}</span>
-                                    <ChevronDown width="12x" /> 
+                                    <ChevronDown width="12px" /> 
                                 </div>
                             </TextButton>
                         )

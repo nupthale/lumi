@@ -23,9 +23,13 @@ export const useUserStore = defineStore('user', () => {
     const initUser = async () => {
         try {
             if (window.__appMode__ === AppModeEnum.LOCAL) {
+                const aliasName = await window.clientAPI.getSetting('aliasName');
+
+                const randomName = `${i18next.t('common.guest')}${window.__machineId__?.slice(-2)?.toUpperCase()}`;
+
                 userRef.value = {
                     id: window.__machineId__,
-                    name: `${i18next.t('common.guest')}${window.__machineId__?.slice(-2)?.toUpperCase()}`,
+                    name: aliasName || randomName,
                 };
 
                 return true;

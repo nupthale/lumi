@@ -127,7 +127,7 @@ export default defineComponent({
                 </div>
                 <div>
                     <div class="flex items-center gap-2 lightText">
-                        <UserAvatar username={user.value?.name?.slice(-2, -1)} showText={false} />
+                        <UserAvatar username={user.value?.name} showText={false} />
                         {user.value?.name}
                     </div>
                 </div>

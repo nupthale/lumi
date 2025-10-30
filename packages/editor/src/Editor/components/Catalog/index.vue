@@ -104,7 +104,7 @@ export default defineComponent({
     top: 32px;
     left: 20px;
     height: 0px;
-    max-width: 495px;
+    max-width: 320px;
     z-index: 2;
     
 }

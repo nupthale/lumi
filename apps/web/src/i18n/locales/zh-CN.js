@@ -104,6 +104,8 @@ export default {
         storagePathDesc: '建议选择支持云同步的目录，例如 iCloud、OneDrive、Google Drive 等。',
         selectDirectory: '选择路径',
         storageChangeWarning: '请自行将{{-path}}下的文件复制到新的目录, 并重启应用。',
+        aliasName: '展示名',
+        aliasNamePlaceholder: '输入展示名',
     },
     doc: {
         loadFailed: '文档加载失败',

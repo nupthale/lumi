@@ -98,7 +98,7 @@
       "type": "distribution",
       "entitlements": "build-config/mac/entitlements.mac.plist",
       "entitlementsInherit": "build-config/mac/entitlements.mac.plist",
-      "provisioningProfile": "build-config/mac/lumidev.provisionprofile",
+      "provisioningProfile": "build-config/mac/lumimacstore.provisionprofile",
       "darkModeSupport": true,
       "hardenedRuntime": true,
       "gatekeeperAssess": false,

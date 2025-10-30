@@ -103,6 +103,8 @@ export default {
         storagePathDesc: 'Cloud sync folder is recommended, such as iCloud, OneDrive, Google Drive, etc.',
         selectDirectory: 'Select Path',
         storageChangeWarning: 'Please manually copy files from {{-path}} to the new directory and restart the application.',
+        aliasName: 'Preferred Name',
+        aliasNamePlaceholder: 'Enter preferred name',
     },
     doc: {
         loadFailed: 'Failed to load document',

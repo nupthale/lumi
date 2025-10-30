@@ -30,10 +30,8 @@ export default defineComponent({
         }
     }
 
-    const handleUpdateName = debounce(async (name: string) => {
+    const saveAliasName = debounce(async (name)  => {
         try {
-            user.value.name = name;
-
             if (window.clientAPI) {
                 await window.clientAPI.saveSetting({
                     key: 'aliasName',
@@ -45,13 +43,20 @@ export default defineComponent({
         }
     }, 300);
 
+    const handleUpdateName = (name: string) => {
+        user.value.name = name;
+
+        saveAliasName(name);
+    };
+
     return () => (
         <div class="settingItem">
             <div class="settingItem__left flex items-center">
                 <UserAvatar class="mr-2" username={user.value?.name} size="large" showText={false} />
                 <Input 
-                    placeholder="请输入用户别名"
-                    style="width: 240px; border: none; box-shadow: none; outline: none; " 
+                    suffix={i18next.t('setting.aliasName')}
+                    placeholder={i18next.t('setting.aliasNamePlaceholder')}
+                    style="width: 240px; box-shadow: none; outline: none; " 
                     value={user.value?.name}
                     onChange={(e) => handleUpdateName(e.target.value || '')}
                 />

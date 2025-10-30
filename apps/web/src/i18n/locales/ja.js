@@ -103,6 +103,8 @@ export default {
         storagePathDesc: 'iCloud、OneDrive、Google Drive などのクラウド同期フォルダをお勧めします。',
         selectDirectory: 'パスを選択',
         storageChangeWarning: '{{-path}} のファイルを新しいディレクトリに手動でコピーし、アプリケーションを再起動してください。',
+        aliasName: '表示名',
+        aliasNamePlaceholder: '表示名を入力してください',
     },
     doc: {
         loadFailed: 'ドキュメントの読み込みに失敗しました',

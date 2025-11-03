@@ -309,6 +309,8 @@ export default defineComponent({
     font-size: 12px;
     color: #646a73;
     line-height: 20px;
+    width: 100%;
+    overflow: hidden;
 }
 
 .sider-comment-item {

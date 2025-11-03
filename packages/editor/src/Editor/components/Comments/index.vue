@@ -163,7 +163,7 @@ export default defineComponent({
 
 .doc-comments-collapse {
     position: sticky;
-    top: 0px;
+    top: 100px;
     right: 0;
     display: flex;
     align-items: center;

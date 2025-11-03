@@ -1,24 +1,26 @@
 <script lang="tsx">
 import { defineComponent, ref, watch, computed, onMounted, watchEffect } from 'vue';
-import { Input, Button } from 'ant-design-vue';
+import { Input, Button, Dropdown, Menu } from 'ant-design-vue';
 import { filter, tap, debounceTime } from 'rxjs/operators';
 import { useSubscription } from '@vueuse/rxjs';
 import { useElementSize } from '@vueuse/core';
-import { UserAvatar } from '@zsfe/zsui';
+import { UserAvatar, TextButton } from '@zsfe/zsui';
 import { i18next } from '@editor/i18n';
+import { Ellipsis, Trash2, Pencil } from 'lucide-vue-next';
 
 import { 
     activeComment$, 
     updateCommentHeight$, 
-    focusCommentInput$, 
     addCommentTransition$, 
     removeCommentTransition$,
 } from './event';
 
 import { docChanged$ } from '@editor/Editor/event';
 import { useCommentStore } from '../../store/comment';
-import { CommentInfoType } from '../../interface';
+import { CommentInfoType, CommentItemType } from '../../interface';
 import { isElementVisible } from '../../shared';
+
+import CommentInput from './CommentInput.vue';
 
 export default defineComponent({
     props: {
@@ -28,11 +30,10 @@ export default defineComponent({
         active: Boolean,
     },
     setup(props) {
-        const inputVal = ref<string | undefined>();
         const elRef = ref<HTMLElement>();
-        const inputRef = ref<HTMLElement>();
-        const refNodeObserver = ref();
         const refText = ref();
+
+        const editItemIdRef = ref('');
 
         const noTransition = ref(false);
 
@@ -40,8 +41,8 @@ export default defineComponent({
 
         const { state: commentState } = useCommentStore();
 
-        const commentInfo = computed(() => {
-            return commentState.value?.commentInfoMap?.[props.id!] as CommentInfoType || {};
+        const commentItemsRef = computed(() => {
+            return commentState.value?.commentInfoMap?.[props.id!]?.comments as CommentItemType[] || [];
         });
 
         watch(height, (newHeight) => {
@@ -50,15 +51,6 @@ export default defineComponent({
                 height: newHeight,
             });
         });
-
-        useSubscription(
-            focusCommentInput$.pipe(
-                filter(({ id }) => id === props.id && !!inputRef.value),
-                tap(() => {
-                    inputRef.value?.focus();
-                }),
-            ).subscribe(),
-        );
 
         useSubscription(
             addCommentTransition$.pipe(
@@ -114,19 +106,37 @@ export default defineComponent({
         };
 
         const handleCancel = () => {
-            inputVal.value = '';
             commentState.value?.setActiveDocCommentId(null);
         }
 
-        const handleSend = () => {
-            if (!props.id || !inputVal.value?.length) {
+        const handleSend = (text: string) => {
+            commentState.value?.addCommentInfo(props.id!, text);
+        }
+
+        const handleDeleteComment = () => {
+            if (!props.id) {
                 return;
             }
 
-            commentState.value?.addCommentInfo(props.id, inputVal.value);
+            commentState.value?.deleteDocComment(props.id!);
+        }
 
-            inputVal.value = '';
-            inputRef.value?.focus();
+        const handleEditCommentItem = (comment: CommentItemType) => {
+            editItemIdRef.value = comment.id;
+        }
+
+        const handleUpdateCommentItem = (commentItemId: string, content: string) => {
+            commentState.value?.updateCommentItemContent(props.id!, commentItemId, content);
+
+            editItemIdRef.value = '';
+        }
+
+        const handleDeleteCommentItem = (comment: CommentItemType) => {
+            if (!props.id) {
+                return;
+            }
+
+            commentState.value?.deleteDocCommentItem(props.id!, comment.id);
         }
 
         return () => (
@@ -136,20 +146,87 @@ export default defineComponent({
                 style={{ transform: `translate3d(0, ${props.top || 0}px, 0)`}}
                 onClick={handleCommentClick}
             >
-                <div class="sider-comment_head">
-                    <div class="sider-comment_headTitle truncate">
-                        {refText.value || '-'}
+                <div class="sider-comment_head justify-between gap-2">
+                    <div class="sider-comment_headTitle">
+                        <div class="truncate w-[90%]">
+                            {refText.value || '-'}
+                        </div>
+                    </div>
+                    <div>
+                        <Dropdown placement="bottomRight" trigger="hover">
+                            {{
+                                overlay: () => (
+                                    <div class="container">
+                                        <Menu>
+                                            <Menu.Item onClick={() => handleDeleteComment()}>
+                                                <div class="flex items-center gap-2">
+                                                    <Trash2 size={14} />
+                                                    {i18next.t('common.delete')}
+                                                </div>
+                                            </Menu.Item>
+                                        </Menu>
+                                    </div>
+                                ),
+                                default: () => (
+                                    <TextButton>
+                                        <Ellipsis size={14} />
+                                    </TextButton>
+                                ),
+                            }}
+                        </Dropdown>
                     </div>
                 </div>
                 <div class="sider-comment_body">
                     {
-                        commentInfo.value?.comments?.map((comment) => (
+                        commentItemsRef.value?.map((comment) => (
                             <div key={comment.id} class="sider-comment-item flex items-start">
                                 <UserAvatar class="mt-1.5" showText={false} username={comment.user} size="large" />
-                                <div class="ml-3">
-                                    <div class="text-xs">{comment.user} <span class="lightText">{comment.createTime}</span></div>
-                                    <div class="mt-1 text-sm break-all">
-                                        {comment.content || '-'}
+                                <div class="ml-3 flex-1">
+                                    <div class="w-full flex items-center justify-between">
+                                        <div class="text-xs">
+                                            {comment.user} <span class="lightText">{comment.createTime}</span>
+                                        </div>
+                                        <div class="actions">
+                                            <Dropdown placement="bottomRight" trigger="hover">
+                                                {{
+                                                    overlay: () => (
+                                                        <div class="container">
+                                                            <Menu>
+                                                                <Menu.Item key={1} onClick={() => handleEditCommentItem(comment)}>
+                                                                    <div class="flex items-center gap-2">
+                                                                        <Pencil size={14} />
+                                                                        {i18next.t('common.edit')}
+                                                                    </div>
+                                                                </Menu.Item>
+                                                                <Menu.Item key={2} onClick={() => handleDeleteCommentItem(comment)}>
+                                                                    <div class="flex items-center gap-2">
+                                                                        <Trash2 size={14} />
+                                                                        {i18next.t('common.delete')}
+                                                                    </div>
+                                                                </Menu.Item>
+                                                            </Menu>
+                                                        </div>
+                                                    ),
+                                                    default: () => (
+                                                        <TextButton>
+                                                            <Ellipsis size={14} />
+                                                        </TextButton>
+                                                    ),
+                                                }}
+                                            </Dropdown>
+                                        </div>
+                                    </div>
+                                    <div class="text-sm break-all">
+                                        {
+                                            editItemIdRef.value === comment.id ? (
+                                                <CommentInput
+                                                    defaultVal={comment.content}
+                                                    id={props.id}
+                                                    onSend={(text) => handleUpdateCommentItem(comment.id, text)}
+                                                    onCancel={() => editItemIdRef.value = ''}
+                                                />
+                                            ) : (<span class="whitespace-pre-wrap">{comment.content ?? '-'}</span>)
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -157,34 +234,12 @@ export default defineComponent({
                     }
                 </div>
                 <div class="sider-comment_foot">
-                    {
-                        (props.active || inputVal.value?.length) ? (
-                            <div>
-                                <Input.TextArea
-                                    ref={inputRef}
-                                    autoSize={{ minRows: 1 }}
-                                    placeholder={i18next.t('editor.comment.placeholder')}
-                                    value={inputVal.value}
-                                    onChange={(e) => {
-                                        inputVal.value = e.target.value;
-                                    }}
-                                    onPressEnter={(e) => {
-                                        e.preventDefault();
-                                        handleSend();
-                                    }}
-                                />
-
-                                {
-                                    inputVal.value?.length? (
-                                        <div class="flex items-center justify-end mt-3" onClick={e => e.stopPropagation()}>
-                                            <Button class="sider-commentBtn" size="small" onClick={handleCancel}>{i18next.t('editor.comment.cancel')}</Button>
-                                            <Button type="primary" size="small" class="sider-commentBtn ml-2" onClick={handleSend}>{i18next.t('editor.comment.send')}</Button>
-                                        </div>
-                                    ) : ''
-                                }
-                            </div>
-                        ) : ''
-                    }
+                    <CommentInput
+                        active={props.active && !editItemIdRef.value}
+                        id={props.id}
+                        onSend={handleSend}
+                        onCancel={handleCancel}
+                    />
                 </div>
             </div>
         );
@@ -237,16 +292,20 @@ export default defineComponent({
     padding: 9px 12px 6px;
 }
 
-.sider-comment_head:before {
+.sider-comment_headTitle:before {
     content: "";
     width: 2px;
     height: 16px;
     margin-right: 6px;
     background-color: #bbbfc4 !important;
     border-radius: 1px;
+    flex-shrink: 0;
 }
 
 .sider-comment_headTitle {
+    position: relative;
+    display: flex;
+    align-items: center;
     font-size: 12px;
     color: #646a73;
     line-height: 20px;
@@ -255,6 +314,14 @@ export default defineComponent({
 .sider-comment-item {
     padding: 6px 12px;
     min-height: 55px;
+}
+
+.sider-comment-item .actions {
+    opacity: 0;
+}
+
+.sider-comment-item:hover .actions {
+    opacity: 1;
 }
 
 .sider-comment_foot {

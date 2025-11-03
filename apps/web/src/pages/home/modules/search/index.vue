@@ -42,7 +42,6 @@ export default defineComponent({
 
             if (!val?.length) {
                 matchedFiles.value = files.value || [];
-                debugger;
                 return;
             }
 

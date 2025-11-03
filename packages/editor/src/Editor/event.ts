@@ -95,6 +95,11 @@ export const commentChanged$ = new Subject<{
   comment: Record<string, any>,
 }>();
 
+export const commentDeleted$ = new Subject<{
+  fileId: string,
+  refId: string,
+}>();
+
 export const updateBlockDrag$ = new Subject<{
   nodeView: BaseBlockView,
   drag: HTMLElement,

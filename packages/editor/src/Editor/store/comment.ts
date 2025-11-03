@@ -7,7 +7,7 @@ import { syncToRemote as syncCommentToRemote } from '../plugins/collab/comment';
 import { userStore } from './user';
 import { CommentInfoType } from '../interface';
 
-import { commentChanged$, commentsVisibleChange$ } from '../event';
+import { commentChanged$, commentDeleted$, commentsVisibleChange$ } from '../event';
 
 export const commentStore = createStore<{
     fileId: string,
@@ -19,10 +19,12 @@ export const commentStore = createStore<{
     commentsVisible: boolean,
     setFileId: (fileId: string) => void,
     addCommentInfo: (id: string, content: string) => void,
+    updateCommentItemContent: (commentId: string, commentItemId: string, content: string) => void,
     setComment: (comments: Record<string, string[]>, infoMap: Record<string, CommentInfoType>) => void,
     setActiveDocCommentId: (commentId: string | null) => void,
     addDocComment: (refId: string, commentId: string) => void,
     deleteDocComment: (commentId: string) => void,
+    deleteDocCommentItem: (commentId: string, commentItemId: string) => void,
     toggleCommentsVisible: () => void,
 }>((set) => ({
     fileId: '',
@@ -61,21 +63,35 @@ export const commentStore = createStore<{
 
         map[id] = {
             ...(map[id]),
-            comments,
+            comments: [...comments],
         };
 
         syncCommentToRemote(state.fileId, state.docComments, map);
 
-        commentChanged$.next({
-            fileId: state.fileId,
-            comment: {
-                docComments: state.docComments,
-                commentInfoMap: map,
-            }
-        });
-
         return {
             commentInfoMap: map,
+        };
+    }),
+    updateCommentItemContent: (commentId, commentItemId, content) => set(state => {
+        const commentInfoMap = {...state.commentInfoMap};
+
+        if (!commentItemId || !commentId) return;
+
+        const comments = commentInfoMap[commentId].comments || [];
+        comments.forEach(comment => {
+            if (comment.id === commentItemId) {
+                comment.content = content;
+            }
+        })
+        commentInfoMap[commentId] = {
+            ...commentInfoMap[commentId],
+            comments: [...comments],
+        };
+
+        syncCommentToRemote(state.fileId, state.docComments, commentInfoMap);
+
+        return {
+            commentInfoMap,
         };
     }),
     setCommentInfo: (id, info) => set((state) => {
@@ -118,22 +134,59 @@ export const commentStore = createStore<{
     }),
     deleteDocComment: (commentId) => set((state) => {
         const docComments = { ... state.docComments };
+
+        let targetRefId = '';
         for (const refId in docComments) {
-            docComments[refId] = docComments[refId].filter(id => id !== commentId);
+            if (docComments[refId].some(id => id === commentId)) {
+                targetRefId = refId;
+            }
         }
+
+        if (!targetRefId) return;
+            
+        docComments[targetRefId] = docComments[targetRefId].filter(id => id !== commentId);
 
         syncCommentToRemote(state.fileId, docComments, state.commentInfoMap);
 
-        commentChanged$.next({
+        commentDeleted$.next({
             fileId: state.fileId,
-            comment: {
-                docComments,
-                commentInfoMap: state.commentInfoMap,
-            }
+            refId: targetRefId,
         });
 
         return {
             docComments,
+        };
+    }),
+    deleteDocCommentItem: (commentId, commentItemId) => set((state) => {
+        const docComments = { ... state.docComments };
+        const commentInfoMap = {...state.commentInfoMap};
+
+        let targetRefId = '';
+        for (const refId in docComments) {
+            if (docComments[refId].some(id => id === commentId)) {
+                targetRefId = refId;
+            }
+        }
+
+        if (!targetRefId) return;
+
+        const newComments = commentInfoMap[commentId].comments?.filter(comment => comment.id !== commentItemId) || [];
+        commentInfoMap[commentId].comments = newComments;    
+
+        if (!newComments?.length) {
+            docComments[targetRefId] = docComments[targetRefId].filter(id => id !== commentId);
+
+            commentDeleted$.next({
+                fileId: state.fileId,
+                refId: targetRefId,
+            });
+        }
+
+        syncCommentToRemote(state.fileId, docComments, state.commentInfoMap);
+
+        return {
+            docComments,
+            commentInfoMap,
         };
     }),
     toggleCommentsVisible: () => set((state) => {

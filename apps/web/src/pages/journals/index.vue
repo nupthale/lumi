@@ -203,4 +203,8 @@ export default defineComponent({
 .journalPage :deep(.doc-comments_title) {
   top: 0;
 }
+
+.journalPage :deep(.doc-comments-collapse) {
+  top: 20px;
+}
 </style>

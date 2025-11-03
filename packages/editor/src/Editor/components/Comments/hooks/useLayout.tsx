@@ -56,8 +56,8 @@ const getOffsetTop = (scrollEl: HTMLElement, target: HTMLElement) => {
         currentElement = currentElement.offsetParent as HTMLElement;
     }
     
-    // 减去图片的高度
-    return offsetTop - 320;
+    // 减去图片的高度, 和固定的头部高度
+    return offsetTop - 320 - 120;
 }
 
 export const useLayout = () => {
@@ -125,12 +125,12 @@ export const useLayout = () => {
             }),
             map((unordered) => {
                 // 排序
-                return unordered.sort((a, b) => a.refTop - b.refTop);
+                return unordered?.sort((a, b) => a.refTop - b.refTop);
             }),
             map((ordered) => {
                 // 计算baseTop
                 let lastBaseTop = 0;
-                return ordered.map((item, index) => {
+                return ordered?.map((item, index) => {
                     const prev = ordered[index - 1];
                     const prevHeight = prev ? prev.comments.reduce((acc, crt) => {
                         return acc + (commentsHeightMap.value[crt] || 0);
@@ -149,7 +149,7 @@ export const useLayout = () => {
                 // 计算每个comment的transformY
                 const map: Record<string, number> = {};
                 let lastCommentId: string | null = null;
-                ordered.forEach((item) => {
+                ordered?.forEach((item) => {
                     docCommentRefMap.value[item.refId] = item;
 
                     item.comments.forEach((commentId, index) => {

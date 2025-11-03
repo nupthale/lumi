@@ -33,6 +33,7 @@ import { useStopTab } from '@editor/Editor/hooks/useStopTab';
 import { initDocumentCollab, removeDocumentCollab } from '@editor/Editor/plugins/collab/index';
 import { useHistory } from '@editor/Editor/hooks/useHistory';
 import { useExport } from '@editor/Editor/hooks/useExport';
+import { useCommentMark } from '@editor/Editor/hooks/useCommentMark';
 
 import { loadSharedDoc, cleanupAllCollab } from '@editor/Editor/plugins/collab/core';
 import { collectionsWatcher } from '@editor/Editor/plugins/collab/collection';
@@ -73,6 +74,7 @@ export default defineComponent({
     useHistory(props.doc?.fileId, editorRef);
     useStopTab(editorRef);
     useExport(() => view);
+    useCommentMark();
 
     const initEditor = () => {
       if (!editorRef.value || isInit.value) return;

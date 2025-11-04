@@ -1,8 +1,8 @@
 {
-  "name": "lumi",
-  "productName": "Lumi",
+  "name": "lumidoc",
+  "productName": "LumiDoc",
   "version": "1.0.1",
-  "description": "Lumi - Local-first personal knowledge management system with real-time collaboration",
+  "description": "LumiDoc - Local-first personal knowledge management system with real-time collaboration",
   "repository": {
     "type": "git",
     "url": "https://github.com/nupthale/lumi.git"
@@ -21,9 +21,10 @@
     "dist:win": "npm run copy-web && electron-builder --win",
     "dist:mac": "npm run copy-web && electron-builder --mac",
     "dist:linux": "npm run copy-web && electron-builder --linux",
-    "package:mac": "electron-builder build --publish never",
-    "package:mac-test": "electron-builder build -c.mac.identity=null --publish never",
-    "publish:mac": "./build-config/mac/mac.sh"
+    "package:mac": "electron-builder build --publish never --mac",
+    "package:mas": "electron-builder build --publish never --mac mas",
+    "publish:mac": "./build-config/mac/mac.sh",
+    "publish:mas": "./build-config/mac/mas.sh"
   },
   "keywords": [],
   "author": {
@@ -91,6 +92,40 @@
     "mac": {
       "category": "public.app-category.productivity",
       "icon": "public/AppIcon.icns",
+      "target": [
+        {
+          "target": "default",
+          "arch": ["universal"]
+        }
+      ],
+      "type": "distribution",
+      "artifactName": "${productName}.${ext}",
+      "entitlements": "build-config/mac/entitlements.mac.plist",
+      "entitlementsInherit": "build-config/mac/entitlements.mac.plist",
+      "darkModeSupport": true,
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "x64ArchFiles": "*",
+      "notarize": true,
+      "extendInfo": {
+        "ElectronTeamID": "9SDBH87QGB",
+        "CFBundleIconFile": "AppIcon.icns",
+        "CFBundleIconName": "AppIcon"
+      },
+      "extraFiles": [
+        {
+          "from": "public/Assets.car",
+          "to": "Resources/Assets.car"
+        },
+        {
+          "from": "public/AppIcon.icns",
+          "to": "Resources/AppIcon.icns"
+        }
+      ]
+    },
+    "mas": {
+      "category": "public.app-category.productivity",
+      "icon": "public/AppIcon.icns",
       "target": [{
           "target": "mas",
           "arch": "universal"
@@ -98,7 +133,6 @@
       "type": "distribution",
       "entitlements": "build-config/mac/entitlements.mac.plist",
       "entitlementsInherit": "build-config/mac/entitlements.mac.plist",
-      "provisioningProfile": "build-config/mac/lumimacstore.provisionprofile",
       "darkModeSupport": true,
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
@@ -123,12 +157,6 @@
     "pkg": {
       "isRelocatable": false,
       "overwriteAction": "upgrade"
-    },
-    "mas": {
-      "icon": "public/AppIcon.icns",
-      "hardenedRuntime": true,
-      "entitlements": "build-config/mac/entitlements.mac.plist",
-      "entitlementsInherit": "build-config/mac/entitlements.mac.plist"
     },
     "dmg": {
       "title": "Lumi ${version}",

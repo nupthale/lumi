@@ -83,7 +83,7 @@ export default defineComponent({
                     transition={{ ease: ['linear'] }}
                     ref={containerRef}
                 >
-                    <div class="doc-comments_title">
+                    <div class="doc-comments_title doc-comments_head">
                         <Toolbar fileId={store.state.value?.fileId} />
                         <div class="doc-commentTitleWrap px-3 pt-2">
                             {i18next.t('editor.commentTitle')}（{ filteredCommentsCount.value }）

@@ -79,10 +79,18 @@ export default defineComponent({
 
         const updateRefText = () => {
             if (!props.refId) return;
-            const refDom = document.querySelector(`[data-comment-id="${props.refId}"]`) as HTMLElement;
+            // 跨段落评论， 有可能comment被切割成多个了， 所以要selectorAll
+            const refDoms = document.querySelectorAll(`[data-comment-id="${props.refId}"]`);
             
-            if (!refDom) return;
-            refText.value = refDom.textContent || '';
+            if (!refDoms) return;
+
+            let text = '';
+
+            refDoms.forEach(item => {
+                text += item.textContent;
+            });
+
+            refText.value = text || '';
         }
 
         const handleCommentClick = () => {
@@ -258,7 +266,7 @@ export default defineComponent({
     opacity: 1;
 
     cursor: pointer;
-    transition: transform .2s ease;
+    transition: transform .05s linear;
 }
 
 .sider-comment.noTransition {

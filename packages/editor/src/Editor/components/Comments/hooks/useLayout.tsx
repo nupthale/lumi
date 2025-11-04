@@ -56,8 +56,11 @@ const getOffsetTop = (scrollEl: HTMLElement, target: HTMLElement) => {
         currentElement = currentElement.offsetParent as HTMLElement;
     }
     
-    // 减去图片的高度, 和固定的头部高度
-    return offsetTop - 320 - 120;
+    const headContainer = document.querySelector('.doc-header-container');
+    const headContainerHeight = headContainer ? headContainer.getBoundingClientRect().height : 0;
+
+    // 减去图片的高度
+    return offsetTop - headContainerHeight;
 }
 
 export const useLayout = () => {
@@ -134,7 +137,7 @@ export const useLayout = () => {
                     const prev = ordered[index - 1];
                     const prevHeight = prev ? prev.comments.reduce((acc, crt) => {
                         return acc + (commentsHeightMap.value[crt] || 0);
-                    }, 0) + (prev.comments?.length || 0) * MARGIN : 0;
+                    }, 0) + (prev.comments?.length ? (prev.comments?.length - 1) : 0) * MARGIN : 0;
 
                     const baseTop = Math.max(item.refTop, lastBaseTop !== 0 ? lastBaseTop + prevHeight + MARGIN : 0);
                     lastBaseTop = baseTop;
@@ -152,17 +155,12 @@ export const useLayout = () => {
                 ordered?.forEach((item) => {
                     docCommentRefMap.value[item.refId] = item;
 
-                    item.comments.forEach((commentId, index) => {
-                        const prevHeight = item.comments.slice(0, index).reduce((acc, crt) => {
-                            return acc + (commentsHeightMap.value[crt] || 0);
-                        }, 0);
-
+                    item.comments.forEach((commentId) => {
                         siderCommentRefMap.value[commentId] = item;
 
                         lastCommentId = commentId;
-                        map[commentId] = 
-                            (item.baseTop || 0) + 
-                            (index === 0 ? 0 : prevHeight + index * MARGIN);
+
+                        map[commentId] = item.baseTop || 0;
                     })
                 });
 

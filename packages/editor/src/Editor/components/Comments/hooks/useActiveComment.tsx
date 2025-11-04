@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import { useSubscription } from '@vueuse/rxjs';
-import { tap } from 'rxjs/operators';
+import { debounceTime, tap } from 'rxjs/operators';
 import { activeComment$ } from '../event';
 import { contextStore } from '../../../store/context';
 import { useCommentStore } from '../../../store/comment';
@@ -64,12 +64,10 @@ export const useActiveComment = (docCommentRefMap, transformYMap) => {
 
                 if (!commentId) return;    
                 commentState.value?.setActiveDocCommentId(commentId);
-                offsetY.value = transformYMap.value[commentId] - (ref?.refTop || 0);
-                
-                if (offsetY.value <= 10) {
-                    // 評論頭部header的高度為120， 爲了防止遮住
-                    offsetY.value = -120;
-                }
+                // 等动画结束， 再开始定位， 否则不准确。
+                setTimeout(() => {
+                    offsetY.value = transformYMap.value[commentId] - (ref?.refTop || 0);
+                }, 50);
             }),
         ).subscribe(),
     );

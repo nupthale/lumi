@@ -175,7 +175,9 @@ export default defineComponent({
 
     return () => (
       <div class="w-full h-full overflow-auto" id="scrollEl" ref={scrollEl} onScroll={handleDocScroll}>
-        {slots.header?.()}
+        <div class="doc-header-container">
+          {slots.header?.()}
+        </div>
         
         {/* 左侧目录 */}
         <Catalog />

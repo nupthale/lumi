@@ -153,7 +153,7 @@ export default defineComponent({
 
     return () => (
         <div class="relative w-full h-screen journalPage">
-          <div class="calendarBarWrap sticky top-0 z-0" style={{ marginTop: globalThis.isElectron ? '-22px' : '0', top: globalThis.isElectron ? '-22px' : 0 }}>
+          <div class="calendarBarWrap doc-header-container sticky top-0 z-0" style={{ marginTop: globalThis.isElectron ? '-22px' : '0', top: globalThis.isElectron ? '-22px' : 0 }}>
             <CalendarBar journals={journals.value} onSelectDate={handleSelectDate} />
           </div>
           <div class="absolute top-0 left-0 right-0 bottom-0 pt-[160px]">

@@ -8,6 +8,8 @@ import { tap, filter } from 'rxjs/operators';
 import { getCellId } from '@collection/shared/cell';
 import { activeCell$, collectionSizeUpdate$, updateSelectionValue$ } from '@collection/events';
 
+import { closest } from '@collection/shared/element';
+
 import { useContextStore } from '@collection/store/index';
 
 import { useExpand } from './useExpand';
@@ -81,6 +83,10 @@ export default defineComponent({
             }
 
             if (e.target && (e.target as HTMLElement).closest?.('.zsui-collection')) {
+                return;
+            }
+
+            if (closest(e.target, '.ant-picker-date-panel')) {
                 return;
             }
 

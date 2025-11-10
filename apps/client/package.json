@@ -1,7 +1,7 @@
 {
   "name": "lumidoc",
   "productName": "LumiDoc",
-  "version": "1.0.1",
+  "version": "1.0.6",
   "description": "LumiDoc - Local-first personal knowledge management system with real-time collaboration",
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
     "dist:mac": "npm run copy-web && electron-builder --mac",
     "dist:linux": "npm run copy-web && electron-builder --linux",
     "package:mac": "electron-builder build --publish never --mac",
-    "package:mas": "electron-builder build --publish never --mac mas",
+    "package:mas": "electron-builder --mac mas",
     "publish:mac": "./build-config/mac/mac.sh",
     "publish:mas": "./build-config/mac/mas.sh"
   },
@@ -69,6 +69,7 @@
     "directories": {
       "output": "dist"
     },
+    "afterPack": "build-config/mac/sign.js", 
     "files": [
       "main.js",
       "preload.js",
@@ -101,7 +102,7 @@
       "type": "distribution",
       "artifactName": "${productName}.${ext}",
       "entitlements": "build-config/mac/entitlements.mac.plist",
-      "entitlementsInherit": "build-config/mac/entitlements.mac.plist",
+      "entitlementsInherit": "build-config/mac/entitlements.mas.inherit.plist",
       "darkModeSupport": true,
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
@@ -126,18 +127,19 @@
     "mas": {
       "category": "public.app-category.productivity",
       "icon": "public/AppIcon.icns",
-      "target": [{
+      "target": [
+        {
           "target": "mas",
           "arch": "universal"
-      }],
+        }
+      ],
       "type": "distribution",
-      "entitlements": "build-config/mac/entitlements.mac.plist",
-      "entitlementsInherit": "build-config/mac/entitlements.mac.plist",
+      "artifactName": "${productName}-MAS.${ext}",
       "darkModeSupport": true,
-      "hardenedRuntime": true,
+      "hardenedRuntime": false,
       "gatekeeperAssess": false,
       "x64ArchFiles": "*",
-      "notarize": true,
+      "notarize": false,
       "extendInfo": {
         "ElectronTeamID": "9SDBH87QGB",
         "CFBundleIconFile": "AppIcon.icns",
@@ -152,7 +154,7 @@
           "from": "public/AppIcon.icns",
           "to": "Resources/AppIcon.icns"
         }
-      ]
+      ]      
     },
     "pkg": {
       "isRelocatable": false,
